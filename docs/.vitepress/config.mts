@@ -1,4 +1,8 @@
 import { defineConfig } from 'vitepress';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -7,6 +11,14 @@ export default defineConfig({
     'A collection of small, reusable reactive building blocks for modern Angular applications',
   base: '/',
   head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
+  
+  vite: {
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, '../..'),
+      },
+    },
+  },
 
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
