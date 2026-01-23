@@ -31,7 +31,10 @@
     "generate:routes": "node scripts/generate-routes.js",
     "build:docs": "npm run compile:docs && npm run generate:routes",
     "docs:dev": "npm run build:docs && ng serve documentation-site",
-    "docs:build": "npm run build:docs && ng build documentation-site --configuration=production"
+    "docs:build": "npm run build:docs && ng build documentation-site --configuration=production",
+    "vitepress:dev": "vitepress dev docs",
+    "vitepress:build": "vitepress build docs",
+    "vitepress:preview": "vitepress preview docs"
   },
   "prettier": {
     "printWidth": 100,
@@ -74,6 +77,7 @@
     "prettier": "3.6.2",
     "typescript": "~5.9.2",
     "typescript-eslint": "8.46.1",
+    "vitepress": "^1.6.4",
     "vitest": "^3.2.4",
     "zone.js": "^0.15.1"
   }
