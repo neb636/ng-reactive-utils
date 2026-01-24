@@ -10,7 +10,7 @@ export default defineConfig({
   title: 'Angular Reactive Primitives',
   description:
     'A collection of small, reusable reactive building blocks for modern Angular applications',
-  base: '/',
+  base: '/angular-reactive-primitives/',
   head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
   
   // Redirect root to introduction page
