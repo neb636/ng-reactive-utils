@@ -107,4 +107,4 @@ class PasswordFieldComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/control/use-control-errors/use-control-errors.composable.ts
+<<< @/../projects/angular-reactive-primitives/src/lib/composables/forms/control/use-control-errors/use-control-errors.composable.ts

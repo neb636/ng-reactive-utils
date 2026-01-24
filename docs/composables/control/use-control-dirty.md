@@ -69,4 +69,4 @@ class DocumentEditorComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/control/use-control-dirty/use-control-dirty.composable.ts
+<<< @/../projects/angular-reactive-primitives/src/lib/composables/forms/control/use-control-dirty/use-control-dirty.composable.ts

@@ -69,4 +69,4 @@ class ProductFilterComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/control/use-control-value/use-control-value.composable.ts
+<<< @/../projects/angular-reactive-primitives/src/lib/composables/forms/control/use-control-value/use-control-value.composable.ts

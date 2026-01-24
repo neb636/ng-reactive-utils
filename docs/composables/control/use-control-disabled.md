@@ -89,4 +89,4 @@ class EmailFormComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/control/use-control-disabled/use-control-disabled.composable.ts
+<<< @/../projects/angular-reactive-primitives/src/lib/composables/forms/control/use-control-disabled/use-control-disabled.composable.ts

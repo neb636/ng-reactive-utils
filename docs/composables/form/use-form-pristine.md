@@ -48,4 +48,4 @@ class SimpleFormComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/form/use-form-pristine/use-form-pristine.composable.ts
+<<< @/../projects/angular-reactive-primitives/src/lib/composables/forms/form/use-form-pristine/use-form-pristine.composable.ts
