@@ -18,9 +18,6 @@ npm-debug.log
 .env.local
 .idea
 
-projects/documentation-site/src/app/compiled-pages
-projects/documentation-site/src/app/generated-doc-routes.ts
-
 # VitePress
 docs/.vitepress/cache
 docs/.vitepress/dist

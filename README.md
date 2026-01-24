@@ -78,36 +78,39 @@ These primitives follow these design principles:
 4. **Type-safe** - Leverage TypeScript for better DX
 5. **Framework-aligned** - Follow Angular's conventions and patterns
 
-## Getting started
+## Getting Started
 
-- Install dependencies:
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-- Run the Documentation site for live examples:
-
-```bash
-npm run start
-```
-
-- Build the library:
+Build the library:
 
 ```bash
 npm run build
 ```
 
-- Run tests:
+Run tests:
 
 ```bash
 npm run test
 ```
 
-- Develop documentation locally:
+## Documentation
+
+The documentation site is built with VitePress.
 
 ```bash
+# Start development server
 npm run docs:dev
+
+# Build for production
+npm run docs:build
+
+# Preview production build
+npm run docs:preview
 ```
 
 ## Building and Publishing
@@ -156,65 +159,23 @@ cd /path/to/test-project
 npm install /path/to/angular-reactive-primitives-0.0.1.tgz
 ```
 
-## Project structure
-
-- `projects/angular-reactive-primitives` — library source and primitives
-- `projects/documentation-site` — Documentation site
-- `scripts` — internal scripts used to compile docs and generate routes
-
-### Creating Documentation
-
-1. Create a `.doc.md` file next to your library source file:
-
-   ```
-   projects/angular-reactive-primitives/src/lib/
-     composables/
-       my-feature/
-         my-feature.composable.ts
-         my-feature.doc.md       ← Create this
-   ```
-
-2. Write your documentation in markdown (see `DOC_TEMPLATE.md` for format)
-
-3. Run the build command:
-
-   ```bash
-   npm run build:docs
-   ```
-
-4. The system automatically:
-   - Compiles your `.doc.md` into a component in `projects/documentation-site/src/app/pages/`
-   - Scans all generated components
-   - Generates route definitions in `generated-doc-routes.ts`
-
-```bash
-# Compile markdown to components
-npm run compile:docs
-
-# Compile + dev server
-npm run docs:dev
-
-# Compile + production build
-npm run docs:build
-```
-
-## File Structure
+## Project Structure
 
 ```
-projects/
-├── angular-reactive-primitives/
-│   └── src/lib/
-│       └── composables/
-│           └── use-my-feature/
-│               ├── use-my-feature.composable.ts  # Implementation
-│               └── use-my-feature.doc.md         # Documentation
+├── docs/                         # VitePress documentation site
+│   ├── .vitepress/
+│   │   └── config.mts            # VitePress configuration
+│   ├── getting-started/          # Getting started guides
+│   ├── composables/              # Composable documentation
+│   ├── effects/                  # Effect documentation
+│   └── utils/                    # Utility documentation
 │
-└── documentation-site/
-    └── src/app/
-        ├── app.routes.ts                         # Routes (manual)
-        └── pages/
-            └── composables/
-                └── use-my-feature-page.component.ts  # Generated!
+└── projects/
+    └── angular-reactive-primitives/
+        └── src/lib/
+            ├── composables/      # Composable implementations
+            ├── effects/          # Effect implementations
+            └── utils/            # Utility implementations
 ```
 
 ## Compatibility

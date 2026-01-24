@@ -37,55 +37,6 @@
           }
         }
       }
-    },
-    "documentation-site": {
-      "projectType": "application",
-      "root": "projects/documentation-site",
-      "sourceRoot": "projects/documentation-site/src",
-      "prefix": "app",
-      "architect": {
-        "build": {
-          "builder": "@angular/build:application",
-          "options": {
-            "tsConfig": "projects/documentation-site/tsconfig.app.json",
-            "outputPath": "dist/documentation-site",
-            "index": "projects/documentation-site/src/index.html",
-            "browser": "projects/documentation-site/src/main.ts",
-            "assets": ["projects/documentation-site/src/assets"],
-            "styles": ["projects/documentation-site/src/styles.css"],
-            "inlineStyleLanguage": "css"
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "extractLicenses": true
-            },
-            "development": {}
-          },
-          "defaultConfiguration": "development"
-        },
-        "serve": {
-          "builder": "@angular/build:dev-server",
-          "configurations": {
-            "production": {
-              "buildTarget": "documentation-site:build:production"
-            },
-            "development": {
-              "buildTarget": "documentation-site:build:development"
-            }
-          },
-          "defaultConfiguration": "development"
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "projects/documentation-site/**/*.ts",
-              "projects/documentation-site/**/*.html"
-            ]
-          }
-        }
-      }
     }
   }
 }
