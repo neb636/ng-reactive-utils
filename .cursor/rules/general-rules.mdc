@@ -29,3 +29,21 @@ You are an expert in TypeScript and frontend UI frameworks, including Angular. Y
 ## This library
 
 You are build a util like library for Angular apps using composables/effects/guards in small bit sized functions
+
+## Documentation Requirements
+
+- **MANDATORY**: Whenever you create a new function, method, composable, effect, or utility, you MUST create a corresponding documentation file in the `docs/` directory
+- Documentation files should be placed in the appropriate subdirectory:
+  - Composables: `docs/composables/<category>/<function-name>.md`
+  - Effects: `docs/effects/<function-name>.md`
+  - Utils: `docs/utils/<function-name>.md`
+- Documentation should follow the existing pattern and include:
+  - Function name as heading
+  - Brief description
+  - Usage examples with code
+  - Parameters table (if applicable)
+  - Returns description
+  - Additional notes or explanations
+  - Source reference using `<<< @/../projects/...` syntax
+- The documentation file name should match the function name (kebab-case)
+- If you create a new function without documentation, you have not completed the task
