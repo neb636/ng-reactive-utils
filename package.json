@@ -21,17 +21,13 @@
   },
   "scripts": {
     "ng": "ng",
-    "start": "ng serve documentation-site",
     "build": "ng build angular-reactive-primitives",
-    "build:documentation-site": "ng build documentation-site",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint documentation-site && ng lint angular-reactive-primitives",
-    "compile:docs": "node scripts/compile-docs.js",
-    "generate:routes": "node scripts/generate-routes.js",
-    "build:docs": "npm run compile:docs && npm run generate:routes",
-    "docs:dev": "npm run build:docs && ng serve documentation-site",
-    "docs:build": "npm run build:docs && ng build documentation-site --configuration=production"
+    "lint": "ng lint angular-reactive-primitives",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "prettier": {
     "printWidth": 100,
@@ -53,7 +49,6 @@
     "@angular/forms": "^20.3.0",
     "@angular/platform-browser": "^20.3.0",
     "@angular/router": "^20.3.0",
-    "highlight.js": "^11.11.1",
     "lodash-es": "^4.17.21",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
@@ -74,6 +69,7 @@
     "prettier": "3.6.2",
     "typescript": "~5.9.2",
     "typescript-eslint": "8.46.1",
+    "vitepress": "^1.6.4",
     "vitest": "^3.2.4",
     "zone.js": "^0.15.1"
   }

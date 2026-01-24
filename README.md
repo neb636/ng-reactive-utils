@@ -35,34 +35,34 @@ export class SearchBoxComponent {
 
 ### Browser Composables
 
-- [`useDocumentVisibility()`](./projects/angular-reactive-primitives/src/lib/composables/browser/use-document-visibility/use-document-visibility.doc.md) - Track document visibility state
-- [`useElementBounding()`](./projects/angular-reactive-primitives/src/lib/composables/browser/use-element-bounding/use-element-bounding.doc.md) - Observe element position and size
-- [`useMousePosition()`](./projects/angular-reactive-primitives/src/lib/composables/browser/use-mouse-position/use-mouse-position.doc.md) - Track mouse coordinates
-- [`useWindowSize()`](./projects/angular-reactive-primitives/src/lib/composables/browser/use-window-size/use-window-size.doc.md) - Monitor window dimensions
+- [`useDocumentVisibility()`](./docs/composables/browser/use-document-visibility.md) - Track document visibility state
+- [`useElementBounding()`](./docs/composables/browser/use-element-bounding.md) - Observe element position and size
+- [`useMousePosition()`](./docs/composables/browser/use-mouse-position.md) - Track mouse coordinates
+- [`useWindowSize()`](./docs/composables/browser/use-window-size.md) - Monitor window dimensions
 
 ### General Composables
 
-- [`useDebouncedSignal()`](./projects/angular-reactive-primitives/src/lib/composables/general/use-debounced-signal/use-debounced-signal.doc.md) - Debounce signal changes
-- [`usePreviousSignal()`](./projects/angular-reactive-primitives/src/lib/composables/general/use-previous-signal/use-previous-signal.doc.md) - Track previous signal values
-- [`useThrottledSignal()`](./projects/angular-reactive-primitives/src/lib/composables/general/use-throttled-signal/use-throttled-signal.doc.md) - Throttle signal updates
+- [`useDebouncedSignal()`](./docs/composables/general/use-debounced-signal.md) - Debounce signal changes
+- [`usePreviousSignal()`](./docs/composables/general/use-previous-signal.md) - Track previous signal values
+- [`useThrottledSignal()`](./docs/composables/general/use-throttled-signal.md) - Throttle signal updates
 
 ### Router Composables
 
-- [`useRouteData()`](./projects/angular-reactive-primitives/src/lib/composables/route/use-route-data/use-route-data.doc.md) - Route data as a signal
-- [`useRouteFragment()`](./projects/angular-reactive-primitives/src/lib/composables/route/use-route-fragment/use-route-fragment.doc.md) - URL fragment as a signal
-- [`useRouteParam()`](./projects/angular-reactive-primitives/src/lib/composables/route/use-route-param/use-route-params.doc.md) - Single route parameter
-- [`useRouteParams()`](./projects/angular-reactive-primitives/src/lib/composables/route/use-route-params/use-route-params.doc.md) - All route parameters as a signal
-- [`useRouteQueryParam()`](./projects/angular-reactive-primitives/src/lib/composables/route/use-route-query-param/use-route-query-param.doc.md) - Single query parameter
-- [`useRouteQueryParams()`](./projects/angular-reactive-primitives/src/lib/composables/route/use-route-query-params/use-route-query-params.doc.md) - All query parameters as a signal
+- [`useRouteData()`](./docs/composables/route/use-route-data.md) - Route data as a signal
+- [`useRouteFragment()`](./docs/composables/route/use-route-fragment.md) - URL fragment as a signal
+- [`useRouteParam()`](./docs/composables/route/use-route-param.md) - Single route parameter
+- [`useRouteParams()`](./docs/composables/route/use-route-params.md) - All route parameters as a signal
+- [`useRouteQueryParam()`](./docs/composables/route/use-route-query-param.md) - Single query parameter
+- [`useRouteQueryParams()`](./docs/composables/route/use-route-query-params.md) - All query parameters as a signal
 
 ### Effects
 
-- [`syncLocalStorage()`](./projects/angular-reactive-primitives/src/lib/effects/sync-local-storage/sync-local-storage.doc.md) - Sync signals with localStorage
-- [`syncQueryParams()`](./projects/angular-reactive-primitives/src/lib/effects/sync-query-params/sync-query-params.doc.md) - Sync signals with URL query parameters
+- [`syncLocalStorage()`](./docs/effects/sync-local-storage.md) - Sync signals with localStorage
+- [`syncQueryParams()`](./docs/effects/sync-query-params.md) - Sync signals with URL query parameters
 
 ### Utilities
 
-- [`createSharedComposable()`](./projects/angular-reactive-primitives/src/lib/utils/create-shared-composable/create-shared-composable.doc.md) - Convert composables to shared instances
+- [`createSharedComposable()`](./docs/utils/create-shared-composable.md) - Convert composables to shared instances
 
 ## Status
 
@@ -78,36 +78,39 @@ These primitives follow these design principles:
 4. **Type-safe** - Leverage TypeScript for better DX
 5. **Framework-aligned** - Follow Angular's conventions and patterns
 
-## Getting started
+## Getting Started
 
-- Install dependencies:
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-- Run the Documentation site for live examples:
-
-```bash
-npm run start
-```
-
-- Build the library:
+Build the library:
 
 ```bash
 npm run build
 ```
 
-- Run tests:
+Run tests:
 
 ```bash
 npm run test
 ```
 
-- Develop documentation locally:
+## Documentation
+
+The documentation site is built with VitePress.
 
 ```bash
+# Start development server
 npm run docs:dev
+
+# Build for production
+npm run docs:build
+
+# Preview production build
+npm run docs:preview
 ```
 
 ## Building and Publishing
@@ -156,65 +159,23 @@ cd /path/to/test-project
 npm install /path/to/angular-reactive-primitives-0.0.1.tgz
 ```
 
-## Project structure
-
-- `projects/angular-reactive-primitives` — library source and primitives
-- `projects/documentation-site` — Documentation site
-- `scripts` — internal scripts used to compile docs and generate routes
-
-### Creating Documentation
-
-1. Create a `.doc.md` file next to your library source file:
-
-   ```
-   projects/angular-reactive-primitives/src/lib/
-     composables/
-       my-feature/
-         my-feature.composable.ts
-         my-feature.doc.md       ← Create this
-   ```
-
-2. Write your documentation in markdown (see `DOC_TEMPLATE.md` for format)
-
-3. Run the build command:
-
-   ```bash
-   npm run build:docs
-   ```
-
-4. The system automatically:
-   - Compiles your `.doc.md` into a component in `projects/documentation-site/src/app/pages/`
-   - Scans all generated components
-   - Generates route definitions in `generated-doc-routes.ts`
-
-```bash
-# Compile markdown to components
-npm run compile:docs
-
-# Compile + dev server
-npm run docs:dev
-
-# Compile + production build
-npm run docs:build
-```
-
-## File Structure
+## Project Structure
 
 ```
-projects/
-├── angular-reactive-primitives/
-│   └── src/lib/
-│       └── composables/
-│           └── use-my-feature/
-│               ├── use-my-feature.composable.ts  # Implementation
-│               └── use-my-feature.doc.md         # Documentation
+├── docs/                         # VitePress documentation site
+│   ├── .vitepress/
+│   │   └── config.mts            # VitePress configuration
+│   ├── getting-started/          # Getting started guides
+│   ├── composables/              # Composable documentation
+│   ├── effects/                  # Effect documentation
+│   └── utils/                    # Utility documentation
 │
-└── documentation-site/
-    └── src/app/
-        ├── app.routes.ts                         # Routes (manual)
-        └── pages/
-            └── composables/
-                └── use-my-feature-page.component.ts  # Generated!
+└── projects/
+    └── angular-reactive-primitives/
+        └── src/lib/
+            ├── composables/      # Composable implementations
+            ├── effects/          # Effect implementations
+            └── utils/            # Utility implementations
 ```
 
 ## Compatibility
