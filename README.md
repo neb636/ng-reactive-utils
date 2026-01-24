@@ -35,34 +35,34 @@ export class SearchBoxComponent {
 
 ### Browser Composables
 
-- [`useDocumentVisibility()`](./projects/angular-reactive-primitives/src/lib/composables/browser/use-document-visibility/use-document-visibility.doc.md) - Track document visibility state
-- [`useElementBounding()`](./projects/angular-reactive-primitives/src/lib/composables/browser/use-element-bounding/use-element-bounding.doc.md) - Observe element position and size
-- [`useMousePosition()`](./projects/angular-reactive-primitives/src/lib/composables/browser/use-mouse-position/use-mouse-position.doc.md) - Track mouse coordinates
-- [`useWindowSize()`](./projects/angular-reactive-primitives/src/lib/composables/browser/use-window-size/use-window-size.doc.md) - Monitor window dimensions
+- [`useDocumentVisibility()`](./docs/composables/browser/use-document-visibility.md) - Track document visibility state
+- [`useElementBounding()`](./docs/composables/browser/use-element-bounding.md) - Observe element position and size
+- [`useMousePosition()`](./docs/composables/browser/use-mouse-position.md) - Track mouse coordinates
+- [`useWindowSize()`](./docs/composables/browser/use-window-size.md) - Monitor window dimensions
 
 ### General Composables
 
-- [`useDebouncedSignal()`](./projects/angular-reactive-primitives/src/lib/composables/general/use-debounced-signal/use-debounced-signal.doc.md) - Debounce signal changes
-- [`usePreviousSignal()`](./projects/angular-reactive-primitives/src/lib/composables/general/use-previous-signal/use-previous-signal.doc.md) - Track previous signal values
-- [`useThrottledSignal()`](./projects/angular-reactive-primitives/src/lib/composables/general/use-throttled-signal/use-throttled-signal.doc.md) - Throttle signal updates
+- [`useDebouncedSignal()`](./docs/composables/general/use-debounced-signal.md) - Debounce signal changes
+- [`usePreviousSignal()`](./docs/composables/general/use-previous-signal.md) - Track previous signal values
+- [`useThrottledSignal()`](./docs/composables/general/use-throttled-signal.md) - Throttle signal updates
 
 ### Router Composables
 
-- [`useRouteData()`](./projects/angular-reactive-primitives/src/lib/composables/route/use-route-data/use-route-data.doc.md) - Route data as a signal
-- [`useRouteFragment()`](./projects/angular-reactive-primitives/src/lib/composables/route/use-route-fragment/use-route-fragment.doc.md) - URL fragment as a signal
-- [`useRouteParam()`](./projects/angular-reactive-primitives/src/lib/composables/route/use-route-param/use-route-params.doc.md) - Single route parameter
-- [`useRouteParams()`](./projects/angular-reactive-primitives/src/lib/composables/route/use-route-params/use-route-params.doc.md) - All route parameters as a signal
-- [`useRouteQueryParam()`](./projects/angular-reactive-primitives/src/lib/composables/route/use-route-query-param/use-route-query-param.doc.md) - Single query parameter
-- [`useRouteQueryParams()`](./projects/angular-reactive-primitives/src/lib/composables/route/use-route-query-params/use-route-query-params.doc.md) - All query parameters as a signal
+- [`useRouteData()`](./docs/composables/route/use-route-data.md) - Route data as a signal
+- [`useRouteFragment()`](./docs/composables/route/use-route-fragment.md) - URL fragment as a signal
+- [`useRouteParam()`](./docs/composables/route/use-route-param.md) - Single route parameter
+- [`useRouteParams()`](./docs/composables/route/use-route-params.md) - All route parameters as a signal
+- [`useRouteQueryParam()`](./docs/composables/route/use-route-query-param.md) - Single query parameter
+- [`useRouteQueryParams()`](./docs/composables/route/use-route-query-params.md) - All query parameters as a signal
 
 ### Effects
 
-- [`syncLocalStorage()`](./projects/angular-reactive-primitives/src/lib/effects/sync-local-storage/sync-local-storage.doc.md) - Sync signals with localStorage
-- [`syncQueryParams()`](./projects/angular-reactive-primitives/src/lib/effects/sync-query-params/sync-query-params.doc.md) - Sync signals with URL query parameters
+- [`syncLocalStorage()`](./docs/effects/sync-local-storage.md) - Sync signals with localStorage
+- [`syncQueryParams()`](./docs/effects/sync-query-params.md) - Sync signals with URL query parameters
 
 ### Utilities
 
-- [`createSharedComposable()`](./projects/angular-reactive-primitives/src/lib/utils/create-shared-composable/create-shared-composable.doc.md) - Convert composables to shared instances
+- [`createSharedComposable()`](./docs/utils/create-shared-composable.md) - Convert composables to shared instances
 
 ## Status
 
