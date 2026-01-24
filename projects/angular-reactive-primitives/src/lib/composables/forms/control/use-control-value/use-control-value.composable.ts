@@ -1,7 +1,6 @@
 import { Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { AbstractControl } from '@angular/forms';
-import { startWith } from 'rxjs';
 
 /**
  * Returns the current value of an AbstractControl as a signal.
@@ -26,7 +25,7 @@ import { startWith } from 'rxjs';
  * ```
  */
 export const useControlValue = <T>(control: AbstractControl): Signal<T> => {
-  return toSignal(control.valueChanges.pipe(startWith(control.value)), {
+  return toSignal(control.valueChanges, {
     initialValue: control.value,
   }) as Signal<T>;
 };

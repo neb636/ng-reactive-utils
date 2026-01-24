@@ -1,7 +1,15 @@
-import { Signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { computed, Signal } from '@angular/core';
 import { FormGroup, FormControlStatus, ValidationErrors } from '@angular/forms';
-import { map, startWith } from 'rxjs';
+import { useFormValue } from '../use-form-value/use-form-value.composable';
+import { useFormStatus } from '../use-form-status/use-form-status.composable';
+import { useFormValid } from '../use-form-valid/use-form-valid.composable';
+import { useFormPending } from '../use-form-pending/use-form-pending.composable';
+import { useFormDisabled } from '../use-form-disabled/use-form-disabled.composable';
+import { useFormDirty } from '../use-form-dirty/use-form-dirty.composable';
+import { useFormPristine } from '../use-form-pristine/use-form-pristine.composable';
+import { useFormTouched } from '../use-form-touched/use-form-touched.composable';
+import { useFormUntouched } from '../use-form-untouched/use-form-untouched.composable';
+import { useFormErrors } from '../use-form-errors/use-form-errors.composable';
 
 /**
  * Represents the reactive state of a FormGroup as signals.
@@ -63,43 +71,21 @@ export interface FormState<T> {
 export const useFormState = <T extends object>(
   form: FormGroup,
 ): FormState<T> => {
-  const statusChanges$ = form.statusChanges.pipe(startWith(form.status));
-  const valueChanges$ = form.valueChanges.pipe(startWith(form.value));
+  const valid = useFormValid(form);
+  const disabled = useFormDisabled(form);
 
   return {
-    value: toSignal(valueChanges$, { initialValue: form.value }) as Signal<T>,
-    status: toSignal(statusChanges$, {
-      initialValue: form.status,
-    }) as Signal<FormControlStatus>,
-    valid: toSignal(statusChanges$.pipe(map(() => form.valid)), {
-      initialValue: form.valid,
-    }) as Signal<boolean>,
-    invalid: toSignal(statusChanges$.pipe(map(() => form.invalid)), {
-      initialValue: form.invalid,
-    }) as Signal<boolean>,
-    pending: toSignal(statusChanges$.pipe(map(() => form.pending)), {
-      initialValue: form.pending,
-    }) as Signal<boolean>,
-    disabled: toSignal(statusChanges$.pipe(map(() => form.disabled)), {
-      initialValue: form.disabled,
-    }) as Signal<boolean>,
-    enabled: toSignal(statusChanges$.pipe(map(() => form.enabled)), {
-      initialValue: form.enabled,
-    }) as Signal<boolean>,
-    dirty: toSignal(valueChanges$.pipe(map(() => form.dirty)), {
-      initialValue: form.dirty,
-    }) as Signal<boolean>,
-    pristine: toSignal(valueChanges$.pipe(map(() => form.pristine)), {
-      initialValue: form.pristine,
-    }) as Signal<boolean>,
-    touched: toSignal(statusChanges$.pipe(map(() => form.touched)), {
-      initialValue: form.touched,
-    }) as Signal<boolean>,
-    untouched: toSignal(statusChanges$.pipe(map(() => form.untouched)), {
-      initialValue: form.untouched,
-    }) as Signal<boolean>,
-    errors: toSignal(statusChanges$.pipe(map(() => form.errors)), {
-      initialValue: form.errors,
-    }) as Signal<ValidationErrors | null>,
+    value: useFormValue(form),
+    status: useFormStatus(form),
+    valid,
+    invalid: computed(() => !valid()),
+    pending: useFormPending(form),
+    disabled,
+    enabled: computed(() => !disabled()),
+    dirty: useFormDirty(form),
+    pristine: useFormPristine(form),
+    touched: useFormTouched(form),
+    untouched: useFormUntouched(form),
+    errors: useFormErrors(form),
   };
 };

@@ -1,7 +1,6 @@
 import { Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { AbstractControl, FormControlStatus } from '@angular/forms';
-import { startWith } from 'rxjs';
 
 /**
  * Returns the validation status of an AbstractControl as a signal.
@@ -36,7 +35,7 @@ import { startWith } from 'rxjs';
 export const useControlStatus = (
   control: AbstractControl,
 ): Signal<FormControlStatus> => {
-  return toSignal(control.statusChanges.pipe(startWith(control.status)), {
+  return toSignal(control.statusChanges, {
     initialValue: control.status,
   }) as Signal<FormControlStatus>;
 };

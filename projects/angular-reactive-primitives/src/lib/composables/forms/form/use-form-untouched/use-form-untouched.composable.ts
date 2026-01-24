@@ -1,7 +1,7 @@
 import { Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormGroup } from '@angular/forms';
-import { map, startWith } from 'rxjs';
+import { map } from 'rxjs';
 
 /**
  * Returns whether a FormGroup is untouched (has not been interacted with) as a signal.
@@ -31,11 +31,7 @@ import { map, startWith } from 'rxjs';
  * ```
  */
 export const useFormUntouched = (form: FormGroup): Signal<boolean> => {
-  return toSignal(
-    form.statusChanges.pipe(
-      startWith(form.status),
-      map(() => form.untouched),
-    ),
-    { initialValue: form.untouched },
-  ) as Signal<boolean>;
+  return toSignal(form.statusChanges.pipe(map(() => form.untouched)), {
+    initialValue: form.untouched,
+  }) as Signal<boolean>;
 };

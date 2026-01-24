@@ -1,7 +1,6 @@
 import { Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormGroup } from '@angular/forms';
-import { startWith } from 'rxjs';
 
 /**
  * Returns the current value of a FormGroup as a signal.
@@ -29,7 +28,7 @@ import { startWith } from 'rxjs';
  * ```
  */
 export const useFormValue = <T extends object>(form: FormGroup): Signal<T> => {
-  return toSignal(form.valueChanges.pipe(startWith(form.value)), {
+  return toSignal(form.valueChanges, {
     initialValue: form.value,
   }) as Signal<T>;
 };

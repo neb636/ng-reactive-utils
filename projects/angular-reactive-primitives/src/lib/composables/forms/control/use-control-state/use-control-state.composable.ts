@@ -1,11 +1,19 @@
-import { Signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { computed, Signal } from '@angular/core';
 import {
   AbstractControl,
   FormControlStatus,
   ValidationErrors,
 } from '@angular/forms';
-import { map, startWith } from 'rxjs';
+import { useControlValue } from '../use-control-value/use-control-value.composable';
+import { useControlStatus } from '../use-control-status/use-control-status.composable';
+import { useControlValid } from '../use-control-valid/use-control-valid.composable';
+import { useControlPending } from '../use-control-pending/use-control-pending.composable';
+import { useControlDisabled } from '../use-control-disabled/use-control-disabled.composable';
+import { useControlDirty } from '../use-control-dirty/use-control-dirty.composable';
+import { useControlPristine } from '../use-control-pristine/use-control-pristine.composable';
+import { useControlTouched } from '../use-control-touched/use-control-touched.composable';
+import { useControlUntouched } from '../use-control-untouched/use-control-untouched.composable';
+import { useControlErrors } from '../use-control-errors/use-control-errors.composable';
 
 /**
  * Represents the reactive state of an AbstractControl as signals.
@@ -64,43 +72,21 @@ export interface ControlState<T> {
 export const useControlState = <T>(
   control: AbstractControl,
 ): ControlState<T> => {
-  const statusChanges$ = control.statusChanges.pipe(startWith(control.status));
-  const valueChanges$ = control.valueChanges.pipe(startWith(control.value));
+  const valid = useControlValid(control);
+  const disabled = useControlDisabled(control);
 
   return {
-    value: toSignal(valueChanges$, { initialValue: control.value }) as Signal<T>,
-    status: toSignal(statusChanges$, {
-      initialValue: control.status,
-    }) as Signal<FormControlStatus>,
-    valid: toSignal(statusChanges$.pipe(map(() => control.valid)), {
-      initialValue: control.valid,
-    }) as Signal<boolean>,
-    invalid: toSignal(statusChanges$.pipe(map(() => control.invalid)), {
-      initialValue: control.invalid,
-    }) as Signal<boolean>,
-    pending: toSignal(statusChanges$.pipe(map(() => control.pending)), {
-      initialValue: control.pending,
-    }) as Signal<boolean>,
-    disabled: toSignal(statusChanges$.pipe(map(() => control.disabled)), {
-      initialValue: control.disabled,
-    }) as Signal<boolean>,
-    enabled: toSignal(statusChanges$.pipe(map(() => control.enabled)), {
-      initialValue: control.enabled,
-    }) as Signal<boolean>,
-    dirty: toSignal(valueChanges$.pipe(map(() => control.dirty)), {
-      initialValue: control.dirty,
-    }) as Signal<boolean>,
-    pristine: toSignal(valueChanges$.pipe(map(() => control.pristine)), {
-      initialValue: control.pristine,
-    }) as Signal<boolean>,
-    touched: toSignal(statusChanges$.pipe(map(() => control.touched)), {
-      initialValue: control.touched,
-    }) as Signal<boolean>,
-    untouched: toSignal(statusChanges$.pipe(map(() => control.untouched)), {
-      initialValue: control.untouched,
-    }) as Signal<boolean>,
-    errors: toSignal(statusChanges$.pipe(map(() => control.errors)), {
-      initialValue: control.errors,
-    }) as Signal<ValidationErrors | null>,
+    value: useControlValue(control),
+    status: useControlStatus(control),
+    valid,
+    invalid: computed(() => !valid()),
+    pending: useControlPending(control),
+    disabled,
+    enabled: computed(() => !disabled()),
+    dirty: useControlDirty(control),
+    pristine: useControlPristine(control),
+    touched: useControlTouched(control),
+    untouched: useControlUntouched(control),
+    errors: useControlErrors(control),
   };
 };

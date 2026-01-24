@@ -1,7 +1,6 @@
 import { Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormGroup, FormControlStatus } from '@angular/forms';
-import { startWith } from 'rxjs';
 
 /**
  * Returns the validation status of a FormGroup as a signal.
@@ -35,7 +34,7 @@ import { startWith } from 'rxjs';
  * ```
  */
 export const useFormStatus = (form: FormGroup): Signal<FormControlStatus> => {
-  return toSignal(form.statusChanges.pipe(startWith(form.status)), {
+  return toSignal(form.statusChanges, {
     initialValue: form.status,
   }) as Signal<FormControlStatus>;
 };

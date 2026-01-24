@@ -1,7 +1,7 @@
 import { Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { AbstractControl } from '@angular/forms';
-import { map, startWith } from 'rxjs';
+import { map } from 'rxjs';
 
 /**
  * Returns whether an AbstractControl has been touched (interacted with) as a signal.
@@ -30,11 +30,7 @@ import { map, startWith } from 'rxjs';
 export const useControlTouched = (
   control: AbstractControl,
 ): Signal<boolean> => {
-  return toSignal(
-    control.statusChanges.pipe(
-      startWith(control.status),
-      map(() => control.touched),
-    ),
-    { initialValue: control.touched },
-  ) as Signal<boolean>;
+  return toSignal(control.statusChanges.pipe(map(() => control.touched)), {
+    initialValue: control.touched,
+  }) as Signal<boolean>;
 };

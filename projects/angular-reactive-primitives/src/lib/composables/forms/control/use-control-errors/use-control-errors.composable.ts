@@ -1,7 +1,7 @@
 import { Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { AbstractControl, ValidationErrors } from '@angular/forms';
-import { map, startWith } from 'rxjs';
+import { map } from 'rxjs';
 
 /**
  * Returns the validation errors of an AbstractControl as a signal.
@@ -33,11 +33,7 @@ import { map, startWith } from 'rxjs';
 export const useControlErrors = (
   control: AbstractControl,
 ): Signal<ValidationErrors | null> => {
-  return toSignal(
-    control.statusChanges.pipe(
-      startWith(control.status),
-      map(() => control.errors),
-    ),
-    { initialValue: control.errors },
-  ) as Signal<ValidationErrors | null>;
+  return toSignal(control.statusChanges.pipe(map(() => control.errors)), {
+    initialValue: control.errors,
+  }) as Signal<ValidationErrors | null>;
 };

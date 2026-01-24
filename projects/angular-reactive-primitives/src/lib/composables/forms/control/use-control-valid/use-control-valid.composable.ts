@@ -1,7 +1,7 @@
 import { Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { AbstractControl } from '@angular/forms';
-import { map, startWith } from 'rxjs';
+import { map } from 'rxjs';
 
 /**
  * Returns whether an AbstractControl is valid as a signal.
@@ -28,11 +28,7 @@ import { map, startWith } from 'rxjs';
  * ```
  */
 export const useControlValid = (control: AbstractControl): Signal<boolean> => {
-  return toSignal(
-    control.statusChanges.pipe(
-      startWith(control.status),
-      map(() => control.valid),
-    ),
-    { initialValue: control.valid },
-  ) as Signal<boolean>;
+  return toSignal(control.statusChanges.pipe(map(() => control.valid)), {
+    initialValue: control.valid,
+  }) as Signal<boolean>;
 };

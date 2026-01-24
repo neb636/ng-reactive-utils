@@ -1,7 +1,7 @@
 import { Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { AbstractControl } from '@angular/forms';
-import { map, startWith } from 'rxjs';
+import { map } from 'rxjs';
 
 /**
  * Returns whether an AbstractControl is dirty (has been modified) as a signal.
@@ -28,11 +28,7 @@ import { map, startWith } from 'rxjs';
  * ```
  */
 export const useControlDirty = (control: AbstractControl): Signal<boolean> => {
-  return toSignal(
-    control.valueChanges.pipe(
-      startWith(control.value),
-      map(() => control.dirty),
-    ),
-    { initialValue: control.dirty },
-  ) as Signal<boolean>;
+  return toSignal(control.valueChanges.pipe(map(() => control.dirty)), {
+    initialValue: control.dirty,
+  }) as Signal<boolean>;
 };

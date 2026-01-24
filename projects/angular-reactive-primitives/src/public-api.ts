@@ -27,9 +27,12 @@ export * from './lib/composables/forms/form/use-form-status/use-form-status.comp
 export * from './lib/composables/forms/control/use-control-state/use-control-state.composable';
 export * from './lib/composables/forms/control/use-control-value/use-control-value.composable';
 export * from './lib/composables/forms/control/use-control-valid/use-control-valid.composable';
+export * from './lib/composables/forms/control/use-control-pending/use-control-pending.composable';
 export * from './lib/composables/forms/control/use-control-errors/use-control-errors.composable';
 export * from './lib/composables/forms/control/use-control-touched/use-control-touched.composable';
+export * from './lib/composables/forms/control/use-control-untouched/use-control-untouched.composable';
 export * from './lib/composables/forms/control/use-control-dirty/use-control-dirty.composable';
+export * from './lib/composables/forms/control/use-control-pristine/use-control-pristine.composable';
 export * from './lib/composables/forms/control/use-control-disabled/use-control-disabled.composable';
 export * from './lib/composables/forms/control/use-control-status/use-control-status.composable';
 

@@ -1,7 +1,7 @@
 import { Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormGroup } from '@angular/forms';
-import { map, startWith } from 'rxjs';
+import { map } from 'rxjs';
 
 /**
  * Returns whether a FormGroup is disabled as a signal.
@@ -35,11 +35,7 @@ import { map, startWith } from 'rxjs';
  * ```
  */
 export const useFormDisabled = (form: FormGroup): Signal<boolean> => {
-  return toSignal(
-    form.statusChanges.pipe(
-      startWith(form.status),
-      map(() => form.disabled),
-    ),
-    { initialValue: form.disabled },
-  ) as Signal<boolean>;
+  return toSignal(form.statusChanges.pipe(map(() => form.disabled)), {
+    initialValue: form.disabled,
+  }) as Signal<boolean>;
 };

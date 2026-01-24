@@ -1,7 +1,7 @@
 import { Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { AbstractControl } from '@angular/forms';
-import { map, startWith } from 'rxjs';
+import { map } from 'rxjs';
 
 /**
  * Returns whether an AbstractControl is disabled as a signal.
@@ -34,11 +34,7 @@ import { map, startWith } from 'rxjs';
 export const useControlDisabled = (
   control: AbstractControl,
 ): Signal<boolean> => {
-  return toSignal(
-    control.statusChanges.pipe(
-      startWith(control.status),
-      map(() => control.disabled),
-    ),
-    { initialValue: control.disabled },
-  ) as Signal<boolean>;
+  return toSignal(control.statusChanges.pipe(map(() => control.disabled)), {
+    initialValue: control.disabled,
+  }) as Signal<boolean>;
 };

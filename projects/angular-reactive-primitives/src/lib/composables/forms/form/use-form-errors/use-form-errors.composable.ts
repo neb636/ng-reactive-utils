@@ -1,7 +1,7 @@
 import { Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormGroup, ValidationErrors } from '@angular/forms';
-import { map, startWith } from 'rxjs';
+import { map } from 'rxjs';
 
 /**
  * Returns the validation errors of a FormGroup as a signal.
@@ -35,11 +35,7 @@ import { map, startWith } from 'rxjs';
 export const useFormErrors = (
   form: FormGroup,
 ): Signal<ValidationErrors | null> => {
-  return toSignal(
-    form.statusChanges.pipe(
-      startWith(form.status),
-      map(() => form.errors),
-    ),
-    { initialValue: form.errors },
-  ) as Signal<ValidationErrors | null>;
+  return toSignal(form.statusChanges.pipe(map(() => form.errors)), {
+    initialValue: form.errors,
+  }) as Signal<ValidationErrors | null>;
 };

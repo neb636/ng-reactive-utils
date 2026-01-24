@@ -106,7 +106,7 @@ export default defineConfig({
             ],
           },
           {
-            text: 'Form',
+            text: 'Forms',
             collapsed: false,
             items: [
               { text: 'useFormState', link: '/composables/form/use-form-state' },
@@ -120,18 +120,15 @@ export default defineConfig({
               { text: 'useFormUntouched', link: '/composables/form/use-form-untouched' },
               { text: 'useFormErrors', link: '/composables/form/use-form-errors' },
               { text: 'useFormStatus', link: '/composables/form/use-form-status' },
-            ],
-          },
-          {
-            text: 'Control',
-            collapsed: false,
-            items: [
               { text: 'useControlState', link: '/composables/control/use-control-state' },
               { text: 'useControlValue', link: '/composables/control/use-control-value' },
               { text: 'useControlValid', link: '/composables/control/use-control-valid' },
+              { text: 'useControlPending', link: '/composables/control/use-control-pending' },
               { text: 'useControlErrors', link: '/composables/control/use-control-errors' },
               { text: 'useControlTouched', link: '/composables/control/use-control-touched' },
+              { text: 'useControlUntouched', link: '/composables/control/use-control-untouched' },
               { text: 'useControlDirty', link: '/composables/control/use-control-dirty' },
+              { text: 'useControlPristine', link: '/composables/control/use-control-pristine' },
               { text: 'useControlDisabled', link: '/composables/control/use-control-disabled' },
               { text: 'useControlStatus', link: '/composables/control/use-control-status' },
             ],

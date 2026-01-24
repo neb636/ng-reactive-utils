@@ -1,7 +1,7 @@
 import { Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormGroup } from '@angular/forms';
-import { map, startWith } from 'rxjs';
+import { map } from 'rxjs';
 
 /**
  * Returns whether a FormGroup is dirty (has been modified) as a signal.
@@ -31,11 +31,7 @@ import { map, startWith } from 'rxjs';
  * ```
  */
 export const useFormDirty = (form: FormGroup): Signal<boolean> => {
-  return toSignal(
-    form.valueChanges.pipe(
-      startWith(form.value),
-      map(() => form.dirty),
-    ),
-    { initialValue: form.dirty },
-  ) as Signal<boolean>;
+  return toSignal(form.valueChanges.pipe(map(() => form.dirty)), {
+    initialValue: form.dirty,
+  }) as Signal<boolean>;
 };
