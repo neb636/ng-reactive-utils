@@ -21,3 +21,5 @@ npm-debug.log
 # VitePress
 docs/.vitepress/cache
 docs/.vitepress/dist
+
+reports/
