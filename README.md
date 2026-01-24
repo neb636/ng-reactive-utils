@@ -98,6 +98,21 @@ Run tests:
 npm run test
 ```
 
+## Documentation
+
+The documentation site is built with VitePress.
+
+```bash
+# Start development server
+npm run docs:dev
+
+# Build for production
+npm run docs:build
+
+# Preview production build
+npm run docs:preview
+```
+
 ## Building and Publishing
 
 ### Build the Library
@@ -147,7 +162,9 @@ npm install /path/to/angular-reactive-primitives-0.0.1.tgz
 ## Project Structure
 
 ```
-├── docs/                         # Documentation
+├── docs/                         # VitePress documentation site
+│   ├── .vitepress/
+│   │   └── config.mts            # VitePress configuration
 │   ├── getting-started/          # Getting started guides
 │   ├── composables/              # Composable documentation
 │   ├── effects/                  # Effect documentation
