@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitepress';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import llmstxt from 'vitepress-plugin-llms';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -12,7 +13,13 @@ export default defineConfig({
   base: '/',
   head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
   
+  // Redirect root to introduction page
+  rewrites: {
+    'getting-started/introduction.md': 'index.md',
+  },
+  
   vite: {
+    plugins: [llmstxt()],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '../..'),
@@ -35,6 +42,8 @@ export default defineConfig({
         items: [
           { text: 'Introduction', link: '/getting-started/introduction' },
           { text: 'Installation', link: '/getting-started/installation' },
+          { text: 'Working with Observables', link: '/getting-started/working-with-observables' },
+          { text: 'AI Integration', link: '/getting-started/ai-integration' },
         ],
       },
       {

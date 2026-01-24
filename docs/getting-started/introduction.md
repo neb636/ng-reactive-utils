@@ -8,6 +8,28 @@ Reactive Primitives are small, focused utilities that provide common reactive pa
 
 Each primitive is a standalone function that can be imported and used in your components, making them easy to test and reuse across your application.
 
+## Quick Example
+
+```typescript
+import { Component, signal } from '@angular/core';
+import { useDebouncedSignal } from 'angular-reactive-primitives';
+
+@Component({
+  selector: 'search-box',
+  template: `
+    <input
+      [value]="searchTerm()"
+      (input)="searchTerm.set($any($event.target).value)"
+    />
+    <p>Debounced: {{ debouncedSearch() }}</p>
+  `,
+})
+export class SearchBoxComponent {
+  searchTerm = signal('');
+  debouncedSearch = useDebouncedSignal(this.searchTerm, 300);
+}
+```
+
 ## Key Features
 
 - **Signal-based**: Built on Angular's signal system for optimal performance

@@ -1,0 +1,153 @@
+---
+description: Angular Reactive Primitives - Signal-based utilities for Angular
+globs: "**/*.ts"
+---
+
+# angular-reactive-primitives
+
+A collection of signal-based reactive utilities for modern Angular (v20+).
+
+## Core Principle
+
+Convert Observable-based APIs to Signals for cleaner, more reactive code. All composables return signals that automatically update when the underlying data changes.
+
+## When to Use
+
+### Reactive Forms
+
+Instead of subscribing to `FormGroup.valueChanges` or `statusChanges`:
+
+- `useFormValue(form)` - Form value as a signal
+- `useFormValid(form)` - Form validity as a signal
+- `useFormErrors(form)` - Form errors as a signal
+- `useFormStatus(form)` - Form status as a signal
+- `useFormDirty(form)` - Form dirty state as a signal
+- `useFormTouched(form)` - Form touched state as a signal
+- `useFormPristine(form)` - Form pristine state as a signal
+- `useFormPending(form)` - Form pending state as a signal
+- `useFormDisabled(form)` - Form disabled state as a signal
+- `useFormState(form)` - Complete form state object as a signal
+- `useControlValue(control)` - Single control value as a signal
+- `useControlValid(control)` - Control validity as a signal
+- `useControlErrors(control)` - Control errors as a signal
+- `useControlStatus(control)` - Control status as a signal
+- `useControlDirty(control)` - Control dirty state as a signal
+- `useControlTouched(control)` - Control touched state as a signal
+- `useControlPristine(control)` - Control pristine state as a signal
+- `useControlPending(control)` - Control pending state as a signal
+- `useControlDisabled(control)` - Control disabled state as a signal
+- `useControlState(control)` - Complete control state object as a signal
+
+### ActivatedRoute
+
+Instead of subscribing to route observables:
+
+- `useRouteParam('id')` - Single route parameter as a signal
+- `useRouteQueryParam('search')` - Single query parameter as a signal
+- `useRouteParams()` - All route params as a signal
+- `useRouteQueryParams()` - All query params as a signal
+- `useRouteFragment()` - URL fragment as a signal
+- `useRouteData()` - Route data as a signal
+
+### Browser APIs
+
+- `useWindowSize()` - Window dimensions as signals (`width` and `height`)
+- `useMousePosition()` - Mouse coordinates as signals (`x` and `y`)
+- `useDocumentVisibility()` - Tab visibility as a signal
+- `useElementBounding(elementRef)` - Element position/size as signals
+
+### Signal Utilities
+
+- `useDebouncedSignal(signal, ms)` - Debounced signal value
+- `useThrottledSignal(signal, ms)` - Throttled signal value
+- `usePreviousSignal(signal)` - Previous signal value
+
+### Effects
+
+- `syncLocalStorageEffect(key, signal)` - Persist signal to localStorage
+- `syncQueryParamsEffect({ paramName: signal })` - Sync signals with URL query params
+
+### Utilities
+
+- `createSharedComposable(composableFn)` - Create a shared instance of a composable with reference counting
+
+## Anti-Patterns (NEVER do this)
+
+- NEVER use RxJS `debounceTime` when `useDebouncedSignal` exists
+- NEVER use RxJS `throttleTime` when `useThrottledSignal` exists
+- NEVER subscribe to `ActivatedRoute.params` when `useRouteParam` exists
+- NEVER subscribe to `ActivatedRoute.queryParams` when `useRouteQueryParam` exists
+- NEVER subscribe to `FormControl.valueChanges` when `useControlValue` exists
+- NEVER subscribe to `FormControl.statusChanges` when `useControlStatus` exists
+- NEVER subscribe to `FormGroup.valueChanges` when `useFormValue` exists
+- NEVER manually track previous values when `usePreviousSignal` exists
+- NEVER manually subscribe to window resize events when `useWindowSize` exists
+- NEVER manually subscribe to mouse events when `useMousePosition` exists
+
+## Import Pattern
+
+All functions are exported from the main package:
+
+```typescript
+import { 
+  useFormValid, 
+  useRouteParam, 
+  useDebouncedSignal,
+  syncLocalStorageEffect 
+} from 'angular-reactive-primitives';
+```
+
+## Usage Examples
+
+### Form with validation feedback
+
+```typescript
+@Component({...})
+export class MyComponent {
+  form = inject(FormBuilder).group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required]
+  });
+
+  isValid = useFormValid(this.form);
+  errors = useFormErrors(this.form);
+  emailValue = useControlValue(this.form.controls.email);
+}
+```
+
+### Route parameter handling
+
+```typescript
+@Component({...})
+export class UserComponent {
+  userId = useRouteParam('id');
+  tab = useRouteQueryParam('tab');
+  
+  // Use in template: {{ userId() }}
+}
+```
+
+### Debounced search
+
+```typescript
+@Component({...})
+export class SearchComponent {
+  searchTerm = signal('');
+  debouncedSearch = useDebouncedSignal(this.searchTerm, 300);
+  
+  // debouncedSearch only updates 300ms after searchTerm stops changing
+}
+```
+
+### Persisting state to localStorage
+
+```typescript
+@Component({...})
+export class SettingsComponent {
+  theme = signal<'light' | 'dark'>('light');
+  
+  constructor() {
+    syncLocalStorageEffect('app-theme', this.theme);
+  }
+}
+```
