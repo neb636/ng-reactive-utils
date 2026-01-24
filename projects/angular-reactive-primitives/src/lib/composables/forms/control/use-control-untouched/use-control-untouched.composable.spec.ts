@@ -40,6 +40,7 @@ describe('useControlUntouched', () => {
 
     const { control, isUntouched } = fixture.componentInstance;
     control.markAsTouched();
+    control.updateValueAndValidity();
 
     await new Promise((resolve) => setTimeout(resolve, 50));
     expect(isUntouched()).toBe(false);
@@ -62,6 +63,7 @@ describe('useControlUntouched', () => {
     expect(isUntouched()).toBe(true);
 
     control.markAsTouched();
+    control.updateValueAndValidity();
 
     await new Promise((resolve) => setTimeout(resolve, 50));
     expect(isUntouched()).toBe(false);
@@ -83,12 +85,14 @@ describe('useControlUntouched', () => {
 
     // First make it touched
     control.markAsTouched();
+    control.updateValueAndValidity();
 
     await new Promise((resolve) => setTimeout(resolve, 50));
     expect(isUntouched()).toBe(false);
 
     // Then reset to untouched
     control.markAsUntouched();
+    control.updateValueAndValidity();
 
     await new Promise((resolve) => setTimeout(resolve, 50));
     expect(isUntouched()).toBe(true);
