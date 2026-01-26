@@ -5,7 +5,7 @@ Returns the current value of an AbstractControl as a signal. The signal updates 
 ## Usage
 
 ```typescript
-import { useControlValue } from 'angular-reactive-primitives';
+import { useControlValue } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -27,7 +27,7 @@ class GreetingComponent {
 ## Advanced Usage
 
 ```typescript
-import { useControlValue } from 'angular-reactive-primitives';
+import { useControlValue } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -69,4 +69,4 @@ class ProductFilterComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/forms/control/use-control-value/use-control-value.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/forms/control/use-control-value/use-control-value.composable.ts

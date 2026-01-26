@@ -7,7 +7,7 @@ Creates a signal that tracks an element's bounding box (position and dimensions)
 ### Basic Usage
 
 ```typescript
-import { useElementBounding } from 'angular-reactive-primitives';
+import { useElementBounding } from 'ng-reactive-utils';
 import { Component, viewChild, ElementRef } from '@angular/core';
 
 @Component({
@@ -231,4 +231,4 @@ type ElementBounding = {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/browser/use-element-bounding/use-element-bounding.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/browser/use-element-bounding/use-element-bounding.composable.ts

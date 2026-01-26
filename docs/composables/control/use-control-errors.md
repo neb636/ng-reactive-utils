@@ -5,7 +5,7 @@ Returns the validation errors of an AbstractControl as a signal. The signal upda
 ## Usage
 
 ```typescript
-import { useControlErrors } from 'angular-reactive-primitives';
+import { useControlErrors } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -40,7 +40,7 @@ class EmailFieldComponent {
 ## Advanced Usage
 
 ```typescript
-import { useControlErrors } from 'angular-reactive-primitives';
+import { useControlErrors } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -107,4 +107,4 @@ class PasswordFieldComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/forms/control/use-control-errors/use-control-errors.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/forms/control/use-control-errors/use-control-errors.composable.ts

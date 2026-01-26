@@ -7,7 +7,7 @@ Creates a shared instance of a wrapped composable function that uses reference c
 ### Basic Usage Without Parameters
 
 ```typescript
-import { createSharedComposable } from 'angular-reactive-primitives';
+import { createSharedComposable } from 'ng-reactive-utils';
 import { signal } from '@angular/core';
 
 const useWebSocket = createSharedComposable(() => {
@@ -35,7 +35,7 @@ class ChatComponent {
 ### With Parameters
 
 ```typescript
-import { createSharedComposable } from 'angular-reactive-primitives';
+import { createSharedComposable } from 'ng-reactive-utils';
 import { inject, signal, DestroyRef } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
@@ -98,4 +98,4 @@ The factory function must return an object with:
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/utils/create-shared-composable/create-shared-composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/utils/create-shared-composable/create-shared-composable.ts

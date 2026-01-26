@@ -5,7 +5,7 @@ Returns whether a FormGroup is valid as a signal. The signal updates reactively 
 ## Usage
 
 ```typescript
-import { useFormValid } from 'angular-reactive-primitives';
+import { useFormValid } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -50,4 +50,4 @@ class LoginFormComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/forms/form/use-form-valid/use-form-valid.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/forms/form/use-form-valid/use-form-valid.composable.ts

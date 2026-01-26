@@ -1,4 +1,4 @@
-# Angular Reactive Primitives
+# NG Reactive Utils
 
 A collection of small, reusable reactive building blocks for modern Angular (v20+) applications. Built with signals at their core, these primitives help you build reactive applications with minimal ceremony.
 
@@ -12,7 +12,7 @@ A collection of small, reusable reactive building blocks for modern Angular (v20
 ## Installation
 
 ```bash
-npm install angular-reactive-primitives
+npm install ng-reactive-utils
 ```
 
 ## Requirements
@@ -24,7 +24,7 @@ npm install angular-reactive-primitives
 
 ```typescript
 import { Component, signal } from '@angular/core';
-import { useDebouncedSignal } from 'angular-reactive-primitives';
+import { useDebouncedSignal } from 'ng-reactive-utils';
 
 @Component({
   selector: 'search-box',
@@ -53,7 +53,7 @@ Transform and derive new signals from existing ones:
 - **`usePreviousSignal`** - Track previous signal values
 
 ```typescript
-import { usePreviousSignal } from 'angular-reactive-primitives';
+import { usePreviousSignal } from 'ng-reactive-utils';
 
 const count = signal(0);
 const previousCount = usePreviousSignal(count);
@@ -73,7 +73,7 @@ React to browser state changes:
 - **`useElementBounding`** - Observe element position and size
 
 ```typescript
-import { useWindowSize } from 'angular-reactive-primitives';
+import { useWindowSize } from 'ng-reactive-utils';
 
 @Component({
   selector: 'responsive-component',
@@ -98,7 +98,7 @@ Access route state as signals:
 - **`useRouteFragment`** - URL fragment as a signal
 
 ```typescript
-import { useRouteParam } from 'angular-reactive-primitives';
+import { useRouteParam } from 'ng-reactive-utils';
 
 @Component({
   selector: 'user-profile',
@@ -117,7 +117,7 @@ Synchronize state with external systems:
 - **`syncLocalStorage`** - Sync signals with localStorage
 
 ```typescript
-import { syncQueryParams } from 'angular-reactive-primitives';
+import { syncQueryParams } from 'ng-reactive-utils';
 
 @Component({
   selector: 'filterable-list',
@@ -141,7 +141,7 @@ export class FilterableListComponent {
 import {
   createSharedComposable,
   useWindowSize,
-} from 'angular-reactive-primitives';
+} from 'ng-reactive-utils';
 
 // Create a shared version that returns the same instance
 export const useSharedWindowSize = createSharedComposable(useWindowSize);
@@ -161,7 +161,7 @@ These primitives follow these design principles:
 
 ## Documentation
 
-For detailed documentation, examples, and API references, visit the [GitHub repository](https://github.com/neb636/angular-reactive-primitives).
+For detailed documentation, examples, and API references, visit the [GitHub repository](https://github.com/neb636/ng-reactive-utils).
 
 ## Contributing
 

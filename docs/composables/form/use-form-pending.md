@@ -5,7 +5,7 @@ Returns whether a FormGroup has pending async validators as a signal. The signal
 ## Usage
 
 ```typescript
-import { useFormPending } from 'angular-reactive-primitives';
+import { useFormPending } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -62,4 +62,4 @@ class RegistrationComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/forms/form/use-form-pending/use-form-pending.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/forms/form/use-form-pending/use-form-pending.composable.ts

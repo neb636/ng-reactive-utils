@@ -5,7 +5,7 @@ Returns the validation status of an AbstractControl as a signal. The signal upda
 ## Usage
 
 ```typescript
-import { useControlStatus } from 'angular-reactive-primitives';
+import { useControlStatus } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -75,4 +75,4 @@ class UsernameFieldComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/forms/control/use-control-status/use-control-status.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/forms/control/use-control-status/use-control-status.composable.ts

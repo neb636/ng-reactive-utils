@@ -1,6 +1,6 @@
 # Introduction
 
-Angular Reactive Primitives is a collection of composables and effects for modern Angular applications using reactive patterns. These utilities help you build more maintainable and testable applications with less boilerplate.
+NG Reactive Utils is a collection of composables and effects for modern Angular applications using reactive patterns. These utilities help you build more maintainable and testable applications with less boilerplate.
 
 ## What are Reactive Primitives?
 
@@ -12,7 +12,7 @@ Each primitive is a standalone function that can be imported and used in your co
 
 ```typescript
 import { Component, signal } from '@angular/core';
-import { useDebouncedSignal } from 'angular-reactive-primitives';
+import { useDebouncedSignal } from 'ng-reactive-utils';
 
 @Component({
   selector: 'search-box',

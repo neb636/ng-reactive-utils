@@ -5,7 +5,7 @@ Returns whether a FormGroup is untouched (has not been interacted with) as a sig
 ## Usage
 
 ```typescript
-import { useFormUntouched } from 'angular-reactive-primitives';
+import { useFormUntouched } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -46,4 +46,4 @@ class GuidedFormComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/forms/form/use-form-untouched/use-form-untouched.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/forms/form/use-form-untouched/use-form-untouched.composable.ts

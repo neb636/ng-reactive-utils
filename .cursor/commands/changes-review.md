@@ -23,7 +23,7 @@ In 2–3 sentences, describe:
 
 For each truly changed file and diffed hunk, evaluate the changes in the context of the existing codebase. Understand how the modified code interacts with surrounding logic and related files—such as how input variables are derived, how return values are consumed, and whether the change introduces side effects or breaks assumptions elsewhere. Assess each change against the following principles:
 
-### If adding a new composable/effect/util function in `angular-reactive-primitives`
+### If adding a new composable/effect/util function in `ng-reactive-utils`
 
 - Bad API designs
 - Possible bugs

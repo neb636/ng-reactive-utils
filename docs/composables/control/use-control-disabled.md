@@ -5,7 +5,7 @@ Returns whether an AbstractControl is disabled as a signal. The signal updates r
 ## Usage
 
 ```typescript
-import { useControlDisabled } from 'angular-reactive-primitives';
+import { useControlDisabled } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -37,7 +37,7 @@ class ToggleableInputComponent {
 ## Advanced Usage
 
 ```typescript
-import { useControlDisabled } from 'angular-reactive-primitives';
+import { useControlDisabled } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -89,4 +89,4 @@ class EmailFormComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/forms/control/use-control-disabled/use-control-disabled.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/forms/control/use-control-disabled/use-control-disabled.composable.ts

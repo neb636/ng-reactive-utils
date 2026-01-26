@@ -5,7 +5,7 @@ A convenience function that wraps Angular's ActivatedRoute.params, exposing all 
 ## Usage
 
 ```typescript
-import { useRouteParams } from 'angular-reactive-primitives';
+import { useRouteParams } from 'ng-reactive-utils';
 
 // Route: /users/:userId/posts/:postId
 @Component({
@@ -34,4 +34,4 @@ class PostDetailComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/route/use-route-params/use-route-params.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/route/use-route-params/use-route-params.composable.ts

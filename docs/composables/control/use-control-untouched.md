@@ -5,7 +5,7 @@ Returns whether an AbstractControl is untouched (has not been interacted with) a
 ## Usage
 
 ```typescript
-import { useControlUntouched } from 'angular-reactive-primitives';
+import { useControlUntouched } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -25,7 +25,7 @@ class EmailFieldComponent {
 ## Advanced Usage
 
 ```typescript
-import { useControlUntouched } from 'angular-reactive-primitives';
+import { useControlUntouched } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -75,4 +75,4 @@ class PasswordFieldComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/forms/control/use-control-untouched/use-control-untouched.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/forms/control/use-control-untouched/use-control-untouched.composable.ts

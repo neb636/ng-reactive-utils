@@ -5,7 +5,7 @@ Converts a FormGroup into a reactive state object with signals for all form prop
 ## Usage
 
 ```typescript
-import { useFormState } from 'angular-reactive-primitives';
+import { useFormState } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -73,4 +73,4 @@ class UserFormComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/forms/form/use-form-state/use-form-state.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/forms/form/use-form-state/use-form-state.composable.ts

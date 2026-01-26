@@ -5,7 +5,7 @@ Effect that syncs a signal to localStorage (one-way: signal → storage). This i
 ## Usage
 
 ```typescript
-import { syncLocalStorageEffect } from 'angular-reactive-primitives';
+import { syncLocalStorageEffect } from 'ng-reactive-utils';
 
 @Component({})
 class FormComponent {
@@ -38,4 +38,4 @@ class FormComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/effects/sync-local-storage/sync-local-storage.effect.ts
+<<< @/../projects/ng-reactive-utils/src/lib/effects/sync-local-storage/sync-local-storage.effect.ts

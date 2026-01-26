@@ -2,7 +2,7 @@
 
 Many Angular applications built before signals were introduced rely heavily on RxJS observables. When migrating to signals or building new signal-based features, you'll often need to convert observables to signals. While Angular provides `toSignal()` for this, using it everywhere can be repetitive and error-prone.
 
-Angular Reactive Primitives provides specialized utilities for the most common observable-to-signal conversions: **forms** and **routes**. These utilities handle the conversion with proper initial values and type safety, eliminating the need to write `toSignal()` calls throughout your codebase.
+NG Reactive Utils provides specialized utilities for the most common observable-to-signal conversions: **forms** and **routes**. These utilities handle the conversion with proper initial values and type safety, eliminating the need to write `toSignal()` calls throughout your codebase.
 
 ## The Problem
 
@@ -54,7 +54,7 @@ This approach has several issues:
 
 ## The Solution: Form Utilities
 
-Angular Reactive Primitives provides composables that handle all the `toSignal()` boilerplate for reactive forms.
+NG Reactive Utils provides composables that handle all the `toSignal()` boilerplate for reactive forms.
 
 ### Individual Form Properties
 
@@ -77,7 +77,7 @@ Use the form composables:
 
 ```typescript
 // ✅ After: Clean and simple
-import { useFormValue, useFormValid, useFormDirty } from 'angular-reactive-primitives';
+import { useFormValue, useFormValid, useFormDirty } from 'ng-reactive-utils';
 
 formValue = useFormValue<MyFormType>(this.form);
 formValid = useFormValid(this.form);
@@ -124,7 +124,7 @@ class UserFormComponent {
 
 ```typescript
 // ✅ After: Single composable call
-import { useFormState } from 'angular-reactive-primitives';
+import { useFormState } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -153,7 +153,7 @@ class UserFormComponent {
 The same utilities work for individual form controls:
 
 ```typescript
-import { useControlState } from 'angular-reactive-primitives';
+import { useControlState } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -193,7 +193,7 @@ class UserProfileComponent {
 
 ```typescript
 // ✅ After: Simple composable
-import { useRouteParam } from 'angular-reactive-primitives';
+import { useRouteParam } from 'ng-reactive-utils';
 
 @Component({
   template: `<h1>User: {{ userId() }}</h1>`
@@ -225,7 +225,7 @@ class PostDetailComponent {
 
 ```typescript
 // ✅ After: Single composable
-import { useRouteParams } from 'angular-reactive-primitives';
+import { useRouteParams } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -259,7 +259,7 @@ class SearchComponent {
 
 ```typescript
 // ✅ After
-import { useRouteQueryParam } from 'angular-reactive-primitives';
+import { useRouteQueryParam } from 'ng-reactive-utils';
 
 @Component({...})
 class SearchComponent {
@@ -285,7 +285,7 @@ class ProductComponent {
 
 ```typescript
 // ✅ After
-import { useRouteData } from 'angular-reactive-primitives';
+import { useRouteData } from 'ng-reactive-utils';
 
 @Component({...})
 class ProductComponent {
@@ -306,7 +306,7 @@ import {
   useFormState,
   useRouteQueryParam,
   syncQueryParams,
-} from 'angular-reactive-primitives';
+} from 'ng-reactive-utils';
 
 interface SearchForm {
   query: string;

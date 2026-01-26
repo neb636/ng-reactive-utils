@@ -1,10 +1,10 @@
 # Comprehensive NPM Library Review
 
-Please perform a thorough review of this Angular Reactive Primitives library with the following sections:
+Please perform a thorough review of this NG Reactive Utils library with the following sections:
 
 ## 1. Documentation Accuracy & Drift Detection
 
-For each public API in `/projects/angular-reactive-primitives/src`:
+For each public API in `/projects/ng-reactive-utils/src`:
 - Compare method signatures, parameters, return types, and behavior between `/docs` and actual implementation
 - Flag any mismatches in:
   - Parameter names, types, or defaults

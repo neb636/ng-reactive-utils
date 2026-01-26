@@ -5,7 +5,7 @@ A convenience function that returns a single route parameter as a signal. This i
 ## Usage
 
 ```typescript
-import { useRouteParameter } from 'angular-reactive-primitives';
+import { useRouteParameter } from 'ng-reactive-utils';
 
 // Route: /products/:productId
 @Component({
@@ -39,4 +39,4 @@ class ProductDetailComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/route/use-route-param/use-route-param.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/route/use-route-param/use-route-param.composable.ts

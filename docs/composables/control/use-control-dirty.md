@@ -5,7 +5,7 @@ Returns whether an AbstractControl is dirty (has been modified) as a signal. The
 ## Usage
 
 ```typescript
-import { useControlDirty } from 'angular-reactive-primitives';
+import { useControlDirty } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -25,7 +25,7 @@ class EditableFieldComponent {
 ## Advanced Usage
 
 ```typescript
-import { useControlDirty } from 'angular-reactive-primitives';
+import { useControlDirty } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -69,4 +69,4 @@ class DocumentEditorComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/forms/control/use-control-dirty/use-control-dirty.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/forms/control/use-control-dirty/use-control-dirty.composable.ts

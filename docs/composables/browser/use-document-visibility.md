@@ -5,7 +5,7 @@ Creates a signal that tracks whether the document/tab is visible or hidden. The 
 ## Usage
 
 ```typescript
-import { useDocumentVisibility } from 'angular-reactive-primitives';
+import { useDocumentVisibility } from 'ng-reactive-utils';
 
 @Component({
   template: `<h1>Tab currently visible: {{ isVisible() }}</h1>`,
@@ -26,4 +26,4 @@ class ExampleComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/browser/use-document-visibility/use-document-visibility.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/browser/use-document-visibility/use-document-visibility.composable.ts

@@ -7,11 +7,11 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: 'Angular Reactive Primitives',
+  title: 'NG Reactive Utils',
   description:
     'A collection of small, reusable reactive building blocks for modern Angular applications',
-  base: '/angular-reactive-primitives/',
-  head: [['link', { rel: 'icon', href: '/angular-reactive-primitives/favicon.ico' }]],
+  base: '/ng-reactive-utils/',
+  head: [['link', { rel: 'icon', href: '/ng-reactive-utils/favicon.ico' }]],
   
   vite: {
     plugins: [llmstxt()],
@@ -160,7 +160,7 @@ export default defineConfig({
     socialLinks: [
       {
         icon: 'github',
-        link: 'https://github.com/neb636/angular-reactive-primitives',
+        link: 'https://github.com/neb636/ng-reactive-utils',
       },
     ],
 
@@ -175,7 +175,7 @@ export default defineConfig({
 
     editLink: {
       pattern:
-        'https://github.com/neb636/angular-reactive-primitives/edit/main/docs/:path',
+        'https://github.com/neb636/ng-reactive-utils/edit/main/docs/:path',
       text: 'Edit this page on GitHub',
     },
   },

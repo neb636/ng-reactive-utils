@@ -5,7 +5,7 @@ Returns whether a FormGroup is pristine (has not been modified) as a signal. The
 ## Usage
 
 ```typescript
-import { useFormPristine } from 'angular-reactive-primitives';
+import { useFormPristine } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -48,4 +48,4 @@ class SimpleFormComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/forms/form/use-form-pristine/use-form-pristine.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/forms/form/use-form-pristine/use-form-pristine.composable.ts

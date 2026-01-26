@@ -5,7 +5,7 @@ Returns the validation status of a FormGroup as a signal. The signal updates rea
 ## Usage
 
 ```typescript
-import { useFormStatus } from 'angular-reactive-primitives';
+import { useFormStatus } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -75,4 +75,4 @@ class StatusFormComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/forms/form/use-form-status/use-form-status.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/forms/form/use-form-status/use-form-status.composable.ts

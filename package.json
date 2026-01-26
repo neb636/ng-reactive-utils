@@ -1,14 +1,14 @@
 {
-  "name": "angular-reactive-primitives",
+  "name": "ng-reactive-utils",
   "version": "0.0.1",
   "description": "A collection of small, reusable reactive building blocks for modern Angular applications",
   "author": "neb636",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/neb636/angular-reactive-primitives"
+    "url": "https://github.com/neb636/ng-reactive-utils"
   },
-  "homepage": "https://github.com/neb636/angular-reactive-primitives",
+  "homepage": "https://github.com/neb636/ng-reactive-utils",
   "keywords": [
     "angular",
     "reactive",
@@ -21,10 +21,10 @@
   },
   "scripts": {
     "ng": "ng",
-    "build": "ng build angular-reactive-primitives",
+    "build": "ng build ng-reactive-utils",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint angular-reactive-primitives",
+    "lint": "ng lint ng-reactive-utils",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
