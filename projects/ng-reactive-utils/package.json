@@ -1,5 +1,5 @@
 {
-  "name": "angular-reactive-primitives",
+  "name": "ng-reactive-utils",
   "version": "0.0.1",
   "engines": {
     "node": ">=22.20.0"

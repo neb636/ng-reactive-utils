@@ -5,7 +5,7 @@ Returns whether an AbstractControl has been touched (interacted with) as a signa
 ## Usage
 
 ```typescript
-import { useControlTouched } from 'angular-reactive-primitives';
+import { useControlTouched } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -45,4 +45,4 @@ class EmailInputComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/forms/control/use-control-touched/use-control-touched.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/forms/control/use-control-touched/use-control-touched.composable.ts

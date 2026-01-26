@@ -5,7 +5,7 @@ A convenience function that returns a single query parameter as a signal. This i
 ## Usage
 
 ```typescript
-import { useRouteQueryParam } from 'angular-reactive-primitives';
+import { useRouteQueryParam } from 'ng-reactive-utils';
 
 // URL: /search?query=angular&sort=date
 @Component({
@@ -40,4 +40,4 @@ class SearchComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/route/use-route-query-param/use-route-query-param.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/route/use-route-query-param/use-route-query-param.composable.ts

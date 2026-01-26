@@ -10,15 +10,15 @@
 ::: code-group
 
 ```bash [npm]
-npm install angular-reactive-primitives
+npm install ng-reactive-utils
 ```
 
 ```bash [pnpm]
-pnpm add angular-reactive-primitives
+pnpm add ng-reactive-utils
 ```
 
 ```bash [yarn]
-yarn add angular-reactive-primitives
+yarn add ng-reactive-utils
 ```
 
 :::
@@ -28,14 +28,14 @@ yarn add angular-reactive-primitives
 Import any primitive directly from the package:
 
 ```typescript
-import { useDebouncedSignal, useWindowSize } from 'angular-reactive-primitives';
+import { useDebouncedSignal, useWindowSize } from 'ng-reactive-utils';
 ```
 
 ### Basic Example
 
 ```typescript
 import { Component, signal } from '@angular/core';
-import { useDebouncedSignal } from 'angular-reactive-primitives';
+import { useDebouncedSignal } from 'ng-reactive-utils';
 
 @Component({
   selector: 'search-box',
@@ -57,7 +57,7 @@ export class SearchBoxComponent {
 
 ```typescript
 import { Component, signal } from '@angular/core';
-import { syncLocalStorageEffect } from 'angular-reactive-primitives';
+import { syncLocalStorageEffect } from 'ng-reactive-utils';
 
 @Component({
   selector: 'preferences',

@@ -5,7 +5,7 @@ Effect that syncs signal state to URL query parameters (one-way: signal → URL)
 ## Usage
 
 ```typescript
-import { syncQueryParamsEffect } from 'angular-reactive-primitives';
+import { syncQueryParamsEffect } from 'ng-reactive-utils';
 
 @Component({})
 class SearchComponent {
@@ -46,4 +46,4 @@ class SearchComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/effects/sync-query-params/sync-query-params.effect.ts
+<<< @/../projects/ng-reactive-utils/src/lib/effects/sync-query-params/sync-query-params.effect.ts

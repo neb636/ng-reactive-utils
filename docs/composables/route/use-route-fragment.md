@@ -5,7 +5,7 @@ Exposes the route fragment (the part after #) as a signal. This is useful for im
 ## Usage
 
 ```typescript
-import { useRouteFragment } from 'angular-reactive-primitives';
+import { useRouteFragment } from 'ng-reactive-utils';
 
 // URL: /docs#installation
 @Component({
@@ -38,4 +38,4 @@ class DocumentationComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/route/use-route-fragment/use-route-fragment.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/route/use-route-fragment/use-route-fragment.composable.ts

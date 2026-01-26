@@ -5,7 +5,7 @@ Exposes route data as a signal-based object. This is useful when you need to acc
 ## Usage
 
 ```typescript
-import { useRouteData } from 'angular-reactive-primitives';
+import { useRouteData } from 'ng-reactive-utils';
 
 // Route config: { path: 'admin', data: { role: 'admin', title: 'Admin Panel' } }
 @Component({
@@ -31,4 +31,4 @@ class AdminComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/route/use-route-data/use-route-data.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/route/use-route-data/use-route-data.composable.ts

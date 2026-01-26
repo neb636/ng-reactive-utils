@@ -5,7 +5,7 @@ Exposes all query parameters as a signal-based object. This is useful when you n
 ## Usage
 
 ```typescript
-import { useRouteQueryParams } from 'angular-reactive-primitives';
+import { useRouteQueryParams } from 'ng-reactive-utils';
 
 // URL: /products?category=electronics&sort=price&order=asc
 @Component({
@@ -34,4 +34,4 @@ class ProductListComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/route/use-route-query-params/use-route-query-params.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/route/use-route-query-params/use-route-query-params.composable.ts

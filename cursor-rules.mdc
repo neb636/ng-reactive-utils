@@ -1,9 +1,9 @@
 ---
-description: Angular Reactive Primitives - Signal-based utilities for Angular
+description: NG Reactive Utils - Signal-based utilities for Angular
 globs: "**/*.ts"
 ---
 
-# angular-reactive-primitives
+# ng-reactive-utils
 
 A collection of signal-based reactive utilities for modern Angular (v20+).
 
@@ -94,7 +94,7 @@ import {
   useRouteParam, 
   useDebouncedSignal,
   syncLocalStorageEffect 
-} from 'angular-reactive-primitives';
+} from 'ng-reactive-utils';
 ```
 
 ## Usage Examples

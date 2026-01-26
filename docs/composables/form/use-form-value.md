@@ -5,7 +5,7 @@ Returns the current value of a FormGroup as a signal. The signal updates reactiv
 ## Usage
 
 ```typescript
-import { useFormValue } from 'angular-reactive-primitives';
+import { useFormValue } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -52,4 +52,4 @@ class GreetingComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/forms/form/use-form-value/use-form-value.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/forms/form/use-form-value/use-form-value.composable.ts

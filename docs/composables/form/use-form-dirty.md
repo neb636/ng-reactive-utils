@@ -5,7 +5,7 @@ Returns whether a FormGroup is dirty (has been modified) as a signal. The signal
 ## Usage
 
 ```typescript
-import { useFormDirty } from 'angular-reactive-primitives';
+import { useFormDirty } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -62,4 +62,4 @@ class EditorComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/forms/form/use-form-dirty/use-form-dirty.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/forms/form/use-form-dirty/use-form-dirty.composable.ts

@@ -5,7 +5,7 @@ Returns whether an AbstractControl is valid as a signal. The signal updates reac
 ## Usage
 
 ```typescript
-import { useControlValid } from 'angular-reactive-primitives';
+import { useControlValid } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -43,4 +43,4 @@ class EmailStepComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/forms/control/use-control-valid/use-control-valid.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/forms/control/use-control-valid/use-control-valid.composable.ts

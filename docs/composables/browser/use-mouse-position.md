@@ -5,7 +5,7 @@ Creates signals that track the mouse position (x and y coordinates). The signals
 ## Usage
 
 ```typescript
-import { useMousePosition } from 'angular-reactive-primitives';
+import { useMousePosition } from 'ng-reactive-utils';
 
 @Component({
   template: `<div>
@@ -51,4 +51,4 @@ class SmoothCursorComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/browser/use-mouse-position/use-mouse-position.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/browser/use-mouse-position/use-mouse-position.composable.ts

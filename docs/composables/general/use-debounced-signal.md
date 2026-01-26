@@ -13,7 +13,7 @@ Creates a debounced signal from a source signal. Useful for things like search i
 ```
 
 ```typescript
-import { useDebouncedSignal } from 'angular-reactive-primitives';
+import { useDebouncedSignal } from 'ng-reactive-utils';
 
 const textareaContent = signal('');
 const debouncedTextareaContent = useDebouncedSignal(textareaContent, 1000);
@@ -60,4 +60,4 @@ Having both the original signal and a debounced version allows you to:
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/general/use-debounced-signal/use-debounced-signal.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/general/use-debounced-signal/use-debounced-signal.composable.ts

@@ -5,7 +5,7 @@ Returns whether a FormGroup has been touched (interacted with) as a signal. The 
 ## Usage
 
 ```typescript
-import { useFormTouched } from 'angular-reactive-primitives';
+import { useFormTouched } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -50,4 +50,4 @@ class ContactFormComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/forms/form/use-form-touched/use-form-touched.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/forms/form/use-form-touched/use-form-touched.composable.ts

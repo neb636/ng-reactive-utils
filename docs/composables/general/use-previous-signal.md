@@ -5,7 +5,7 @@ Creates a signal that tracks the previous value of a source signal. Useful for c
 ## Usage
 
 ```typescript
-import { usePreviousSignal } from 'angular-reactive-primitives';
+import { usePreviousSignal } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -42,4 +42,4 @@ class ExampleComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/general/use-previous-signal/use-previous-signal.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/general/use-previous-signal/use-previous-signal.composable.ts

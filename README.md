@@ -1,8 +1,8 @@
-# Angular Reactive Primitives
+# NG Reactive Utils
 
 A collection of small, reusable reactive building blocks for modern Angular (v20+) applications. The focus is on simple, well-typed composables and effects built around signals that you can drop into real projects with minimal ceremony.
 
-📚 **[View Documentation](https://neb636.github.io/angular-reactive-primitives/)**
+📚 **[View Documentation](https://neb636.github.io/ng-reactive-utils/)**
 
 ## Features
 
@@ -15,7 +15,7 @@ A collection of small, reusable reactive building blocks for modern Angular (v20
 
 ```typescript
 import { Component, signal } from '@angular/core';
-import { useDebouncedSignal } from 'angular-reactive-primitives';
+import { useDebouncedSignal } from 'ng-reactive-utils';
 
 @Component({
   selector: 'search-box',
@@ -125,24 +125,24 @@ Build the library for distribution:
 npm run build
 ```
 
-Build artifacts are output to `dist/angular-reactive-primitives`.
+Build artifacts are output to `dist/ng-reactive-utils`.
 
 ### Publishing to npm
 
 After building, you can publish the library:
 
 ```bash
-cd dist/angular-reactive-primitives
+cd dist/ng-reactive-utils
 npm publish
 ```
 
 **Pre-publish checklist:**
 
 - Ensure all tests pass (`npm run test`)
-- Update version in `projects/angular-reactive-primitives/package.json`
+- Update version in `projects/ng-reactive-utils/package.json`
 - Update `CHANGELOG.md` with release notes
 - Build succeeds without errors
-- Review the contents of `dist/angular-reactive-primitives`
+- Review the contents of `dist/ng-reactive-utils`
 
 ### Testing Locally
 
@@ -153,12 +153,12 @@ Before publishing, test the package locally:
 npm run build
 
 # Create a tarball
-cd dist/angular-reactive-primitives
+cd dist/ng-reactive-utils
 npm pack
 
 # Install in another project
 cd /path/to/test-project
-npm install /path/to/angular-reactive-primitives-0.0.1.tgz
+npm install /path/to/ng-reactive-utils-0.0.1.tgz
 ```
 
 ## Project Structure
@@ -173,7 +173,7 @@ npm install /path/to/angular-reactive-primitives-0.0.1.tgz
 │   └── utils/                    # Utility documentation
 │
 └── projects/
-    └── angular-reactive-primitives/
+    └── ng-reactive-utils/
         └── src/lib/
             ├── composables/      # Composable implementations
             ├── effects/          # Effect implementations

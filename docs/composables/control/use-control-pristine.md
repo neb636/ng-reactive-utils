@@ -5,7 +5,7 @@ Returns whether an AbstractControl is pristine (has not been modified) as a sign
 ## Usage
 
 ```typescript
-import { useControlPristine } from 'angular-reactive-primitives';
+import { useControlPristine } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -25,7 +25,7 @@ class EditableFieldComponent {
 ## Advanced Usage
 
 ```typescript
-import { useControlPristine } from 'angular-reactive-primitives';
+import { useControlPristine } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -72,4 +72,4 @@ class SearchComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/forms/control/use-control-pristine/use-control-pristine.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/forms/control/use-control-pristine/use-control-pristine.composable.ts

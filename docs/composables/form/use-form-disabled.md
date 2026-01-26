@@ -5,7 +5,7 @@ Returns whether a FormGroup is disabled as a signal. The signal updates reactive
 ## Usage
 
 ```typescript
-import { useFormDisabled } from 'angular-reactive-primitives';
+import { useFormDisabled } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -58,4 +58,4 @@ class EditableFormComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/forms/form/use-form-disabled/use-form-disabled.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/forms/form/use-form-disabled/use-form-disabled.composable.ts

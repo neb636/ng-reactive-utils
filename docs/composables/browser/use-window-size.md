@@ -5,7 +5,7 @@ Creates signals that track the window size (width and height). The signals updat
 ## Usage
 
 ```typescript
-import { useWindowSize } from 'angular-reactive-primitives';
+import { useWindowSize } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -53,4 +53,4 @@ class SlowDebounceComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/browser/use-window-size/use-window-size.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/browser/use-window-size/use-window-size.composable.ts

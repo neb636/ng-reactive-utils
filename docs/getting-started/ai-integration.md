@@ -1,6 +1,6 @@
 # AI Integration
 
-Angular Reactive Primitives provides several ways to help AI coding assistants understand and use the library effectively.
+NG Reactive Utils provides several ways to help AI coding assistants understand and use the library effectively.
 
 ## llms.txt
 
@@ -27,7 +27,7 @@ This provides the AI with complete, up-to-date documentation about all composabl
 
 ## Cursor IDE Rules
 
-For [Cursor IDE](https://cursor.com) users, we provide a rules file that teaches Cursor's AI about angular-reactive-primitives patterns and best practices.
+For [Cursor IDE](https://cursor.com) users, we provide a rules file that teaches Cursor's AI about ng-reactive-utils patterns and best practices.
 
 ### Installation
 
@@ -36,10 +36,10 @@ For [Cursor IDE](https://cursor.com) users, we provide a rules file that teaches
 ```bash
 # From your project root
 mkdir -p .cursor/rules
-cp node_modules/angular-reactive-primitives/cursor-rules.mdc .cursor/rules/angular-reactive-primitives.mdc
+cp node_modules/ng-reactive-utils/cursor-rules.mdc .cursor/rules/ng-reactive-utils.mdc
 ```
 
-2. Or manually create `.cursor/rules/angular-reactive-primitives.mdc` with the content from [our repository](https://github.com/neb636/angular-reactive-primitives/blob/main/cursor-rules.mdc).
+2. Or manually create `.cursor/rules/ng-reactive-utils.mdc` with the content from [our repository](https://github.com/neb636/ng-reactive-utils/blob/main/cursor-rules.mdc).
 
 ### What the Rules Include
 
@@ -59,7 +59,7 @@ Once the rules are installed, you can use prompts like:
 - "Add debounced search to this input"
 - "Persist this setting to localStorage"
 
-The AI will automatically suggest angular-reactive-primitives solutions.
+The AI will automatically suggest ng-reactive-utils solutions.
 
 ## Context7
 
@@ -73,14 +73,14 @@ If you have Context7 configured in your AI tool, you can use:
 use context7
 ```
 
-in your prompts to pull angular-reactive-primitives documentation directly into the conversation.
+in your prompts to pull ng-reactive-utils documentation directly into the conversation.
 
 ## Manual Integration
 
 For other AI tools or custom setups, you can add the following context to your system prompts or rules:
 
 ```markdown
-# angular-reactive-primitives
+# ng-reactive-utils
 
 A collection of signal-based reactive utilities for modern Angular (v20+).
 
@@ -114,7 +114,7 @@ Instead of subscribing to route observables:
 - syncQueryParamsEffect({ param: signal }) - Sync with URL
 
 ## Import
-import { useFormValid, useRouteParam } from 'angular-reactive-primitives';
+import { useFormValid, useRouteParam } from 'ng-reactive-utils';
 ```
 
 ## API Reference for AI

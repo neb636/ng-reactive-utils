@@ -5,7 +5,7 @@ Converts an AbstractControl into a reactive state object with signals for all co
 ## Usage
 
 ```typescript
-import { useControlState } from 'angular-reactive-primitives';
+import { useControlState } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -63,4 +63,4 @@ class EmailInputComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/forms/control/use-control-state/use-control-state.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/forms/control/use-control-state/use-control-state.composable.ts

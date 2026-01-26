@@ -1,6 +1,6 @@
 # Bug & Edge Case Analysis
 
-Please perform a focused bug hunt for this Angular Reactive Primitives library in `/projects/angular-reactive-primitives/src`:
+Please perform a focused bug hunt for this NG Reactive Utils library in `/projects/ng-reactive-utils/src`:
 
 ## 1. Logic Bugs
 

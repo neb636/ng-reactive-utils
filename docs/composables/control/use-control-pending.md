@@ -5,7 +5,7 @@ Returns whether an AbstractControl has pending async validators as a signal. The
 ## Usage
 
 ```typescript
-import { useControlPending } from 'angular-reactive-primitives';
+import { useControlPending } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -25,7 +25,7 @@ class UsernameFieldComponent {
 ## Advanced Usage
 
 ```typescript
-import { useControlPending } from 'angular-reactive-primitives';
+import { useControlPending } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -71,4 +71,4 @@ class EmailVerificationComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/forms/control/use-control-pending/use-control-pending.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/forms/control/use-control-pending/use-control-pending.composable.ts

@@ -5,7 +5,7 @@ Returns the validation errors of a FormGroup as a signal. The signal updates rea
 ## Usage
 
 ```typescript
-import { useFormErrors } from 'angular-reactive-primitives';
+import { useFormErrors } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -63,4 +63,4 @@ class PasswordFormComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/forms/form/use-form-errors/use-form-errors.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/forms/form/use-form-errors/use-form-errors.composable.ts

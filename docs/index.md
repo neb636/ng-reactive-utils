@@ -2,7 +2,7 @@
 layout: home
 
 hero:
-  name: Angular Reactive Primitives
+  name: NG Reactive Utils
   text: Composable Building Blocks for Modern Angular
   tagline: A collection of small, reusable reactive utilities built around signals for Angular 20+
   actions:
@@ -11,7 +11,7 @@ hero:
       link: /getting-started/introduction
     - theme: alt
       text: View on GitHub
-      link: https://github.com/neb636/angular-reactive-primitives
+      link: https://github.com/neb636/ng-reactive-utils
 
 features:
   - icon: 🌳

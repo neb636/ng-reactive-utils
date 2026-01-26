@@ -5,7 +5,7 @@ Creates a throttled signal from a source signal. The initial value is set immedi
 ## Usage
 
 ```typescript
-import { useThrottledSignal } from 'angular-reactive-primitives';
+import { useThrottledSignal } from 'ng-reactive-utils';
 
 @Component({
   template: `
@@ -56,4 +56,4 @@ class ExampleComponent {
 
 ## Source
 
-<<< @/../projects/angular-reactive-primitives/src/lib/composables/general/use-throttled-signal/use-throttled-signal.composable.ts
+<<< @/../projects/ng-reactive-utils/src/lib/composables/general/use-throttled-signal/use-throttled-signal.composable.ts
