@@ -2,6 +2,8 @@
 
 A collection of small, reusable reactive building blocks for modern Angular (v20+) applications. The focus is on simple, well-typed composables and effects built around signals that you can drop into real projects with minimal ceremony.
 
+📚 **[View Documentation](https://neb636.github.io/angular-reactive-primitives/)**
+
 ## Features
 
 - 🌳 **Fully tree-shakeable** - Only import what you need

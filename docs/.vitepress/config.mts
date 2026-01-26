@@ -11,12 +11,7 @@ export default defineConfig({
   description:
     'A collection of small, reusable reactive building blocks for modern Angular applications',
   base: '/angular-reactive-primitives/',
-  head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
-  
-  // Redirect root to introduction page
-  rewrites: {
-    'getting-started/introduction.md': 'index.md',
-  },
+  head: [['link', { rel: 'icon', href: '/angular-reactive-primitives/favicon.ico' }]],
   
   vite: {
     plugins: [llmstxt()],
