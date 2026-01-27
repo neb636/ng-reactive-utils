@@ -24,58 +24,32 @@ npm install ng-reactive-utils
 ## Quick Start
 
 ```typescript
-import { Component, signal } from '@angular/core';
-import { useDebouncedSignal } from 'ng-reactive-utils';
+import { computed } from '@angular/core';
+import { useControlValue, useDebouncedSignal, useWindowSize } from 'ng-reactive-utils';
 
-@Component({
-  selector: 'search-box',
-  template: `
-    <input [value]="searchTerm()" (input)="searchTerm.set($any($event.target).value)" />
-    <p>Debounced: {{ debouncedSearch() }}</p>
-  `,
-})
-export class SearchBoxComponent {
-  searchTerm = signal('');
-  debouncedSearch = useDebouncedSignal(this.searchTerm, 300);
-}
+// Convert FormControl to reactive signal
+searchControl = new FormControl('');
+searchValue = useControlValue(this.searchControl);
+
+// Debounce for API calls, track window size
+debouncedSearch = useDebouncedSignal(this.searchValue, 300);
+windowSize = useWindowSize();
+
+// Compose into derived state
+isMobile = computed(() => this.windowSize().width < 768);
 ```
 
-## Available Primitives
+## Highlights
 
-### Browser Composables
+A few examples of what's included:
 
-- [`useDocumentVisibility()`](./docs/composables/browser/use-document-visibility.md) - Track document visibility state
-- [`useElementBounding()`](./docs/composables/browser/use-element-bounding.md) - Observe element position and size
-- [`useMousePosition()`](./docs/composables/browser/use-mouse-position.md) - Track mouse coordinates
-- [`useWindowSize()`](./docs/composables/browser/use-window-size.md) - Monitor window dimensions
+- **useDebouncedSignal** - Debounce signal changes with automatic cleanup
+- **useMousePosition** - Track mouse coordinates reactively across your app
+- **useRouteParam** - Convert route parameters to signals for seamless reactivity
+- **syncLocalStorage** - Two-way sync between signals and localStorage
+- **useElementBounding** - Observe element position and size with ResizeObserver
 
-### General Composables
-
-- [`useDebouncedSignal()`](./docs/composables/general/use-debounced-signal.md) - Debounce signal changes
-- [`usePreviousSignal()`](./docs/composables/general/use-previous-signal.md) - Track previous signal values
-- [`useThrottledSignal()`](./docs/composables/general/use-throttled-signal.md) - Throttle signal updates
-
-### Router Composables
-
-- [`useRouteData()`](./docs/composables/route/use-route-data.md) - Route data as a signal
-- [`useRouteFragment()`](./docs/composables/route/use-route-fragment.md) - URL fragment as a signal
-- [`useRouteParam()`](./docs/composables/route/use-route-param.md) - Single route parameter
-- [`useRouteParams()`](./docs/composables/route/use-route-params.md) - All route parameters as a signal
-- [`useRouteQueryParam()`](./docs/composables/route/use-route-query-param.md) - Single query parameter
-- [`useRouteQueryParams()`](./docs/composables/route/use-route-query-params.md) - All query parameters as a signal
-
-### Effects
-
-- [`syncLocalStorage()`](./docs/effects/sync-local-storage.md) - Sync signals with localStorage
-- [`syncQueryParams()`](./docs/effects/sync-query-params.md) - Sync signals with URL query parameters
-
-### Utilities
-
-- [`createSharedComposable()`](./docs/utils/create-shared-composable.md) - Convert composables to shared instances
-
-## Status
-
-This library is published on npm as [`ng-reactive-utils`](https://www.npmjs.com/package/ng-reactive-utils) and is ready for use in production Angular applications.
+**[→ Browse all composables, effects, and utilities](https://neb636.github.io/ng-reactive-utils/)**
 
 ## API Design Philosophy
 
@@ -87,7 +61,7 @@ These primitives follow these design principles:
 4. **Type-safe** - Leverage TypeScript for better DX
 5. **Framework-aligned** - Follow Angular's conventions and patterns
 
-## Getting Started
+## Contributing
 
 Install dependencies:
 
@@ -107,7 +81,7 @@ Run tests:
 npm run test
 ```
 
-## Documentation
+### Documentation Site
 
 The documentation site is built with VitePress.
 
@@ -122,9 +96,9 @@ npm run docs:build
 npm run docs:preview
 ```
 
-## Building and Publishing
+### Building and Publishing
 
-### Build the Library
+#### Build the Library
 
 Build the library for distribution:
 
@@ -134,7 +108,7 @@ npm run build
 
 Build artifacts are output to `dist/ng-reactive-utils`.
 
-### Publishing to npm
+#### Publishing to npm
 
 After building, you can publish the library:
 
@@ -151,7 +125,7 @@ npm publish
 - Build succeeds without errors
 - Review the contents of `dist/ng-reactive-utils`
 
-### Testing Locally
+#### Testing Locally
 
 Before publishing, test the package locally:
 

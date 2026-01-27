@@ -37,7 +37,8 @@ export default defineConfig({
         items: [
           { text: 'Introduction', link: '/getting-started/introduction' },
           { text: 'Installation', link: '/getting-started/installation' },
-          { text: 'Working with Observables', link: '/getting-started/working-with-observables' },
+          { text: 'Core Concepts', link: '/getting-started/core-concepts' },
+          { text: 'Working with Forms & Routes', link: '/getting-started/working-with-forms-and-routes' },
           { text: 'AI Integration', link: '/getting-started/ai-integration' },
         ],
       },
