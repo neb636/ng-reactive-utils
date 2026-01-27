@@ -13,7 +13,7 @@ import { useRouteData } from 'ng-reactive-utils';
 })
 class AdminComponent {
   routeData = useRouteData<{ role: string; title: string }>();
-  
+
   hasAccess = computed(() => this.routeData().role === 'admin');
 }
 ```

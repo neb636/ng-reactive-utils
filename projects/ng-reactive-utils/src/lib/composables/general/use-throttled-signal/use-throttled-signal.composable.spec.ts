@@ -1,9 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import {
-  Component,
-  provideZonelessChangeDetection,
-  signal,
-} from '@angular/core';
+import { Component, provideZonelessChangeDetection, signal } from '@angular/core';
 import { useThrottledSignal } from './use-throttled-signal.composable';
 
 describe('useThrottledSignal', () => {
@@ -425,9 +421,7 @@ describe('useThrottledSignal', () => {
     @Component({
       template: `
         <div data-testid="source-value">Source: {{ sourceSignal() }}</div>
-        <div data-testid="throttled-value">
-          Throttled: {{ throttledSignal() }}
-        </div>
+        <div data-testid="throttled-value">Throttled: {{ throttledSignal() }}</div>
       `,
     })
     class TestComponent {
@@ -441,9 +435,7 @@ describe('useThrottledSignal', () => {
     const component = fixture.componentInstance;
     const element = fixture.nativeElement;
     const sourceDiv = element.querySelector('[data-testid="source-value"]');
-    const throttledDiv = element.querySelector(
-      '[data-testid="throttled-value"]',
-    );
+    const throttledDiv = element.querySelector('[data-testid="throttled-value"]');
 
     // Initially both should show 'initial'
     expect(sourceDiv.textContent.trim()).toBe('Source: initial');

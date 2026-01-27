@@ -5,12 +5,7 @@
 
 export type DocCategory = 'composables' | 'effects' | 'utils';
 
-export type DocSubcategory =
-  | 'general'
-  | 'browser'
-  | 'activated-route'
-  | 'storage'
-  | 'other';
+export type DocSubcategory = 'general' | 'browser' | 'activated-route' | 'storage' | 'other';
 
 export interface DocParameter {
   name: string;

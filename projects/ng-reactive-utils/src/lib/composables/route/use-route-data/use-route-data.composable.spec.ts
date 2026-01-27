@@ -10,7 +10,7 @@ describe('useRouteData', () => {
 
   beforeEach(() => {
     routeDataSubject = new BehaviorSubject({});
-    
+
     mockActivatedRoute = {
       data: routeDataSubject.asObservable(),
       snapshot: {
@@ -84,7 +84,7 @@ describe('useRouteData', () => {
     // Update route data
     routeDataSubject.next({ role: 'admin' });
 
-    await new Promise(resolve => setTimeout(resolve, 50));
+    await new Promise((resolve) => setTimeout(resolve, 50));
     expect(component.routeData().role).toBe('admin');
   });
 
@@ -107,26 +107,26 @@ describe('useRouteData', () => {
 
   it('should support type-safe access to route data properties', () => {
     mockActivatedRoute.snapshot = {
-      data: { 
+      data: {
         role: 'admin',
         title: 'Admin Panel',
-        permissions: ['read', 'write', 'delete']
+        permissions: ['read', 'write', 'delete'],
       },
     } as any;
-    routeDataSubject.next({ 
+    routeDataSubject.next({
       role: 'admin',
       title: 'Admin Panel',
-      permissions: ['read', 'write', 'delete']
+      permissions: ['read', 'write', 'delete'],
     });
 
     @Component({
       template: '',
     })
     class TestComponent {
-      routeData = useRouteData<{ 
-        role: string; 
-        title: string; 
-        permissions: string[] 
+      routeData = useRouteData<{
+        role: string;
+        title: string;
+        permissions: string[];
       }>();
     }
 
@@ -135,7 +135,7 @@ describe('useRouteData', () => {
 
     const component = fixture.componentInstance;
     const data = component.routeData();
-    
+
     expect(data.role).toBe('admin');
     expect(data.title).toBe('Admin Panel');
     expect(data.permissions).toEqual(['read', 'write', 'delete']);
@@ -157,7 +157,7 @@ describe('useRouteData', () => {
     const fixture = TestBed.createComponent(TestComponent);
     fixture.detectChanges();
 
-    await new Promise(resolve => setTimeout(resolve, 50));
+    await new Promise((resolve) => setTimeout(resolve, 50));
     const component = fixture.componentInstance;
     expect(component.routeData()).toEqual({});
   });
@@ -178,7 +178,7 @@ describe('useRouteData', () => {
     const fixture = TestBed.createComponent(TestComponent);
     fixture.detectChanges();
 
-    await new Promise(resolve => setTimeout(resolve, 50));
+    await new Promise((resolve) => setTimeout(resolve, 50));
     const component = fixture.componentInstance;
     expect(component.routeData()).toEqual({});
   });
@@ -212,13 +212,13 @@ describe('useRouteData', () => {
         name: 'John Doe',
         preferences: {
           theme: 'dark',
-          language: 'en'
-        }
+          language: 'en',
+        },
       },
       metadata: {
         timestamp: '2025-01-01',
-        version: '1.0.0'
-      }
+        version: '1.0.0',
+      },
     };
 
     mockActivatedRoute.snapshot = {
@@ -238,7 +238,7 @@ describe('useRouteData', () => {
 
     const component = fixture.componentInstance;
     const data = component.routeData();
-    
+
     expect(data.user.name).toBe('John Doe');
     expect(data.user.preferences.theme).toBe('dark');
     expect(data.metadata.version).toBe('1.0.0');
@@ -381,7 +381,7 @@ describe('useRouteData', () => {
       routeDataSubject.next({ count: i });
     }
 
-    await new Promise(resolve => setTimeout(resolve, 100));
+    await new Promise((resolve) => setTimeout(resolve, 100));
     // Should have the last value
     expect(component.routeData().count).toBe(10);
   });
@@ -404,8 +404,7 @@ describe('useRouteData', () => {
 
     const component = fixture.componentInstance;
     const hasAdminAccess = component.routeData().role === 'admin';
-    
+
     expect(hasAdminAccess).toBe(true);
   });
 });
-

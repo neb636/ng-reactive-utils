@@ -9,9 +9,7 @@ import {
 import { Observable, of, delay } from 'rxjs';
 import { useControlPending } from './use-control-pending.composable';
 
-function asyncValidator(
-  control: AbstractControl,
-): Observable<ValidationErrors | null> {
+function asyncValidator(control: AbstractControl): Observable<ValidationErrors | null> {
   return of(null).pipe(delay(100));
 }
 

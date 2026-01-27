@@ -10,20 +10,20 @@ import { useControlDisabled } from 'ng-reactive-utils';
 @Component({
   template: `
     <input [formControl]="emailControl" />
-    
+
     @if (isDisabled()) {
       <span class="info">This field is currently disabled</span>
     }
-    
+
     <button (click)="toggleDisabled()">
       {{ isDisabled() ? 'Enable' : 'Disable' }}
     </button>
-  `
+  `,
 })
 class ToggleableInputComponent {
   emailControl = new FormControl('');
   isDisabled = useControlDisabled(this.emailControl);
-  
+
   toggleDisabled() {
     if (this.emailControl.disabled) {
       this.emailControl.enable();
@@ -43,19 +43,19 @@ import { useControlDisabled } from 'ng-reactive-utils';
   template: `
     <input [formControl]="primaryEmail" placeholder="Primary Email" />
     <input [formControl]="backupEmail" placeholder="Backup Email" />
-    
+
     @if (backupDisabled()) {
       <p class="hint">Enter primary email first</p>
     }
-  `
+  `,
 })
 class EmailFormComponent {
   primaryEmail = new FormControl('', Validators.required);
   backupEmail = new FormControl({ value: '', disabled: true });
-  
+
   primaryValue = useControlValue<string>(this.primaryEmail);
   backupDisabled = useControlDisabled(this.backupEmail);
-  
+
   constructor() {
     // Enable backup email when primary is filled
     effect(() => {
@@ -71,9 +71,9 @@ class EmailFormComponent {
 
 ## Parameters
 
-| Parameter | Type              | Default    | Description                                 |
-| --------- | ----------------- | ---------- | ------------------------------------------- |
-| `control` | `AbstractControl` | _required_ | The control to check disabled state for     |
+| Parameter | Type              | Default    | Description                             |
+| --------- | ----------------- | ---------- | --------------------------------------- |
+| `control` | `AbstractControl` | _required_ | The control to check disabled state for |
 
 ## Returns
 

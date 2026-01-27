@@ -16,9 +16,7 @@ import { Signal, effect, signal } from '@angular/core';
  * currentValue.set('world');
  * console.log(previousValue()); // 'hello'
  */
-export function usePreviousSignal<T>(
-  sourceSignal: Signal<T>,
-): Signal<T | undefined> {
+export function usePreviousSignal<T>(sourceSignal: Signal<T>): Signal<T | undefined> {
   const previousSignal = signal<T | undefined>(undefined);
   let lastValue: T | undefined = undefined;
   let isFirstRun = true;

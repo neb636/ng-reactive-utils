@@ -10,11 +10,11 @@ import { useControlUntouched } from 'ng-reactive-utils';
 @Component({
   template: `
     <input [formControl]="emailControl" />
-    
+
     @if (isUntouched()) {
       <span class="hint">Click to enter your email</span>
     }
-  `
+  `,
 })
 class EmailFieldComponent {
   emailControl = new FormControl('');
@@ -31,22 +31,15 @@ import { useControlUntouched } from 'ng-reactive-utils';
   template: `
     <div class="form-field" [class.pristine]="isUntouched()">
       <label>Password</label>
-      <input 
-        type="password" 
-        [formControl]="passwordControl" 
-      />
-      
+      <input type="password" [formControl]="passwordControl" />
+
       @if (isUntouched()) {
-        <div class="requirements">
-          Password must be at least 8 characters
-        </div>
+        <div class="requirements">Password must be at least 8 characters</div>
       } @else if (passwordControl.invalid) {
-        <div class="error">
-          Please enter a valid password
-        </div>
+        <div class="error">Please enter a valid password</div>
       }
     </div>
-  `
+  `,
 })
 class PasswordFieldComponent {
   passwordControl = new FormControl('', [Validators.minLength(8)]);
@@ -56,9 +49,9 @@ class PasswordFieldComponent {
 
 ## Parameters
 
-| Parameter | Type              | Default    | Description                                |
-| --------- | ----------------- | ---------- | ------------------------------------------ |
-| `control` | `AbstractControl` | _required_ | The control to check untouched state for   |
+| Parameter | Type              | Default    | Description                              |
+| --------- | ----------------- | ---------- | ---------------------------------------- |
+| `control` | `AbstractControl` | _required_ | The control to check untouched state for |
 
 ## Returns
 

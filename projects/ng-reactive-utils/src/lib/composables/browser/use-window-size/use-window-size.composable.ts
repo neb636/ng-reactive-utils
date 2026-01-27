@@ -32,38 +32,33 @@ export type WindowSize = {
  * const windowSize = useWindowSize(300);
  * ```
  */
-export const useWindowSize = createSharedComposable(
-  (debounceMs: number = 100) => {
-    const document = inject(DOCUMENT);
-    const platformId = inject(PLATFORM_ID);
-    const isBrowser = isPlatformBrowser(platformId);
+export const useWindowSize = createSharedComposable((debounceMs: number = 100) => {
+  const document = inject(DOCUMENT);
+  const platformId = inject(PLATFORM_ID);
+  const isBrowser = isPlatformBrowser(platformId);
 
-    const getWindowSize = (): WindowSize => ({
-      width: document.defaultView?.innerWidth ?? 0,
-      height: document.defaultView?.innerHeight ?? 0,
-    });
+  const getWindowSize = (): WindowSize => ({
+    width: document.defaultView?.innerWidth ?? 0,
+    height: document.defaultView?.innerHeight ?? 0,
+  });
 
-    const windowSizeSignal = signal<WindowSize>(getWindowSize());
-    const handleResize = () => windowSizeSignal.set(getWindowSize());
-    const debouncedHandleResize = debounce(handleResize, debounceMs);
+  const windowSizeSignal = signal<WindowSize>(getWindowSize());
+  const handleResize = () => windowSizeSignal.set(getWindowSize());
+  const debouncedHandleResize = debounce(handleResize, debounceMs);
 
-    // Only set up event listeners in the browser
-    if (isBrowser && document.defaultView) {
-      document.defaultView.addEventListener('resize', debouncedHandleResize);
-    }
+  // Only set up event listeners in the browser
+  if (isBrowser && document.defaultView) {
+    document.defaultView.addEventListener('resize', debouncedHandleResize);
+  }
 
-    // Cleanup and return readonly signal
-    return {
-      value: windowSizeSignal.asReadonly(),
-      cleanup: () => {
-        if (isBrowser && document.defaultView) {
-          document.defaultView.removeEventListener(
-            'resize',
-            debouncedHandleResize,
-          );
-        }
-        debouncedHandleResize.cancel();
-      },
-    };
-  },
-);
+  // Cleanup and return readonly signal
+  return {
+    value: windowSizeSignal.asReadonly(),
+    cleanup: () => {
+      if (isBrowser && document.defaultView) {
+        document.defaultView.removeEventListener('resize', debouncedHandleResize);
+      }
+      debouncedHandleResize.cancel();
+    },
+  };
+});

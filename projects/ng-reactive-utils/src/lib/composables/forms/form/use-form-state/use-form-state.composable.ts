@@ -68,9 +68,7 @@ export interface FormState<T> {
  * }
  * ```
  */
-export const useFormState = <T extends object>(
-  form: FormGroup,
-): FormState<T> => {
+export const useFormState = <T extends object>(form: FormGroup): FormState<T> => {
   const valid = useFormValid(form);
   const disabled = useFormDisabled(form);
 

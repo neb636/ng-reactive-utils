@@ -22,7 +22,7 @@ describe('usePreviousSignal', () => {
     fixture.detectChanges();
 
     const component = fixture.componentInstance;
-    
+
     // Documentation states: "The previous signal starts with `undefined` on first read"
     expect(component.previousValue()).toBeUndefined();
   });
@@ -627,7 +627,7 @@ describe('usePreviousSignal', () => {
       previousCount = usePreviousSignal(this.count);
 
       increment() {
-        this.count.update(v => v + 1);
+        this.count.update((v) => v + 1);
       }
     }
 
@@ -801,4 +801,3 @@ describe('usePreviousSignal', () => {
     expect(component.previousValue()).toBe('hello');
   });
 });
-

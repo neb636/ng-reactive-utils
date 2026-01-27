@@ -29,10 +29,7 @@ import { useDebouncedSignal } from 'ng-reactive-utils';
 @Component({
   selector: 'search-box',
   template: `
-    <input
-      [value]="searchTerm()"
-      (input)="searchTerm.set($any($event.target).value)"
-    />
+    <input [value]="searchTerm()" (input)="searchTerm.set($any($event.target).value)" />
     <p>Debounced: {{ debouncedSearch() }}</p>
   `,
 })
@@ -138,10 +135,7 @@ export class FilterableListComponent {
 - **`createSharedComposable`** - Convert composables to singleton instances
 
 ```typescript
-import {
-  createSharedComposable,
-  useWindowSize,
-} from 'ng-reactive-utils';
+import { createSharedComposable, useWindowSize } from 'ng-reactive-utils';
 
 // Create a shared version that returns the same instance
 export const useSharedWindowSize = createSharedComposable(useWindowSize);

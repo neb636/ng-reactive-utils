@@ -1,12 +1,4 @@
-import {
-  signal,
-  inject,
-  PLATFORM_ID,
-  effect,
-  DestroyRef,
-  Signal,
-  ElementRef,
-} from '@angular/core';
+import { signal, inject, PLATFORM_ID, effect, DestroyRef, Signal, ElementRef } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import throttle from 'lodash-es/throttle';
 
@@ -115,10 +107,7 @@ export function useElementBounding(
 
   const updateBounding = () => {
     const elementOrRef = elementSignal();
-    const element =
-      elementOrRef instanceof ElementRef
-        ? elementOrRef.nativeElement
-        : elementOrRef;
+    const element = elementOrRef instanceof ElementRef ? elementOrRef.nativeElement : elementOrRef;
 
     if (!element || !isBrowser) {
       boundingSignal.update((prev) => ({ ...defaultBounding, update: prev.update }));
@@ -152,9 +141,7 @@ export function useElementBounding(
     effect(() => {
       const elementOrRef = elementSignal();
       const element =
-        elementOrRef instanceof ElementRef
-          ? elementOrRef.nativeElement
-          : elementOrRef;
+        elementOrRef instanceof ElementRef ? elementOrRef.nativeElement : elementOrRef;
 
       // Clean up previous observer
       if (resizeObserver) {
@@ -216,4 +203,3 @@ export function useElementBounding(
 
   return boundingSignal.asReadonly();
 }
-

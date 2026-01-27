@@ -23,9 +23,7 @@ class ResponsiveComponent {
 
 ```typescript
 @Component({
-  template: `<p>
-    Window: {{ windowSize().width }}px × {{ windowSize().height }}px
-  </p>`,
+  template: `<p>Window: {{ windowSize().width }}px × {{ windowSize().height }}px</p>`,
 })
 class SlowDebounceComponent {
   // Use a longer debounce for less frequent updates

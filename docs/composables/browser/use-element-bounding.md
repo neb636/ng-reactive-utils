@@ -88,9 +88,7 @@ class SwitchableElementComponent {
 
   switchElement() {
     const current = this.currentElement();
-    const newElement = current === this.div1Ref() 
-      ? this.div2Ref() 
-      : this.div1Ref();
+    const newElement = current === this.div1Ref() ? this.div2Ref() : this.div1Ref();
     this.currentElement.set(newElement!);
   }
 }
@@ -100,11 +98,7 @@ class SwitchableElementComponent {
 
 ```typescript
 @Component({
-  template: `
-    <header #header [class.stuck]="isStuck()">
-      Sticky Header
-    </header>
-  `,
+  template: ` <header #header [class.stuck]="isStuck()">Sticky Header</header> `,
 })
 class StickyHeaderComponent {
   headerRef = viewChild<ElementRef>('header');
@@ -135,12 +129,7 @@ class OverlapDetectionComponent {
     const b1 = this.box1Bounding();
     const b2 = this.box2Bounding();
 
-    return !(
-      b1.right < b2.left ||
-      b1.left > b2.right ||
-      b1.bottom < b2.top ||
-      b1.top > b2.bottom
-    );
+    return !(b1.right < b2.left || b1.left > b2.right || b1.bottom < b2.top || b1.top > b2.bottom);
   });
 }
 ```
@@ -160,30 +149,25 @@ class ViewportVisibilityComponent {
 
   isInViewport = computed(() => {
     const { top, bottom, left, right } = this.bounding();
-    return (
-      top >= 0 &&
-      left >= 0 &&
-      bottom <= window.innerHeight &&
-      right <= window.innerWidth
-    );
+    return top >= 0 && left >= 0 && bottom <= window.innerHeight && right <= window.innerWidth;
   });
 }
 ```
 
 ## Parameters
 
-| Parameter       | Type                                                | Description                                          |
-| --------------- | --------------------------------------------------- | ---------------------------------------------------- |
+| Parameter       | Type                                                 | Description                                          |
+| --------------- | ---------------------------------------------------- | ---------------------------------------------------- |
 | `elementSignal` | `Signal<Element \| ElementRef \| null \| undefined>` | Signal containing the element or ElementRef to track |
-| `config`        | `object`                                            | Optional configuration object                        |
+| `config`        | `object`                                             | Optional configuration object                        |
 
 ### Configuration Object
 
-| Property        | Type      | Default | Description                                      |
-| --------------- | --------- | ------- | ------------------------------------------------ |
-| `throttleMs`    | `number`  | `100`   | Throttle delay for scroll/resize events (ms)     |
-| `windowResize`  | `boolean` | `true`  | Whether to update on window resize               |
-| `windowScroll`  | `boolean` | `true`  | Whether to update on window scroll               |
+| Property       | Type      | Default | Description                                  |
+| -------------- | --------- | ------- | -------------------------------------------- |
+| `throttleMs`   | `number`  | `100`   | Throttle delay for scroll/resize events (ms) |
+| `windowResize` | `boolean` | `true`  | Whether to update on window resize           |
+| `windowScroll` | `boolean` | `true`  | Whether to update on window scroll           |
 
 ## Returns
 
@@ -193,16 +177,16 @@ class ViewportVisibilityComponent {
 
 ```typescript
 type ElementBounding = {
-  x: number;        // X position relative to viewport (same as left)
-  y: number;        // Y position relative to viewport (same as top)
-  top: number;      // Distance from top of viewport
-  right: number;    // Distance from right of viewport
-  bottom: number;   // Distance from bottom of viewport
-  left: number;     // Distance from left of viewport
-  width: number;    // Width of the element
-  height: number;   // Height of the element
+  x: number; // X position relative to viewport (same as left)
+  y: number; // Y position relative to viewport (same as top)
+  top: number; // Distance from top of viewport
+  right: number; // Distance from right of viewport
+  bottom: number; // Distance from bottom of viewport
+  left: number; // Distance from left of viewport
+  width: number; // Width of the element
+  height: number; // Height of the element
   update: () => void; // Force an immediate update
-}
+};
 ```
 
 ## Notes

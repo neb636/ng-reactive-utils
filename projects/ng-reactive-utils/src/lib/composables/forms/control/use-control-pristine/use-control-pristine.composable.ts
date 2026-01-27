@@ -27,9 +27,7 @@ import { map } from 'rxjs';
  * }
  * ```
  */
-export const useControlPristine = (
-  control: AbstractControl,
-): Signal<boolean> => {
+export const useControlPristine = (control: AbstractControl): Signal<boolean> => {
   return toSignal(control.valueChanges.pipe(map(() => control.pristine)), {
     initialValue: control.pristine,
   }) as Signal<boolean>;

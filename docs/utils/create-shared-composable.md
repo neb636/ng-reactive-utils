@@ -61,9 +61,7 @@ const useWindowSize = createSharedComposable((debounceMs = 100) => {
 });
 
 @Component({
-  template: `
-    <h1>Window: {{ windowSize().width }}px × {{ windowSize().height }}px</h1>
-  `,
+  template: ` <h1>Window: {{ windowSize().width }}px × {{ windowSize().height }}px</h1> `,
 })
 class ResponsiveComponent {
   windowSize = useWindowSize(200);

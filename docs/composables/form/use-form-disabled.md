@@ -11,24 +11,22 @@ import { useFormDisabled } from 'ng-reactive-utils';
   template: `
     <form [formGroup]="form">
       <input formControlName="email" />
-      
+
       @if (isDisabled()) {
         <p class="info">Form is currently disabled</p>
       }
     </form>
-    
-    <button (click)="toggleForm()">
-      {{ isDisabled() ? 'Enable' : 'Disable' }} Form
-    </button>
-  `
+
+    <button (click)="toggleForm()">{{ isDisabled() ? 'Enable' : 'Disable' }} Form</button>
+  `,
 })
 class EditableFormComponent {
   form = new FormGroup({
-    email: new FormControl('')
+    email: new FormControl(''),
   });
-  
+
   isDisabled = useFormDisabled(this.form);
-  
+
   toggleForm() {
     if (this.form.disabled) {
       this.form.enable();

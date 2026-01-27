@@ -23,9 +23,9 @@ class SearchComponent {
 
 ## Parameters
 
-| Parameter   | Type     | Default    | Description                          |
-| ----------- | -------- | ---------- | ------------------------------------ |
-| `paramName` | `string` | _required_ | The name of the query parameter      |
+| Parameter   | Type     | Default    | Description                     |
+| ----------- | -------- | ---------- | ------------------------------- |
+| `paramName` | `string` | _required_ | The name of the query parameter |
 
 ## Returns
 

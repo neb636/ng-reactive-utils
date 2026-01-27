@@ -8,9 +8,7 @@ Creates signals that track the mouse position (x and y coordinates). The signals
 import { useMousePosition } from 'ng-reactive-utils';
 
 @Component({
-  template: `<div>
-    Mouse: {{ mousePosition().x }}, {{ mousePosition().y }}
-  </div>`,
+  template: `<div>Mouse: {{ mousePosition().x }}, {{ mousePosition().y }}</div>`,
 })
 class CursorTrackerComponent {
   mousePosition = useMousePosition();
@@ -21,9 +19,7 @@ class CursorTrackerComponent {
 
 ```typescript
 @Component({
-  template: `<div>
-    Mouse: {{ mousePosition().x }}, {{ mousePosition().y }}
-  </div>`,
+  template: `<div>Mouse: {{ mousePosition().x }}, {{ mousePosition().y }}</div>`,
 })
 class SmoothCursorComponent {
   // Use a longer throttle for smoother updates

@@ -147,10 +147,7 @@ describe('useControlErrors', () => {
       template: '',
     })
     class TestComponent {
-      control = new FormControl('', [
-        Validators.required,
-        Validators.minLength(3),
-      ]);
+      control = new FormControl('', [Validators.required, Validators.minLength(3)]);
       errors = useControlErrors(this.control);
     }
 

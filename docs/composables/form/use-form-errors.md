@@ -12,31 +12,34 @@ import { useFormErrors } from 'ng-reactive-utils';
     <form [formGroup]="form">
       <input formControlName="password" type="password" placeholder="Password" />
       <input formControlName="confirmPassword" type="password" placeholder="Confirm Password" />
-      
+
       @if (formErrors()?.['passwordMismatch']) {
         <span class="error">Passwords do not match</span>
       }
-      
+
       @if (formErrors()?.['weakPassword']) {
         <span class="error">Password is too weak</span>
       }
     </form>
-  `
+  `,
 })
 class PasswordFormComponent {
-  form = new FormGroup({
-    password: new FormControl(''),
-    confirmPassword: new FormControl('')
-  }, { validators: [this.passwordMatchValidator, this.passwordStrengthValidator] });
-  
+  form = new FormGroup(
+    {
+      password: new FormControl(''),
+      confirmPassword: new FormControl(''),
+    },
+    { validators: [this.passwordMatchValidator, this.passwordStrengthValidator] },
+  );
+
   formErrors = useFormErrors(this.form);
-  
+
   passwordMatchValidator(group: FormGroup): ValidationErrors | null {
     const password = group.get('password')?.value;
     const confirm = group.get('confirmPassword')?.value;
     return password === confirm ? null : { passwordMismatch: true };
   }
-  
+
   passwordStrengthValidator(group: FormGroup): ValidationErrors | null {
     const password = group.get('password')?.value;
     return password.length >= 8 ? null : { weakPassword: true };
@@ -46,9 +49,9 @@ class PasswordFormComponent {
 
 ## Parameters
 
-| Parameter | Type        | Default    | Description                       |
-| --------- | ----------- | ---------- | --------------------------------- |
-| `form`    | `FormGroup` | _required_ | The FormGroup to get errors from  |
+| Parameter | Type        | Default    | Description                      |
+| --------- | ----------- | ---------- | -------------------------------- |
+| `form`    | `FormGroup` | _required_ | The FormGroup to get errors from |
 
 ## Returns
 

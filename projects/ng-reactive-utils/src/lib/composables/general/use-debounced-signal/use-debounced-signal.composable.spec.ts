@@ -64,8 +64,8 @@ describe('useDebouncedSignal', () => {
     expect(component.debouncedSignal()).toBe('initial');
 
     // Should update after default 300ms delay + buffer
-    await new Promise(resolve => setTimeout(resolve, 350));
-    
+    await new Promise((resolve) => setTimeout(resolve, 350));
+
     expect(component.debouncedSignal()).toBe('updated');
   });
 
@@ -87,13 +87,13 @@ describe('useDebouncedSignal', () => {
     component.sourceSignal.set('updated');
 
     // Should not update before delay
-    await new Promise(resolve => setTimeout(resolve, 300));
-    
+    await new Promise((resolve) => setTimeout(resolve, 300));
+
     expect(component.debouncedSignal()).toBe('initial');
 
     // Should update after custom 500ms delay + buffer
-    await new Promise(resolve => setTimeout(resolve, 250));
-    
+    await new Promise((resolve) => setTimeout(resolve, 250));
+
     expect(component.debouncedSignal()).toBe('updated');
   });
 
@@ -120,8 +120,8 @@ describe('useDebouncedSignal', () => {
     expect(component.debouncedSignal()).toBe(0);
 
     // Should only emit the last value (10) after debounce delay
-    await new Promise(resolve => setTimeout(resolve, 250));
-    
+    await new Promise((resolve) => setTimeout(resolve, 250));
+
     expect(component.debouncedSignal()).toBe(10);
   });
 
@@ -143,20 +143,20 @@ describe('useDebouncedSignal', () => {
     component.sourceSignal.set('first');
 
     // Wait 150ms (not enough for debounce to trigger)
-    await new Promise(resolve => setTimeout(resolve, 150));
-    
+    await new Promise((resolve) => setTimeout(resolve, 150));
+
     // Second update - should reset the timer
     component.sourceSignal.set('second');
 
     // Wait another 150ms (total 300ms from first update, but only 150ms from second)
-    await new Promise(resolve => setTimeout(resolve, 150));
-    
+    await new Promise((resolve) => setTimeout(resolve, 150));
+
     // Should still have initial value because timer was reset
     expect(component.debouncedSignal()).toBe('initial');
 
     // Wait for second update's debounce to complete
-    await new Promise(resolve => setTimeout(resolve, 100));
-    
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
     expect(component.debouncedSignal()).toBe('second');
   });
 
@@ -176,8 +176,8 @@ describe('useDebouncedSignal', () => {
 
     component.sourceSignal.set('world');
 
-    await new Promise(resolve => setTimeout(resolve, 150));
-    
+    await new Promise((resolve) => setTimeout(resolve, 150));
+
     expect(component.debouncedSignal()).toBe('world');
   });
 
@@ -197,8 +197,8 @@ describe('useDebouncedSignal', () => {
 
     component.sourceSignal.set(100);
 
-    await new Promise(resolve => setTimeout(resolve, 150));
-    
+    await new Promise((resolve) => setTimeout(resolve, 150));
+
     expect(component.debouncedSignal()).toBe(100);
   });
 
@@ -219,8 +219,8 @@ describe('useDebouncedSignal', () => {
     const newValue = { name: 'Jane', age: 25 };
     component.sourceSignal.set(newValue);
 
-    await new Promise(resolve => setTimeout(resolve, 150));
-    
+    await new Promise((resolve) => setTimeout(resolve, 150));
+
     expect(component.debouncedSignal()).toEqual(newValue);
   });
 
@@ -241,8 +241,8 @@ describe('useDebouncedSignal', () => {
     const newValue = [4, 5, 6];
     component.sourceSignal.set(newValue);
 
-    await new Promise(resolve => setTimeout(resolve, 150));
-    
+    await new Promise((resolve) => setTimeout(resolve, 150));
+
     expect(component.debouncedSignal()).toEqual(newValue);
   });
 
@@ -262,8 +262,8 @@ describe('useDebouncedSignal', () => {
 
     component.sourceSignal.set(false);
 
-    await new Promise(resolve => setTimeout(resolve, 150));
-    
+    await new Promise((resolve) => setTimeout(resolve, 150));
+
     expect(component.debouncedSignal()).toBe(false);
   });
 
@@ -283,14 +283,14 @@ describe('useDebouncedSignal', () => {
 
     component.sourceSignal.set(null);
 
-    await new Promise(resolve => setTimeout(resolve, 150));
-    
+    await new Promise((resolve) => setTimeout(resolve, 150));
+
     expect(component.debouncedSignal()).toBe(null);
 
     component.sourceSignal.set(undefined);
 
-    await new Promise(resolve => setTimeout(resolve, 150));
-    
+    await new Promise((resolve) => setTimeout(resolve, 150));
+
     expect(component.debouncedSignal()).toBe(undefined);
   });
 
@@ -311,8 +311,8 @@ describe('useDebouncedSignal', () => {
     component.sourceSignal.set('updated');
 
     // With 0ms delay, should update very quickly
-    await new Promise(resolve => setTimeout(resolve, 50));
-    
+    await new Promise((resolve) => setTimeout(resolve, 50));
+
     expect(component.debouncedSignal()).toBe('updated');
   });
 
@@ -358,13 +358,13 @@ describe('useDebouncedSignal', () => {
     setTimeout(() => component.sourceSignal.set('update4'), 150);
 
     // Should still have initial value during rapid updates
-    await new Promise(resolve => setTimeout(resolve, 180));
-    
+    await new Promise((resolve) => setTimeout(resolve, 180));
+
     expect(component.debouncedSignal()).toBe('initial');
 
     // After quiet period, should have the last value
-    await new Promise(resolve => setTimeout(resolve, 220));
-    
+    await new Promise((resolve) => setTimeout(resolve, 220));
+
     expect(component.debouncedSignal()).toBe('update4');
   });
 
@@ -386,14 +386,14 @@ describe('useDebouncedSignal', () => {
     component.sourceSignal.set('updated');
 
     // First debounced signal should update after 100ms
-    await new Promise(resolve => setTimeout(resolve, 150));
-    
+    await new Promise((resolve) => setTimeout(resolve, 150));
+
     expect(component.debouncedSignal1()).toBe('updated');
     expect(component.debouncedSignal2()).toBe('initial'); // Not updated yet
 
     // Second debounced signal should update after 200ms
-    await new Promise(resolve => setTimeout(resolve, 100));
-    
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
     expect(component.debouncedSignal1()).toBe('updated');
     expect(component.debouncedSignal2()).toBe('updated');
   });
@@ -431,8 +431,8 @@ describe('useDebouncedSignal', () => {
     expect(debouncedDiv.textContent.trim()).toBe('Debounced: initial');
 
     // After debounce delay, both should show 'updated'
-    await new Promise(resolve => setTimeout(resolve, 250));
-    
+    await new Promise((resolve) => setTimeout(resolve, 250));
+
     fixture.detectChanges();
     expect(sourceDiv.textContent.trim()).toBe('Source: updated');
     expect(debouncedDiv.textContent.trim()).toBe('Debounced: updated');
@@ -458,8 +458,8 @@ describe('useDebouncedSignal', () => {
     component.sourceSignal.set(3);
 
     // Wait for first debounce
-    await new Promise(resolve => setTimeout(resolve, 200));
-    
+    await new Promise((resolve) => setTimeout(resolve, 200));
+
     expect(component.debouncedSignal()).toBe(3);
 
     // Second burst of updates
@@ -467,8 +467,8 @@ describe('useDebouncedSignal', () => {
     component.sourceSignal.set(5);
 
     // Wait for second debounce
-    await new Promise(resolve => setTimeout(resolve, 200));
-    
+    await new Promise((resolve) => setTimeout(resolve, 200));
+
     expect(component.debouncedSignal()).toBe(5);
   });
 
@@ -503,8 +503,8 @@ describe('useDebouncedSignal', () => {
     // Update only component1's signal
     component1.sourceSignal.set('updated1');
 
-    await new Promise(resolve => setTimeout(resolve, 150));
-    
+    await new Promise((resolve) => setTimeout(resolve, 150));
+
     // Component1 should update, component2 should not
     expect(component1.debouncedSignal()).toBe('updated1');
     expect(component2.debouncedSignal()).toBe('component2');
@@ -527,13 +527,13 @@ describe('useDebouncedSignal', () => {
     component.sourceSignal.set('updated');
 
     // Should not update before delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
     expect(component.debouncedSignal()).toBe('initial');
 
     // Should update after long delay
-    await new Promise(resolve => setTimeout(resolve, 550));
-    
+    await new Promise((resolve) => setTimeout(resolve, 550));
+
     expect(component.debouncedSignal()).toBe('updated');
   });
 
@@ -553,8 +553,8 @@ describe('useDebouncedSignal', () => {
 
     component.sourceSignal.set('');
 
-    await new Promise(resolve => setTimeout(resolve, 150));
-    
+    await new Promise((resolve) => setTimeout(resolve, 150));
+
     expect(component.debouncedSignal()).toBe('');
   });
 
@@ -574,7 +574,7 @@ describe('useDebouncedSignal', () => {
         const interval = setInterval(() => {
           debouncedSignal(); // Access signal to check value
         }, 100);
-        
+
         setTimeout(() => clearInterval(interval), 2000);
       }
     }
@@ -594,16 +594,13 @@ describe('useDebouncedSignal', () => {
     setTimeout(() => component.searchInputText.set('angular'), 300);
 
     // During typing, debounced value should not update
-    await new Promise(resolve => setTimeout(resolve, 400));
-    
+    await new Promise((resolve) => setTimeout(resolve, 400));
+
     expect(component.debouncedSearchInputText()).toBe('');
 
     // After user stops typing (500ms after last keystroke), should update
-    await new Promise(resolve => setTimeout(resolve, 450));
-    
+    await new Promise((resolve) => setTimeout(resolve, 450));
+
     expect(component.debouncedSearchInputText()).toBe('angular');
   });
 });
-
-
-

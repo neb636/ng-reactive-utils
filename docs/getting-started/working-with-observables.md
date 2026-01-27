@@ -10,14 +10,14 @@ When working with Angular's reactive forms or router, you're dealing with observ
 
 ```typescript
 // Reactive Forms
-form.valueChanges        // Observable<T>
-form.statusChanges       // Observable<FormControlStatus>
-form.valid              // boolean (not reactive)
+form.valueChanges; // Observable<T>
+form.statusChanges; // Observable<FormControlStatus>
+form.valid; // boolean (not reactive)
 
 // Router
-route.params            // Observable<Params>
-route.queryParams       // Observable<Params>
-route.data              // Observable<Data>
+route.params; // Observable<Params>
+route.queryParams; // Observable<Params>
+route.data; // Observable<Data>
 ```
 
 To use these in signal-based code, you'd typically write:
@@ -28,25 +28,26 @@ import { toSignal } from '@angular/core/rxjs-interop';
 @Component({...})
 class MyComponent {
   private route = inject(ActivatedRoute);
-  
+
   // Repetitive toSignal calls everywhere
   userId = toSignal(this.route.params.pipe(
     map(params => params['id'])
   ), { initialValue: this.route.snapshot.params['id'] });
-  
+
   formValue = toSignal(this.form.valueChanges, {
     initialValue: this.form.value
   });
-  
+
   formValid = toSignal(this.form.statusChanges.pipe(
     map(() => this.form.valid)
   ), { initialValue: this.form.valid });
-  
+
   // ... and so on for every property you need
 }
 ```
 
 This approach has several issues:
+
 - **Repetitive**: You write `toSignal()` with proper initial values everywhere
 - **Error-prone**: Easy to forget initial values or use wrong observables
 - **Verbose**: Lots of boilerplate for simple conversions
@@ -63,14 +64,14 @@ Instead of manually converting each observable:
 ```typescript
 // ❌ Before: Manual toSignal calls
 formValue = toSignal(this.form.valueChanges, {
-  initialValue: this.form.value
+  initialValue: this.form.value,
 });
-formValid = toSignal(this.form.statusChanges.pipe(
-  map(() => this.form.valid)
-), { initialValue: this.form.valid });
-formDirty = toSignal(this.form.statusChanges.pipe(
-  map(() => this.form.dirty)
-), { initialValue: this.form.dirty });
+formValid = toSignal(this.form.statusChanges.pipe(map(() => this.form.valid)), {
+  initialValue: this.form.valid,
+});
+formDirty = toSignal(this.form.statusChanges.pipe(map(() => this.form.dirty)), {
+  initialValue: this.form.dirty,
+});
 ```
 
 Use the form composables:
@@ -94,31 +95,29 @@ For comprehensive form state, use `useFormState()` to get all properties at once
   template: `
     <form [formGroup]="form">
       <input formControlName="email" />
-      <button [disabled]="!isValid() || isPending()">
-        Submit
-      </button>
+      <button [disabled]="!isValid() || isPending()">Submit</button>
       @if (isDirty()) {
         <span>You have unsaved changes</span>
       }
     </form>
-  `
+  `,
 })
 class UserFormComponent {
   form = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email])
+    email: new FormControl('', [Validators.required, Validators.email]),
   });
-  
-  isValid = toSignal(this.form.statusChanges.pipe(
-    map(() => this.form.valid)
-  ), { initialValue: this.form.valid });
-  
-  isPending = toSignal(this.form.statusChanges.pipe(
-    map(() => this.form.status === 'PENDING')
-  ), { initialValue: this.form.status === 'PENDING' });
-  
-  isDirty = toSignal(this.form.statusChanges.pipe(
-    map(() => this.form.dirty)
-  ), { initialValue: this.form.dirty });
+
+  isValid = toSignal(this.form.statusChanges.pipe(map(() => this.form.valid)), {
+    initialValue: this.form.valid,
+  });
+
+  isPending = toSignal(this.form.statusChanges.pipe(map(() => this.form.status === 'PENDING')), {
+    initialValue: this.form.status === 'PENDING',
+  });
+
+  isDirty = toSignal(this.form.statusChanges.pipe(map(() => this.form.dirty)), {
+    initialValue: this.form.dirty,
+  });
 }
 ```
 
@@ -130,20 +129,18 @@ import { useFormState } from 'ng-reactive-utils';
   template: `
     <form [formGroup]="form">
       <input formControlName="email" />
-      <button [disabled]="!formState.valid() || formState.pending()">
-        Submit
-      </button>
+      <button [disabled]="!formState.valid() || formState.pending()">Submit</button>
       @if (formState.dirty()) {
         <span>You have unsaved changes</span>
       }
     </form>
-  `
+  `,
 })
 class UserFormComponent {
   form = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email])
+    email: new FormControl('', [Validators.required, Validators.email]),
   });
-  
+
   formState = useFormState<{ email: string }>(this.form);
 }
 ```
@@ -161,7 +158,7 @@ import { useControlState } from 'ng-reactive-utils';
     @if (emailState.invalid() && emailState.touched()) {
       <span class="error">Please enter a valid email</span>
     }
-  `
+  `,
 })
 class MyComponent {
   emailControl = new FormControl('', [Validators.required, Validators.email]);
@@ -183,7 +180,7 @@ import { map } from 'rxjs';
 @Component({...})
 class UserProfileComponent {
   private route = inject(ActivatedRoute);
-  
+
   userId = toSignal(
     this.route.params.pipe(map(params => params['id'])),
     { initialValue: this.route.snapshot.params['id'] }
@@ -196,7 +193,7 @@ class UserProfileComponent {
 import { useRouteParam } from 'ng-reactive-utils';
 
 @Component({
-  template: `<h1>User: {{ userId() }}</h1>`
+  template: `<h1>User: {{ userId() }}</h1>`,
 })
 class UserProfileComponent {
   userId = useRouteParam('id');
@@ -210,12 +207,12 @@ class UserProfileComponent {
 @Component({...})
 class PostDetailComponent {
   private route = inject(ActivatedRoute);
-  
+
   userId = toSignal(
     this.route.params.pipe(map(params => params['userId'])),
     { initialValue: this.route.snapshot.params['userId'] }
   );
-  
+
   postId = toSignal(
     this.route.params.pipe(map(params => params['postId'])),
     { initialValue: this.route.snapshot.params['postId'] }
@@ -228,9 +225,7 @@ class PostDetailComponent {
 import { useRouteParams } from 'ng-reactive-utils';
 
 @Component({
-  template: `
-    <h1>User {{ params().userId }} - Post {{ params().postId }}</h1>
-  `
+  template: ` <h1>User {{ params().userId }} - Post {{ params().postId }}</h1> `,
 })
 class PostDetailComponent {
   params = useRouteParams<{ userId: string; postId: string }>();
@@ -244,12 +239,12 @@ class PostDetailComponent {
 @Component({...})
 class SearchComponent {
   private route = inject(ActivatedRoute);
-  
+
   searchTerm = toSignal(
     this.route.queryParams.pipe(map(params => params['q'])),
     { initialValue: this.route.snapshot.queryParams['q'] }
   );
-  
+
   page = toSignal(
     this.route.queryParams.pipe(map(params => +params['page'] || 1)),
     { initialValue: +(this.route.snapshot.queryParams['page'] || 1) }
@@ -275,7 +270,7 @@ class SearchComponent {
 @Component({...})
 class ProductComponent {
   private route = inject(ActivatedRoute);
-  
+
   product = toSignal(
     this.route.data.pipe(map(data => data['product'])),
     { initialValue: this.route.snapshot.data['product'] }
@@ -302,11 +297,7 @@ Here's a real-world example combining both form and route utilities:
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import {
-  useFormState,
-  useRouteQueryParam,
-  syncQueryParams,
-} from 'ng-reactive-utils';
+import { useFormState, useRouteQueryParam, syncQueryParams } from 'ng-reactive-utils';
 
 interface SearchForm {
   query: string;
@@ -323,16 +314,14 @@ interface SearchForm {
         <option value="books">Books</option>
         <option value="movies">Movies</option>
       </select>
-      
+
       @if (formState.invalid() && formState.touched()) {
         <span class="error">Please enter a search query</span>
       }
-      
-      <button [disabled]="formState.invalid() || formState.pending()">
-        Search
-      </button>
+
+      <button [disabled]="formState.invalid() || formState.pending()">Search</button>
     </form>
-    
+
     <div>
       <h2>Results for: {{ queryParam() || 'all' }}</h2>
       <!-- Results here -->
@@ -341,7 +330,7 @@ interface SearchForm {
 })
 export class SearchComponent {
   private router = inject(Router);
-  
+
   form = new FormGroup<{
     query: FormControl<string>;
     category: FormControl<string>;
@@ -349,10 +338,10 @@ export class SearchComponent {
     query: new FormControl('', Validators.required),
     category: new FormControl(''),
   });
-  
+
   formState = useFormState<SearchForm>(this.form);
   queryParam = useRouteQueryParam('q');
-  
+
   constructor() {
     // Sync form with URL query params
     syncQueryParams({

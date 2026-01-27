@@ -5,6 +5,7 @@ Please perform a thorough review of this NG Reactive Utils library with the foll
 ## 1. Documentation Accuracy & Drift Detection
 
 For each public API in `/projects/ng-reactive-utils/src`:
+
 - Compare method signatures, parameters, return types, and behavior between `/docs` and actual implementation
 - Flag any mismatches in:
   - Parameter names, types, or defaults
@@ -25,11 +26,12 @@ For each public API in `/projects/ng-reactive-utils/src`:
 - **Composition**: Check if APIs compose well together
 - **Consistency with Angular patterns**: Ensure alignment with Angular best practices
 
-
 ## Output Format
+
 Publish to: `reports/library-review-${date}.md` - (04-20-2026)
 
 For each section, provide:
+
 1. **Summary**: Brief overview of findings
 2. **Issues Found**: Specific problems with severity (Critical/High/Medium/Low)
 3. **Recommendations**: Actionable steps to resolve issues

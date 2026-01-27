@@ -29,38 +29,30 @@ export type MousePosition = { x: number; y: number };
  * const mousePosition = useMousePosition(200);
  * ```
  */
-export const useMousePosition = createSharedComposable(
-  (throttleMs: number = 100) => {
-    const document = inject(DOCUMENT);
-    const platformId = inject(PLATFORM_ID);
-    const isBrowser = isPlatformBrowser(platformId);
-    const mousePosition = signal<MousePosition>({ x: 0, y: 0 });
+export const useMousePosition = createSharedComposable((throttleMs: number = 100) => {
+  const document = inject(DOCUMENT);
+  const platformId = inject(PLATFORM_ID);
+  const isBrowser = isPlatformBrowser(platformId);
+  const mousePosition = signal<MousePosition>({ x: 0, y: 0 });
 
-    const updatePosition = (event: MouseEvent) => {
-      mousePosition.set({ x: event.clientX, y: event.clientY });
-    };
+  const updatePosition = (event: MouseEvent) => {
+    mousePosition.set({ x: event.clientX, y: event.clientY });
+  };
 
-    const throttledUpdatePosition = throttle(updatePosition, throttleMs);
+  const throttledUpdatePosition = throttle(updatePosition, throttleMs);
 
-    // Only set up event listeners in the browser
-    if (isBrowser && document.defaultView) {
-      document.defaultView.addEventListener(
-        'mousemove',
-        throttledUpdatePosition,
-      );
-    }
+  // Only set up event listeners in the browser
+  if (isBrowser && document.defaultView) {
+    document.defaultView.addEventListener('mousemove', throttledUpdatePosition);
+  }
 
-    return {
-      value: mousePosition.asReadonly(),
-      cleanup: () => {
-        throttledUpdatePosition.cancel();
-        if (isBrowser && document.defaultView) {
-          document.defaultView.removeEventListener(
-            'mousemove',
-            throttledUpdatePosition,
-          );
-        }
-      },
-    };
-  },
-);
+  return {
+    value: mousePosition.asReadonly(),
+    cleanup: () => {
+      throttledUpdatePosition.cancel();
+      if (isBrowser && document.defaultView) {
+        document.defaultView.removeEventListener('mousemove', throttledUpdatePosition);
+      }
+    },
+  };
+});

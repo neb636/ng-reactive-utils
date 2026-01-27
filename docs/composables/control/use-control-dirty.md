@@ -10,11 +10,11 @@ import { useControlDirty } from 'ng-reactive-utils';
 @Component({
   template: `
     <input [formControl]="nameControl" />
-    
+
     @if (isDirty()) {
       <span class="modified-indicator">*</span>
     }
-  `
+  `,
 })
 class EditableFieldComponent {
   nameControl = new FormControl('');
@@ -31,29 +31,29 @@ import { useControlDirty } from 'ng-reactive-utils';
   template: `
     <input [formControl]="titleControl" />
     <textarea [formControl]="contentControl"></textarea>
-    
+
     @if (hasChanges()) {
       <button (click)="save()">Save Changes</button>
       <button (click)="revert()">Discard</button>
     }
-  `
+  `,
 })
 class DocumentEditorComponent {
   titleControl = new FormControl('');
   contentControl = new FormControl('');
-  
+
   titleDirty = useControlDirty(this.titleControl);
   contentDirty = useControlDirty(this.contentControl);
-  
+
   hasChanges = computed(() => this.titleDirty() || this.contentDirty());
 }
 ```
 
 ## Parameters
 
-| Parameter | Type              | Default    | Description                              |
-| --------- | ----------------- | ---------- | ---------------------------------------- |
-| `control` | `AbstractControl` | _required_ | The control to check dirty state for     |
+| Parameter | Type              | Default    | Description                          |
+| --------- | ----------------- | ---------- | ------------------------------------ |
+| `control` | `AbstractControl` | _required_ | The control to check dirty state for |
 
 ## Returns
 

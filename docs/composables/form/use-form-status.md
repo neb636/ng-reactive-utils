@@ -11,11 +11,9 @@ import { useFormStatus } from 'ng-reactive-utils';
   template: `
     <form [formGroup]="form">
       <input formControlName="email" />
-      
-      <div [class]="'status-' + formStatus().toLowerCase()">
-        Status: {{ formStatus() }}
-      </div>
-      
+
+      <div [class]="'status-' + formStatus().toLowerCase()">Status: {{ formStatus() }}</div>
+
       @switch (formStatus()) {
         @case ('VALID') {
           <button type="submit">Submit</button>
@@ -33,17 +31,25 @@ import { useFormStatus } from 'ng-reactive-utils';
     </form>
   `,
   styles: `
-    .status-valid { color: green; }
-    .status-invalid { color: red; }
-    .status-pending { color: orange; }
-    .status-disabled { color: gray; }
-  `
+    .status-valid {
+      color: green;
+    }
+    .status-invalid {
+      color: red;
+    }
+    .status-pending {
+      color: orange;
+    }
+    .status-disabled {
+      color: gray;
+    }
+  `,
 })
 class StatusFormComponent {
   form = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email])
+    email: new FormControl('', [Validators.required, Validators.email]),
   });
-  
+
   formStatus = useFormStatus(this.form);
 }
 ```
@@ -60,12 +66,12 @@ class StatusFormComponent {
 
 ## Status Values
 
-| Status     | Description                              |
-| ---------- | ---------------------------------------- |
-| `VALID`    | All controls pass validation             |
-| `INVALID`  | At least one control has validation errors |
+| Status     | Description                                       |
+| ---------- | ------------------------------------------------- |
+| `VALID`    | All controls pass validation                      |
+| `INVALID`  | At least one control has validation errors        |
 | `PENDING`  | At least one control has pending async validators |
-| `DISABLED` | The form is disabled                     |
+| `DISABLED` | The form is disabled                              |
 
 ## Notes
 

@@ -1,7 +1,7 @@
 /**
  * Test setup for Vitest with Angular.
  * This file is loaded before all test files via the setupFiles option in angular.json.
- * 
+ *
  * Each test will configure TestBed with provideZonelessChangeDetection() to avoid
  * requiring Zone.js.
  */
@@ -14,4 +14,3 @@ if (typeof ResizeObserver === 'undefined') {
     disconnect() {}
   };
 }
-
