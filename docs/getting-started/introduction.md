@@ -68,4 +68,4 @@ Ready to get started?
 
 1. [Install the library](/getting-started/installation)
 2. Understand [core concepts](/getting-started/core-concepts)
-3. Migrate [existing code](/getting-started/migration-guide) (optional)
+3. Explore the available composables and effects

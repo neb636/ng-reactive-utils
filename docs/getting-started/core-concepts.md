@@ -196,7 +196,6 @@ No manual cleanup needed - Angular handles it through the injection context.
 
 ## Next Steps
 
-- Learn about [migrating existing code](/getting-started/migration-guide)
 - Explore [Browser Composables](/composables/browser/use-window-size)
 - Check out [Form Composables](/composables/form/use-form-state)
 - Try [Effects](/effects/sync-local-storage)
