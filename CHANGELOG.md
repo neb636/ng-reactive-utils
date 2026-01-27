@@ -63,6 +63,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Notes
 
-This is the initial beta release of ng-reactive-utils. The library provides a collection of small, reusable reactive building blocks for modern Angular (v20+) applications.
+This is the initial beta release of ng-reactive-utils. The library provides a collection of small,
+reusable reactive building blocks for modern Angular (v20+) applications.
 
-All APIs are considered stable for the beta period, but may undergo minor changes based on community feedback before the 1.0.0 release.
+All APIs are considered stable for the beta period, but may undergo minor changes based on community
+feedback before the 1.0.0 release.
