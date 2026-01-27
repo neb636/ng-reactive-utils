@@ -134,5 +134,4 @@ export class UserFormComponent {
 Now that you have the library installed:
 
 1. **[Core Concepts](/getting-started/core-concepts)** - Understand composables vs effects
-2. **[Migration Guide](/getting-started/migration-guide)** - Convert existing code (optional)
-3. **[Browse APIs](/composables/browser/use-window-size)** - Explore all available utilities
+2. **[Browse APIs](/composables/browser/use-window-size)** - Explore all available utilities
