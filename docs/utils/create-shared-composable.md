@@ -96,4 +96,4 @@ The factory function must return an object with:
 
 ## Source
 
-<<< @/../projects/ng-reactive-utils/src/lib/utils/create-shared-composable/create-shared-composable.ts
+<<< @/../src/lib/utils/create-shared-composable/create-shared-composable.ts

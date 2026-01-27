@@ -72,4 +72,4 @@ class SearchComponent {
 
 ## Source
 
-<<< @/../projects/ng-reactive-utils/src/lib/composables/forms/control/use-control-pristine/use-control-pristine.composable.ts
+<<< @/../src/lib/composables/forms/control/use-control-pristine/use-control-pristine.composable.ts

@@ -8,23 +8,32 @@
     "type": "git",
     "url": "https://github.com/neb636/ng-reactive-utils"
   },
-  "homepage": "https://github.com/neb636/ng-reactive-utils",
+  "homepage": "https://neb636.github.io/ng-reactive-utils/",
+  "bugs": {
+    "url": "https://github.com/neb636/ng-reactive-utils/issues"
+  },
   "keywords": [
     "angular",
     "reactive",
-    "primitives",
+    "signals",
     "composables",
-    "effects"
+    "effects",
+    "primitives",
+    "utilities",
+    "forms",
+    "router",
+    "browser"
   ],
   "engines": {
     "node": ">=22.20.0"
   },
+  "sideEffects": false,
   "scripts": {
     "ng": "ng",
-    "build": "ng build ng-reactive-utils",
+    "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint ng-reactive-utils",
+    "lint": "ng lint",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
@@ -41,21 +50,25 @@
       }
     ]
   },
+  "peerDependencies": {
+    "@angular/common": "^20.3.0",
+    "@angular/core": "^20.3.0",
+    "rxjs": "~7.8.0"
+  },
   "dependencies": {
+    "lodash-es": "^4.17.21",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
     "@angular/common": "^20.3.0",
     "@angular/compiler": "^20.3.0",
+    "@angular/compiler-cli": "^20.3.0",
     "@angular/core": "^20.3.0",
     "@angular/forms": "^20.3.0",
     "@angular/platform-browser": "^20.3.0",
     "@angular/router": "^20.3.0",
-    "lodash-es": "^4.17.21",
-    "rxjs": "~7.8.0",
-    "tslib": "^2.3.0"
-  },
-  "devDependencies": {
     "@angular/build": "^20.3.7",
     "@angular/cli": "^20.3.5",
-    "@angular/compiler-cli": "^20.3.0",
     "@eslint/js": "^9.38.0",
     "@types/jasmine": "~5.1.0",
     "@types/lodash-es": "^4.17.12",
@@ -66,6 +79,7 @@
     "jsdom": "^27.1.0",
     "ng-packagr": "^20.3.0",
     "prettier": "3.6.2",
+    "rxjs": "~7.8.0",
     "typescript": "~5.9.2",
     "typescript-eslint": "8.46.1",
     "vitepress": "^1.6.4",

@@ -215,4 +215,4 @@ type ElementBounding = {
 
 ## Source
 
-<<< @/../projects/ng-reactive-utils/src/lib/composables/browser/use-element-bounding/use-element-bounding.composable.ts
+<<< @/../src/lib/composables/browser/use-element-bounding/use-element-bounding.composable.ts

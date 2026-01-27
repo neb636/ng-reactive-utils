@@ -34,4 +34,4 @@ class PostDetailComponent {
 
 ## Source
 
-<<< @/../projects/ng-reactive-utils/src/lib/composables/route/use-route-params/use-route-params.composable.ts
+<<< @/../src/lib/composables/route/use-route-params/use-route-params.composable.ts

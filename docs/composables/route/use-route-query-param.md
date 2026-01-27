@@ -40,4 +40,4 @@ class SearchComponent {
 
 ## Source
 
-<<< @/../projects/ng-reactive-utils/src/lib/composables/route/use-route-query-param/use-route-query-param.composable.ts
+<<< @/../src/lib/composables/route/use-route-query-param/use-route-query-param.composable.ts

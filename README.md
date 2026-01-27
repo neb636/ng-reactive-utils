@@ -1,8 +1,12 @@
 # NG Reactive Utils
 
+[![npm version](https://img.shields.io/npm/v/ng-reactive-utils.svg)](https://www.npmjs.com/package/ng-reactive-utils)
+[![npm downloads](https://img.shields.io/npm/dm/ng-reactive-utils.svg)](https://www.npmjs.com/package/ng-reactive-utils)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A collection of small, reusable reactive building blocks for modern Angular (v20+) applications. The focus is on simple, well-typed composables and effects built around signals that you can drop into real projects with minimal ceremony.
 
-📚 **[View Documentation](https://neb636.github.io/ng-reactive-utils/)**
+📚 **[View Documentation](https://neb636.github.io/ng-reactive-utils/)** | 📦 **[npm Package](https://www.npmjs.com/package/ng-reactive-utils)**
 
 ## Features
 
@@ -10,6 +14,12 @@ A collection of small, reusable reactive building blocks for modern Angular (v20
 - 💪 **Strongly typed** - Full TypeScript support
 - 🎯 **Signal-first** - Built on Angular's reactive primitives
 - 🔧 **Composable** - Mix and match to build complex behaviors
+
+## Installation
+
+```bash
+npm install ng-reactive-utils
+```
 
 ## Quick Start
 
@@ -65,7 +75,7 @@ export class SearchBoxComponent {
 
 ## Status
 
-This library is ready for publishing to npm. See the [Building and Publishing](#building-and-publishing) section below for instructions.
+This library is published on npm as [`ng-reactive-utils`](https://www.npmjs.com/package/ng-reactive-utils) and is ready for use in production Angular applications.
 
 ## API Design Philosophy
 
@@ -136,7 +146,7 @@ npm publish
 **Pre-publish checklist:**
 
 - Ensure all tests pass (`npm run test`)
-- Update version in `projects/ng-reactive-utils/package.json`
+- Update version in `package.json`
 - Update `CHANGELOG.md` with release notes
 - Build succeeds without errors
 - Review the contents of `dist/ng-reactive-utils`
@@ -161,6 +171,12 @@ npm install /path/to/ng-reactive-utils-0.0.1.tgz
 ## Project Structure
 
 ```
+├── src/                          # Library source code
+│   └── lib/
+│       ├── composables/          # Composable implementations
+│       ├── effects/              # Effect implementations
+│       └── utils/                # Utility implementations
+│
 ├── docs/                         # VitePress documentation site
 │   ├── .vitepress/
 │   │   └── config.mts            # VitePress configuration
@@ -169,12 +185,9 @@ npm install /path/to/ng-reactive-utils-0.0.1.tgz
 │   ├── effects/                  # Effect documentation
 │   └── utils/                    # Utility documentation
 │
-└── projects/
-    └── ng-reactive-utils/
-        └── src/lib/
-            ├── composables/      # Composable implementations
-            ├── effects/          # Effect implementations
-            └── utils/            # Utility implementations
+├── package.json                  # Package configuration
+├── ng-package.json               # ng-packagr configuration
+└── tsconfig.*.json               # TypeScript configurations
 ```
 
 ## Compatibility

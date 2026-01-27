@@ -26,4 +26,4 @@ class ExampleComponent {
 
 ## Source
 
-<<< @/../projects/ng-reactive-utils/src/lib/composables/browser/use-document-visibility/use-document-visibility.composable.ts
+<<< @/../src/lib/composables/browser/use-document-visibility/use-document-visibility.composable.ts

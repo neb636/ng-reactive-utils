@@ -60,4 +60,4 @@ Having both the original signal and a debounced version allows you to:
 
 ## Source
 
-<<< @/../projects/ng-reactive-utils/src/lib/composables/general/use-debounced-signal/use-debounced-signal.composable.ts
+<<< @/../src/lib/composables/general/use-debounced-signal/use-debounced-signal.composable.ts

@@ -39,4 +39,4 @@ class ProductDetailComponent {
 
 ## Source
 
-<<< @/../projects/ng-reactive-utils/src/lib/composables/route/use-route-param/use-route-param.composable.ts
+<<< @/../src/lib/composables/route/use-route-param/use-route-param.composable.ts
