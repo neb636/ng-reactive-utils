@@ -1,0 +1,53 @@
+/* Custom CSS for NG Reactive Utils docs */
+
+
+/* Hero section adjustments for code window */
+.VPHero .image-container {
+  margin-top: 0;
+}
+
+/* Ensure code window is properly sized in hero */
+.VPHero .image-bg {
+  display: none;
+}
+
+/* Better spacing for hero on larger screens */
+@media (min-width: 960px) {
+  .VPHero .container {
+    gap: 48px;
+  }
+
+  .image {
+    position: relative;
+    left: 30px;
+    top: 20px;
+  }
+}
+
+/* Smaller hero text */
+.VPHero .text {
+  font-size: 40px !important;
+  line-height: 1.2 !important;
+}
+
+@media (min-width: 640px) {
+  .VPHero .text {
+    font-size: 40px !important;
+  }
+}
+
+@media (min-width: 960px) {
+  .VPHero .text {
+    font-size: 40px !important;
+  }
+}
+
+/* Enhance the brand gradient */
+:root {
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+}
+
+.dark {
+  --vp-home-hero-name-background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+}
