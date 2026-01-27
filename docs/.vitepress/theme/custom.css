@@ -17,7 +17,7 @@
     gap: 48px;
   }
 
-  .image {
+  .VPHero .image {
     position: relative;
     left: 30px;
     top: 20px;
@@ -28,18 +28,6 @@
 .VPHero .text {
   font-size: 40px !important;
   line-height: 1.2 !important;
-}
-
-@media (min-width: 640px) {
-  .VPHero .text {
-    font-size: 40px !important;
-  }
-}
-
-@media (min-width: 960px) {
-  .VPHero .text {
-    font-size: 40px !important;
-  }
 }
 
 /* Enhance the brand gradient */
