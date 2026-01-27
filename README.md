@@ -24,20 +24,19 @@ npm install ng-reactive-utils
 ## Quick Start
 
 ```typescript
-import { Component, signal } from '@angular/core';
-import { useDebouncedSignal } from 'ng-reactive-utils';
+import { computed } from '@angular/core';
+import { useControlValue, useDebouncedSignal, useWindowSize } from 'ng-reactive-utils';
 
-@Component({
-  selector: 'search-box',
-  template: `
-    <input [value]="searchTerm()" (input)="searchTerm.set($any($event.target).value)" />
-    <p>Debounced: {{ debouncedSearch() }}</p>
-  `,
-})
-export class SearchBoxComponent {
-  searchTerm = signal('');
-  debouncedSearch = useDebouncedSignal(this.searchTerm, 300);
-}
+// Convert FormControl to reactive signal
+searchControl = new FormControl('');
+searchValue = useControlValue(this.searchControl);
+
+// Debounce for API calls, track window size
+debouncedSearch = useDebouncedSignal(this.searchValue, 300);
+windowSize = useWindowSize();
+
+// Compose into derived state
+isMobile = computed(() => this.windowSize().width < 768);
 ```
 
 ## Available Primitives

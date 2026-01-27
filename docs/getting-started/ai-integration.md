@@ -1,17 +1,12 @@
 # AI Integration
 
-NG Reactive Utils provides built-in support for AI coding assistants through two complementary approaches.
+NG Reactive Utils provides built-in support for AI coding assistants.
 
 ## llms.txt Standard
 
-This documentation site implements the [llms.txt standard](https://llmstxt.org/) - an open specification that helps AI tools access documentation in a structured way.
+This documentation implements the [llms.txt standard](https://llmstxt.org/) for AI tool integration.
 
-When deployed, the following endpoints are automatically available:
-
-- `/llms.txt` - Manifest with links to all documentation pages
-- `/llms-full.txt` - Complete documentation in a single file
-
-AI tools that support llms.txt can fetch the complete library documentation from:
+AI assistants can fetch the complete documentation from:
 
 ```
 https://neb636.github.io/ng-reactive-utils/llms-full.txt
@@ -19,30 +14,28 @@ https://neb636.github.io/ng-reactive-utils/llms-full.txt
 
 ## Cursor IDE Rules
 
-For [Cursor IDE](https://cursor.com) users, we provide a rules file that teaches Cursor's AI about ng-reactive-utils patterns and best practices.
+For [Cursor IDE](https://cursor.com) users, we provide a rules file that teaches Cursor about ng-reactive-utils patterns.
 
-### Installation
+### Setup
 
-Copy the `cursor-rules.mdc` file from the package to your project's `.cursor/rules/` directory:
+Copy the rules file to your project:
 
 ```bash
 mkdir -p .cursor/rules
 cp node_modules/ng-reactive-utils/cursor-rules.mdc .cursor/rules/ng-reactive-utils.mdc
 ```
 
-Or download it directly from [GitHub](https://github.com/neb636/ng-reactive-utils/blob/main/cursor-rules.mdc).
+Or download from [GitHub](https://github.com/neb636/ng-reactive-utils/blob/main/cursor-rules.mdc).
 
-### What It Does
+### What It Provides
 
-The rules file teaches Cursor's AI:
+- Maps common Angular patterns to the appropriate composable
+- Prevents unnecessary RxJS subscriptions
+- Provides real-world usage examples
 
-- **When to use each utility** - Maps common Angular patterns to the appropriate composable or effect
-- **Anti-patterns to avoid** - Prevents unnecessary RxJS subscriptions when signal-based solutions exist
-- **Usage examples** - Real-world code patterns for common scenarios
+### Example Prompts
 
-### Example Usage
-
-After installation, you can use natural prompts like:
+After installation, use natural language:
 
 - "Add form validation status display"
 - "Track the route parameter"

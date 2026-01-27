@@ -2,10 +2,11 @@
 
 ## Requirements
 
-- Angular 20 or higher
-- Node.js 22.20.0 or higher
+- **Angular 20+** (for full signal support)
+- **Node.js 22.20.0+**
+- **TypeScript** with strict mode recommended
 
-## Install
+## Install the Package
 
 ::: code-group
 
@@ -23,15 +24,23 @@ yarn add ng-reactive-utils
 
 :::
 
-## Quick Start
+## Your First Import
 
-Import any primitive directly from the package:
+All utilities are imported from the main package:
 
 ```typescript
-import { useDebouncedSignal, useWindowSize } from 'ng-reactive-utils';
+import { 
+  useDebouncedSignal,    // Composable: returns a signal
+  useFormState,          // Composable: returns form signals
+  syncLocalStorage       // Effect: syncs signal with localStorage
+} from 'ng-reactive-utils';
 ```
 
-### Basic Example
+## Quick Start Examples
+
+### Using a Composable
+
+Composables return signals you can use in your templates:
 
 ```typescript
 import { Component, signal } from '@angular/core';
@@ -40,8 +49,11 @@ import { useDebouncedSignal } from 'ng-reactive-utils';
 @Component({
   selector: 'search-box',
   template: `
-    <input [value]="searchTerm()" (input)="searchTerm.set($any($event.target).value)" />
-    <p>Debounced: {{ debouncedSearch() }}</p>
+    <input 
+      [value]="searchTerm()" 
+      (input)="searchTerm.set($any($event.target).value)" 
+    />
+    <p>Searching for: {{ debouncedSearch() }}</p>
   `,
 })
 export class SearchBoxComponent {
@@ -50,11 +62,13 @@ export class SearchBoxComponent {
 }
 ```
 
-### Using Effects
+### Using an Effect
+
+Effects sync signals with external systems automatically:
 
 ```typescript
 import { Component, signal } from '@angular/core';
-import { syncLocalStorageEffect } from 'ng-reactive-utils';
+import { syncLocalStorage } from 'ng-reactive-utils';
 
 @Component({
   selector: 'preferences',
@@ -73,8 +87,8 @@ export class PreferencesComponent {
   darkMode = signal(false);
 
   constructor() {
-    // Automatically persists darkMode changes to localStorage
-    syncLocalStorageEffect({
+    // Loads from localStorage on init, saves on every change
+    syncLocalStorage({
       signal: this.darkMode,
       key: 'dark-mode-preference',
     });
@@ -82,25 +96,43 @@ export class PreferencesComponent {
 }
 ```
 
-## TypeScript Configuration
+### Working with Forms
 
-The library ships with full TypeScript support. No additional configuration is needed.
+Convert reactive forms to signals without boilerplate:
 
-For optimal type inference, ensure you have strict mode enabled in your `tsconfig.json`:
+```typescript
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { useFormState } from 'ng-reactive-utils';
 
-```json
-{
-  "compilerOptions": {
-    "strict": true
-  }
+@Component({
+  selector: 'user-form',
+  template: `
+    <form [formGroup]="form">
+      <input formControlName="email" />
+      
+      @if (formState.invalid() && formState.touched()) {
+        <div class="error">Please enter a valid email</div>
+      }
+      
+      <button [disabled]="!formState.valid()">Submit</button>
+    </form>
+  `,
+})
+export class UserFormComponent {
+  form = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+  });
+
+  formState = useFormState<{ email: string }>(this.form);
+  // Access: formState.value(), formState.valid(), formState.dirty(), etc.
 }
 ```
 
 ## Next Steps
 
-Explore the available primitives:
+Now that you have the library installed:
 
-- [Browser Composables](/composables/browser/use-document-visibility) - Interact with browser APIs
-- [General Composables](/composables/general/use-debounced-signal) - Common reactive patterns
-- [Route Composables](/composables/route/use-route-data) - Angular Router integration
-- [Effects](/effects/sync-local-storage) - Side effect utilities
+1. **[Core Concepts](/getting-started/core-concepts)** - Understand composables vs effects
+2. **[Migration Guide](/getting-started/migration-guide)** - Convert existing code (optional)
+3. **[Browse APIs](/composables/browser/use-window-size)** - Explore all available utilities

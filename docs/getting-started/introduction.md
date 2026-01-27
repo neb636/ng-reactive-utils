@@ -1,14 +1,17 @@
 # Introduction
 
-NG Reactive Utils is a collection of composables and effects for modern Angular applications using reactive patterns. These utilities help you build more maintainable and testable applications with less boilerplate.
+NG Reactive Utils is a collection of composables and effects for modern Angular applications. These utilities eliminate boilerplate and make working with signals more productive.
 
-## What are Reactive Primitives?
+## What is it?
 
-Reactive Primitives are small, focused utilities that provide common reactive patterns for Angular applications. They are designed to work seamlessly with Angular's signal-based reactivity system and provide a consistent API for common use cases.
-
-Each primitive is a standalone function that can be imported and used in your components, making them easy to test and reuse across your application.
+A utility library that provides:
+- **Form & Route utilities** - Convert observables to signals without repetitive `toSignal()` calls
+- **Reactive patterns** - Built-in debouncing, throttling, and more
+- **Sync effects** - Automatically persist signals to localStorage, URL params, etc.
 
 ## Quick Example
+
+Add debounced search with one line:
 
 ```typescript
 import { Component, signal } from '@angular/core';
@@ -27,57 +30,42 @@ export class SearchBoxComponent {
 }
 ```
 
-## Key Features
+## Why Use It?
 
-- **Signal-based**: Built on Angular's signal system for optimal performance
-- **Type-safe**: Full TypeScript support with comprehensive type definitions
-- **Tree-shakable**: Import only what you need
-- **Framework agnostic**: Work with any Angular version that supports signals (v20+)
-- **Well-tested**: Comprehensive test coverage for reliability
+**Without NG Reactive Utils:**
+```typescript
+// Repetitive toSignal() calls everywhere
+formValue = toSignal(form.valueChanges, { initialValue: form.value });
+formValid = toSignal(form.statusChanges.pipe(map(() => form.valid)), { initialValue: form.valid });
+userId = toSignal(route.params.pipe(map(p => p['id'])), { initialValue: route.snapshot.params['id'] });
+```
 
-## API Design Philosophy
+**With NG Reactive Utils:**
+```typescript
+// Clean, readable utilities
+formState = useFormState(this.form);  // value(), valid(), dirty(), etc.
+userId = useRouteParam('id');
+```
 
-These primitives follow these design principles:
+## Key Benefits
 
-1. **Signals all the way down** - Inputs and outputs are signals
-2. **Composable by default** - Easy to combine and extend
-3. **Minimal configuration** - Sensible defaults, opt-in complexity
-4. **Type-safe** - Leverage TypeScript for better DX
-5. **Framework-aligned** - Follow Angular's conventions and patterns
+- **Less boilerplate** - Replace repetitive `toSignal()` calls with clean utilities
+- **Type-safe** - Full TypeScript support with proper inference
+- **Signal-first** - Built for Angular's modern reactivity system
+- **Tree-shakable** - Import only what you need
 
-## Available Primitives
+## What's Available
 
-### Browser Composables
+- **[Browser Composables](/composables/browser/use-window-size)** - Window size, mouse position, document visibility
+- **[General Composables](/composables/general/use-debounced-signal)** - Debouncing, throttling, previous values
+- **[Form Composables](/composables/form/use-form-state)** - Form state as signals
+- **[Route Composables](/composables/route/use-route-param)** - Route params, query params, data as signals
+- **[Effects](/effects/sync-local-storage)** - Sync with localStorage, URL, etc.
 
-- [`useDocumentVisibility()`](/composables/browser/use-document-visibility) - Track document visibility state
-- [`useElementBounding()`](/composables/browser/use-element-bounding) - Observe element position and size
-- [`useMousePosition()`](/composables/browser/use-mouse-position) - Track mouse coordinates
-- [`useWindowSize()`](/composables/browser/use-window-size) - Monitor window dimensions
+## Next Steps
 
-### General Composables
+Ready to get started?
 
-- [`useDebouncedSignal()`](/composables/general/use-debounced-signal) - Debounce signal changes
-- [`usePreviousSignal()`](/composables/general/use-previous-signal) - Track previous signal values
-- [`useThrottledSignal()`](/composables/general/use-throttled-signal) - Throttle signal updates
-
-### Router Composables
-
-- [`useRouteData()`](/composables/route/use-route-data) - Route data as a signal
-- [`useRouteFragment()`](/composables/route/use-route-fragment) - URL fragment as a signal
-- [`useRouteParam()`](/composables/route/use-route-param) - Single route parameter
-- [`useRouteParams()`](/composables/route/use-route-params) - All route parameters as a signal
-- [`useRouteQueryParam()`](/composables/route/use-route-query-param) - Single query parameter
-- [`useRouteQueryParams()`](/composables/route/use-route-query-params) - All query parameters as a signal
-
-### Effects
-
-- [`syncLocalStorage()`](/effects/sync-local-storage) - Sync signals with localStorage
-- [`syncQueryParams()`](/effects/sync-query-params) - Sync signals with URL query parameters
-
-### Utilities
-
-- [`createSharedComposable()`](/utils/create-shared-composable) - Convert composables to shared instances
-
-## Getting Started
-
-Ready to dive in? Head over to the [Installation](/getting-started/installation) guide to get started.
+1. [Install the library](/getting-started/installation)
+2. Understand [core concepts](/getting-started/core-concepts)
+3. Migrate [existing code](/getting-started/migration-guide) (optional)
