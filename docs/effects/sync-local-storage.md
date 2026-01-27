@@ -38,4 +38,4 @@ class FormComponent {
 
 ## Source
 
-<<< @/../projects/ng-reactive-utils/src/lib/effects/sync-local-storage/sync-local-storage.effect.ts
+<<< @/../src/lib/effects/sync-local-storage/sync-local-storage.effect.ts

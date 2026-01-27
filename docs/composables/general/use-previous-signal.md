@@ -42,4 +42,4 @@ class ExampleComponent {
 
 ## Source
 
-<<< @/../projects/ng-reactive-utils/src/lib/composables/general/use-previous-signal/use-previous-signal.composable.ts
+<<< @/../src/lib/composables/general/use-previous-signal/use-previous-signal.composable.ts

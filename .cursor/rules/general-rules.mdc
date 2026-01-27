@@ -44,6 +44,6 @@ You are build a util like library for Angular apps using composables/effects/gua
   - Parameters table (if applicable)
   - Returns description
   - Additional notes or explanations
-  - Source reference using `<<< @/../projects/...` syntax
+  - Source reference using `<<< @/../src/lib/...` syntax
 - The documentation file name should match the function name (kebab-case)
 - If you create a new function without documentation, you have not completed the task

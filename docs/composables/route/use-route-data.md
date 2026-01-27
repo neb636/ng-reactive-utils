@@ -31,4 +31,4 @@ class AdminComponent {
 
 ## Source
 
-<<< @/../projects/ng-reactive-utils/src/lib/composables/route/use-route-data/use-route-data.composable.ts
+<<< @/../src/lib/composables/route/use-route-data/use-route-data.composable.ts

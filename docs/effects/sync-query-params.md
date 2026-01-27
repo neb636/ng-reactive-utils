@@ -46,4 +46,4 @@ class SearchComponent {
 
 ## Source
 
-<<< @/../projects/ng-reactive-utils/src/lib/effects/sync-query-params/sync-query-params.effect.ts
+<<< @/../src/lib/effects/sync-query-params/sync-query-params.effect.ts

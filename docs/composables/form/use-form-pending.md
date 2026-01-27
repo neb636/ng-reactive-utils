@@ -62,4 +62,4 @@ class RegistrationComponent {
 
 ## Source
 
-<<< @/../projects/ng-reactive-utils/src/lib/composables/forms/form/use-form-pending/use-form-pending.composable.ts
+<<< @/../src/lib/composables/forms/form/use-form-pending/use-form-pending.composable.ts

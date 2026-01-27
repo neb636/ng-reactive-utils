@@ -51,4 +51,4 @@ class SlowDebounceComponent {
 
 ## Source
 
-<<< @/../projects/ng-reactive-utils/src/lib/composables/browser/use-window-size/use-window-size.composable.ts
+<<< @/../src/lib/composables/browser/use-window-size/use-window-size.composable.ts

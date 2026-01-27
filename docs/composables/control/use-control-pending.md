@@ -69,4 +69,4 @@ class EmailVerificationComponent {
 
 ## Source
 
-<<< @/../projects/ng-reactive-utils/src/lib/composables/forms/control/use-control-pending/use-control-pending.composable.ts
+<<< @/../src/lib/composables/forms/control/use-control-pending/use-control-pending.composable.ts

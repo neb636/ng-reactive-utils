@@ -146,7 +146,7 @@ npm publish
 **Pre-publish checklist:**
 
 - Ensure all tests pass (`npm run test`)
-- Update version in `projects/ng-reactive-utils/package.json`
+- Update version in `package.json`
 - Update `CHANGELOG.md` with release notes
 - Build succeeds without errors
 - Review the contents of `dist/ng-reactive-utils`
@@ -171,6 +171,12 @@ npm install /path/to/ng-reactive-utils-0.0.1.tgz
 ## Project Structure
 
 ```
+├── src/                          # Library source code
+│   └── lib/
+│       ├── composables/          # Composable implementations
+│       ├── effects/              # Effect implementations
+│       └── utils/                # Utility implementations
+│
 ├── docs/                         # VitePress documentation site
 │   ├── .vitepress/
 │   │   └── config.mts            # VitePress configuration
@@ -179,12 +185,9 @@ npm install /path/to/ng-reactive-utils-0.0.1.tgz
 │   ├── effects/                  # Effect documentation
 │   └── utils/                    # Utility documentation
 │
-└── projects/
-    └── ng-reactive-utils/
-        └── src/lib/
-            ├── composables/      # Composable implementations
-            ├── effects/          # Effect implementations
-            └── utils/            # Utility implementations
+├── package.json                  # Package configuration
+├── ng-package.json               # ng-packagr configuration
+└── tsconfig.*.json               # TypeScript configurations
 ```
 
 ## Compatibility

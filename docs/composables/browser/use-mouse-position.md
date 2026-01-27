@@ -47,4 +47,4 @@ class SmoothCursorComponent {
 
 ## Source
 
-<<< @/../projects/ng-reactive-utils/src/lib/composables/browser/use-mouse-position/use-mouse-position.composable.ts
+<<< @/../src/lib/composables/browser/use-mouse-position/use-mouse-position.composable.ts

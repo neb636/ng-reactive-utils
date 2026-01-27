@@ -12,10 +12,7 @@
     "isolatedModules": true,
     "experimentalDecorators": true,
     "paths": {
-      "ng-reactive-utils": [
-        "./projects/ng-reactive-utils/src/public-api",
-        "./dist/ng-reactive-utils"
-      ]
+      "ng-reactive-utils": ["./src/public-api", "./dist/ng-reactive-utils"]
     },
     "importHelpers": true,
     "target": "ES2022",
@@ -31,10 +28,10 @@
   "files": [],
   "references": [
     {
-      "path": "./projects/ng-reactive-utils/tsconfig.lib.json"
+      "path": "./tsconfig.lib.json"
     },
     {
-      "path": "./projects/ng-reactive-utils/tsconfig.spec.json"
+      "path": "./tsconfig.spec.json"
     }
   ]
 }

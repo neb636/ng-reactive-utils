@@ -34,4 +34,4 @@ class ProductListComponent {
 
 ## Source
 
-<<< @/../projects/ng-reactive-utils/src/lib/composables/route/use-route-query-params/use-route-query-params.composable.ts
+<<< @/../src/lib/composables/route/use-route-query-params/use-route-query-params.composable.ts

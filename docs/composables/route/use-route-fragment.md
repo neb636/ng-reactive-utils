@@ -38,4 +38,4 @@ class DocumentationComponent {
 
 ## Source
 
-<<< @/../projects/ng-reactive-utils/src/lib/composables/route/use-route-fragment/use-route-fragment.composable.ts
+<<< @/../src/lib/composables/route/use-route-fragment/use-route-fragment.composable.ts

@@ -56,4 +56,4 @@ class ExampleComponent {
 
 ## Source
 
-<<< @/../projects/ng-reactive-utils/src/lib/composables/general/use-throttled-signal/use-throttled-signal.composable.ts
+<<< @/../src/lib/composables/general/use-throttled-signal/use-throttled-signal.composable.ts
