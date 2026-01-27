@@ -12,6 +12,9 @@ hero:
     - theme: alt
       text: View on GitHub
       link: https://github.com/neb636/ng-reactive-utils
+    - theme: alt
+      text: View on npm
+      link: https://www.npmjs.com/package/ng-reactive-utils
 
 features:
   - icon: 🌳
@@ -35,6 +38,6 @@ features:
     details: Comprehensive test coverage ensures reliability and helps prevent regressions.
 
   - icon: 📦
-    title: Zero Dependencies
-    details: Minimal footprint with no external dependencies beyond Angular core.
+    title: Minimal Dependencies
+    details: Lightweight with only essential dependencies (lodash-es for debounce/throttle utilities).
 ---
