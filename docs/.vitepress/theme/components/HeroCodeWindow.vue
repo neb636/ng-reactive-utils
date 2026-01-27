@@ -1,14 +1,64 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import { useData } from 'vitepress';
 
 const { isDark } = useData();
+
+// Theme-aware color palette
+const colors = computed(() =>
+  isDark.value
+    ? {
+        // Dark theme colors (VS Code Dark+)
+        windowBg: '#1E1E1E',
+        titleBar: '#2D2D2D',
+        titleText: '#8B8B8B',
+        border: '#3D3D3D',
+        lineNumber: '#6A737D',
+        keyword: '#C586C0', // import, from, new, this
+        punctuation: '#D4D4D4', // brackets, semicolons
+        variable: '#9CDCFE', // variable names
+        string: '#CE9178', // string literals
+        function: '#DCDCAA', // function calls
+        className: '#4EC9B0', // class names
+        number: '#B5CEA8', // numbers
+        comment: '#6A9955', // comments
+        shadowId: 'shadow-dark',
+        shadowStdDev: 10,
+        shadowOffset: 10,
+        shadowSlope: 0.25,
+        redGradient: ['#ED6A5E', '#E1564A'],
+        yellowGradient: ['#F5BF4F', '#F0B429'],
+        greenGradient: ['#61C554', '#4DB841'],
+      }
+    : {
+        // Light theme colors (GitHub Light)
+        windowBg: '#FFFFFF',
+        titleBar: '#F6F6F6',
+        titleText: '#86868B',
+        border: '#E5E5E5',
+        lineNumber: '#6B7280',
+        keyword: '#CF222E', // import, from, new, this
+        punctuation: '#24292F', // brackets, semicolons
+        variable: '#953800', // variable names
+        string: '#0A3069', // string literals
+        function: '#8250DF', // function calls
+        className: '#8250DF', // class names
+        number: '#0550AE', // numbers
+        comment: '#6E7781', // comments
+        shadowId: 'shadow-light',
+        shadowStdDev: 8,
+        shadowOffset: 8,
+        shadowSlope: 0.12,
+        redGradient: ['#FF6B63', '#FF5F57'],
+        yellowGradient: ['#FFC532', '#FEBC2E'],
+        greenGradient: ['#32D74B', '#28C840'],
+      }
+);
 </script>
 
 <template>
   <div class="hero-code-window">
-    <!-- Light Theme Window -->
     <svg
-      v-show="!isDark"
       class="code-window"
       width="520"
       height="340"
@@ -17,14 +67,14 @@ const { isDark } = useData();
       xmlns="http://www.w3.org/2000/svg"
     >
       <!-- Shadow -->
-      <g filter="url(#shadow-light)">
+      <g :filter="`url(#${colors.shadowId})`">
         <!-- Window Background -->
-        <rect x="10" y="10" width="500" height="320" rx="12" fill="#FFFFFF" />
+        <rect x="10" y="10" width="500" height="320" rx="12" :fill="colors.windowBg" />
       </g>
 
       <!-- Title Bar -->
-      <rect x="10" y="10" width="500" height="36" rx="12" fill="#F6F6F6" />
-      <rect x="10" y="34" width="500" height="12" fill="#F6F6F6" />
+      <rect x="10" y="10" width="500" height="36" rx="12" :fill="colors.titleBar" />
+      <rect x="10" y="34" width="500" height="12" :fill="colors.titleBar" />
 
       <!-- Traffic Lights -->
       <circle cx="30" cy="28" r="6" fill="url(#redGradient)" />
@@ -37,7 +87,7 @@ const { isDark } = useData();
         y="32"
         font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
         font-size="12"
-        fill="#86868B"
+        :fill="colors.titleText"
         text-anchor="middle"
         font-weight="500"
       >
@@ -46,141 +96,141 @@ const { isDark } = useData();
 
       <!-- Code Content -->
       <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="11.5">
-        <!-- Line 1: import -->
-        <text x="24" y="68" fill="#6B7280">1</text>
+        <!-- Line 1: import { computed } from '@angular/core'; -->
+        <text x="24" y="68" :fill="colors.lineNumber">1</text>
         <text x="48" y="68">
-          <tspan fill="#CF222E">import</tspan>
-          <tspan fill="#24292F"> { </tspan>
-          <tspan fill="#953800">computed</tspan>
-          <tspan fill="#24292F"> } </tspan>
-          <tspan fill="#CF222E">from</tspan>
-          <tspan fill="#0A3069"> '@angular/core'</tspan>
-          <tspan fill="#24292F">;</tspan>
+          <tspan :fill="colors.keyword">import</tspan>
+          <tspan :fill="colors.punctuation"> { </tspan>
+          <tspan :fill="colors.variable">computed</tspan>
+          <tspan :fill="colors.punctuation"> } </tspan>
+          <tspan :fill="colors.keyword">from</tspan>
+          <tspan :fill="colors.string"> '@angular/core'</tspan>
+          <tspan :fill="colors.punctuation">;</tspan>
         </text>
 
-        <!-- Line 2: import -->
-        <text x="24" y="86" fill="#6B7280">2</text>
+        <!-- Line 2: import { -->
+        <text x="24" y="86" :fill="colors.lineNumber">2</text>
         <text x="48" y="86">
-          <tspan fill="#CF222E">import</tspan>
-          <tspan fill="#24292F"> {</tspan>
+          <tspan :fill="colors.keyword">import</tspan>
+          <tspan :fill="colors.punctuation"> {</tspan>
         </text>
 
-        <!-- Line 3: composables -->
-        <text x="24" y="104" fill="#6B7280">3</text>
+        <!-- Line 3: useControlValue, useDebouncedSignal, useWindowSize -->
+        <text x="24" y="104" :fill="colors.lineNumber">3</text>
         <text x="48" y="104">
-          <tspan fill="#24292F">  </tspan>
-          <tspan fill="#953800">useControlValue</tspan>
-          <tspan fill="#24292F">, </tspan>
-          <tspan fill="#953800">useDebouncedSignal</tspan>
-          <tspan fill="#24292F">, </tspan>
-          <tspan fill="#953800">useWindowSize</tspan>
+          <tspan :fill="colors.punctuation">  </tspan>
+          <tspan :fill="colors.variable">useControlValue</tspan>
+          <tspan :fill="colors.punctuation">, </tspan>
+          <tspan :fill="colors.variable">useDebouncedSignal</tspan>
+          <tspan :fill="colors.punctuation">, </tspan>
+          <tspan :fill="colors.variable">useWindowSize</tspan>
         </text>
 
-        <!-- Line 4: from -->
-        <text x="24" y="122" fill="#6B7280">4</text>
+        <!-- Line 4: } from 'ng-reactive-utils'; -->
+        <text x="24" y="122" :fill="colors.lineNumber">4</text>
         <text x="48" y="122">
-          <tspan fill="#24292F">} </tspan>
-          <tspan fill="#CF222E">from</tspan>
-          <tspan fill="#0A3069"> 'ng-reactive-utils'</tspan>
-          <tspan fill="#24292F">;</tspan>
+          <tspan :fill="colors.punctuation">} </tspan>
+          <tspan :fill="colors.keyword">from</tspan>
+          <tspan :fill="colors.string"> 'ng-reactive-utils'</tspan>
+          <tspan :fill="colors.punctuation">;</tspan>
         </text>
 
         <!-- Line 5: empty -->
-        <text x="24" y="140" fill="#6B7280">5</text>
+        <text x="24" y="140" :fill="colors.lineNumber">5</text>
 
-        <!-- Line 6: comment -->
-        <text x="24" y="158" fill="#6B7280">6</text>
+        <!-- Line 6: // Convert FormControl to reactive signal -->
+        <text x="24" y="158" :fill="colors.lineNumber">6</text>
         <text x="48" y="158">
-          <tspan fill="#6E7781">// Convert FormControl to reactive signal</tspan>
+          <tspan :fill="colors.comment">// Convert FormControl to reactive signal</tspan>
         </text>
 
-        <!-- Line 7: class property -->
-        <text x="24" y="176" fill="#6B7280">7</text>
+        <!-- Line 7: searchControl = new FormControl(''); -->
+        <text x="24" y="176" :fill="colors.lineNumber">7</text>
         <text x="48" y="176">
-          <tspan fill="#953800">searchControl</tspan>
-          <tspan fill="#24292F"> = </tspan>
-          <tspan fill="#CF222E">new</tspan>
-          <tspan fill="#8250DF"> FormControl</tspan>
-          <tspan fill="#24292F">(</tspan>
-          <tspan fill="#0A3069">''</tspan>
-          <tspan fill="#24292F">);</tspan>
+          <tspan :fill="colors.variable">searchControl</tspan>
+          <tspan :fill="colors.punctuation"> = </tspan>
+          <tspan :fill="colors.keyword">new</tspan>
+          <tspan :fill="colors.className"> FormControl</tspan>
+          <tspan :fill="colors.punctuation">(</tspan>
+          <tspan :fill="colors.string">''</tspan>
+          <tspan :fill="colors.punctuation">);</tspan>
         </text>
 
-        <!-- Line 8: reactive value -->
-        <text x="24" y="194" fill="#6B7280">8</text>
+        <!-- Line 8: searchValue = useControlValue(this.searchControl); -->
+        <text x="24" y="194" :fill="colors.lineNumber">8</text>
         <text x="48" y="194">
-          <tspan fill="#953800">searchValue</tspan>
-          <tspan fill="#24292F"> = </tspan>
-          <tspan fill="#8250DF">useControlValue</tspan>
-          <tspan fill="#24292F">(</tspan>
-          <tspan fill="#CF222E">this</tspan>
-          <tspan fill="#24292F">.searchControl);</tspan>
+          <tspan :fill="colors.variable">searchValue</tspan>
+          <tspan :fill="colors.punctuation"> = </tspan>
+          <tspan :fill="colors.function">useControlValue</tspan>
+          <tspan :fill="colors.punctuation">(</tspan>
+          <tspan :fill="colors.keyword">this</tspan>
+          <tspan :fill="colors.punctuation">.searchControl);</tspan>
         </text>
 
         <!-- Line 9: empty -->
-        <text x="24" y="212" fill="#6B7280">9</text>
+        <text x="24" y="212" :fill="colors.lineNumber">9</text>
 
-        <!-- Line 10: comment -->
-        <text x="24" y="230" fill="#6B7280">10</text>
+        <!-- Line 10: // Debounce for API calls, track window size -->
+        <text x="24" y="230" :fill="colors.lineNumber">10</text>
         <text x="48" y="230">
-          <tspan fill="#6E7781">// Debounce for API calls, track window size</tspan>
+          <tspan :fill="colors.comment">// Debounce for API calls, track window size</tspan>
         </text>
 
-        <!-- Line 11: debounced -->
-        <text x="24" y="248" fill="#6B7280">11</text>
+        <!-- Line 11: debouncedSearch = useDebouncedSignal(this.searchValue, 300); -->
+        <text x="24" y="248" :fill="colors.lineNumber">11</text>
         <text x="48" y="248">
-          <tspan fill="#953800">debouncedSearch</tspan>
-          <tspan fill="#24292F"> = </tspan>
-          <tspan fill="#8250DF">useDebouncedSignal</tspan>
-          <tspan fill="#24292F">(</tspan>
-          <tspan fill="#CF222E">this</tspan>
-          <tspan fill="#24292F">.searchValue, </tspan>
-          <tspan fill="#0550AE">300</tspan>
-          <tspan fill="#24292F">);</tspan>
+          <tspan :fill="colors.variable">debouncedSearch</tspan>
+          <tspan :fill="colors.punctuation"> = </tspan>
+          <tspan :fill="colors.function">useDebouncedSignal</tspan>
+          <tspan :fill="colors.punctuation">(</tspan>
+          <tspan :fill="colors.keyword">this</tspan>
+          <tspan :fill="colors.punctuation">.searchValue, </tspan>
+          <tspan :fill="colors.number">300</tspan>
+          <tspan :fill="colors.punctuation">);</tspan>
         </text>
 
-        <!-- Line 12: window size -->
-        <text x="24" y="266" fill="#6B7280">12</text>
+        <!-- Line 12: windowSize = useWindowSize(); -->
+        <text x="24" y="266" :fill="colors.lineNumber">12</text>
         <text x="48" y="266">
-          <tspan fill="#953800">windowSize</tspan>
-          <tspan fill="#24292F"> = </tspan>
-          <tspan fill="#8250DF">useWindowSize</tspan>
-          <tspan fill="#24292F">();</tspan>
+          <tspan :fill="colors.variable">windowSize</tspan>
+          <tspan :fill="colors.punctuation"> = </tspan>
+          <tspan :fill="colors.function">useWindowSize</tspan>
+          <tspan :fill="colors.punctuation">();</tspan>
         </text>
 
         <!-- Line 13: empty -->
-        <text x="24" y="284" fill="#6B7280">13</text>
+        <text x="24" y="284" :fill="colors.lineNumber">13</text>
 
-        <!-- Line 14: computed -->
-        <text x="24" y="302" fill="#6B7280">14</text>
+        <!-- Line 14: // Compose into derived state -->
+        <text x="24" y="302" :fill="colors.lineNumber">14</text>
         <text x="48" y="302">
-          <tspan fill="#6E7781">// Compose into derived state</tspan>
+          <tspan :fill="colors.comment">// Compose into derived state</tspan>
         </text>
 
-        <!-- Line 15: isMobile -->
-        <text x="24" y="320" fill="#6B7280">15</text>
+        <!-- Line 15: isMobile = computed(() => this.windowSize().width < 768); -->
+        <text x="24" y="320" :fill="colors.lineNumber">15</text>
         <text x="48" y="320">
-          <tspan fill="#953800">isMobile</tspan>
-          <tspan fill="#24292F"> = </tspan>
-          <tspan fill="#8250DF">computed</tspan>
-          <tspan fill="#24292F">(() => </tspan>
-          <tspan fill="#CF222E">this</tspan>
-          <tspan fill="#24292F">.windowSize().width &lt; </tspan>
-          <tspan fill="#0550AE">768</tspan>
-          <tspan fill="#24292F">);</tspan>
+          <tspan :fill="colors.variable">isMobile</tspan>
+          <tspan :fill="colors.punctuation"> = </tspan>
+          <tspan :fill="colors.function">computed</tspan>
+          <tspan :fill="colors.punctuation">(() => </tspan>
+          <tspan :fill="colors.keyword">this</tspan>
+          <tspan :fill="colors.punctuation">.windowSize().width &lt; </tspan>
+          <tspan :fill="colors.number">768</tspan>
+          <tspan :fill="colors.punctuation">);</tspan>
         </text>
       </g>
 
       <!-- Outer Border -->
-      <rect x="10" y="10" width="500" height="320" rx="12" stroke="#E5E5E5" stroke-width="1" fill="none" />
+      <rect x="10" y="10" width="500" height="320" rx="12" :stroke="colors.border" stroke-width="1" fill="none" />
 
       <!-- Defs -->
       <defs>
-        <filter id="shadow-light" x="-10" y="-5" width="540" height="360" filterUnits="userSpaceOnUse">
-          <feGaussianBlur in="SourceAlpha" stdDeviation="8" />
-          <feOffset dx="0" dy="8" />
+        <filter :id="colors.shadowId" x="-10" y="-5" width="540" height="360" filterUnits="userSpaceOnUse">
+          <feGaussianBlur in="SourceAlpha" :stdDeviation="colors.shadowStdDev" />
+          <feOffset dx="0" :dy="colors.shadowOffset" />
           <feComponentTransfer>
-            <feFuncA type="linear" slope="0.12" />
+            <feFuncA type="linear" :slope="colors.shadowSlope" />
           </feComponentTransfer>
           <feMerge>
             <feMergeNode />
@@ -189,217 +239,18 @@ const { isDark } = useData();
         </filter>
 
         <radialGradient id="redGradient" cx="0.3" cy="0.3">
-          <stop offset="0%" stop-color="#FF6B63" />
-          <stop offset="100%" stop-color="#FF5F57" />
+          <stop offset="0%" :stop-color="colors.redGradient[0]" />
+          <stop offset="100%" :stop-color="colors.redGradient[1]" />
         </radialGradient>
 
         <radialGradient id="yellowGradient" cx="0.3" cy="0.3">
-          <stop offset="0%" stop-color="#FFC532" />
-          <stop offset="100%" stop-color="#FEBC2E" />
+          <stop offset="0%" :stop-color="colors.yellowGradient[0]" />
+          <stop offset="100%" :stop-color="colors.yellowGradient[1]" />
         </radialGradient>
 
         <radialGradient id="greenGradient" cx="0.3" cy="0.3">
-          <stop offset="0%" stop-color="#32D74B" />
-          <stop offset="100%" stop-color="#28C840" />
-        </radialGradient>
-      </defs>
-    </svg>
-
-    <!-- Dark Theme Window -->
-    <svg
-      v-show="isDark"
-      class="code-window"
-      width="520"
-      height="340"
-      viewBox="0 0 520 340"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <!-- Shadow -->
-      <g filter="url(#shadow-dark)">
-        <!-- Window Background -->
-        <rect x="10" y="10" width="500" height="320" rx="12" fill="#1E1E1E" />
-      </g>
-
-      <!-- Title Bar -->
-      <rect x="10" y="10" width="500" height="36" rx="12" fill="#2D2D2D" />
-      <rect x="10" y="34" width="500" height="12" fill="#2D2D2D" />
-
-      <!-- Traffic Lights -->
-      <circle cx="30" cy="28" r="6" fill="url(#redGradientDark)" />
-      <circle cx="50" cy="28" r="6" fill="url(#yellowGradientDark)" />
-      <circle cx="70" cy="28" r="6" fill="url(#greenGradientDark)" />
-
-      <!-- Window Title -->
-      <text
-        x="260"
-        y="32"
-        font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace"
-        font-size="12"
-        fill="#8B8B8B"
-        text-anchor="middle"
-        font-weight="500"
-      >
-        search.component.ts
-      </text>
-
-      <!-- Code Content (Dark Theme - VS Code Dark+ colors) -->
-      <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="11.5">
-        <!-- Line 1: import -->
-        <text x="24" y="68" fill="#6A737D">1</text>
-        <text x="48" y="68">
-          <tspan fill="#C586C0">import</tspan>
-          <tspan fill="#D4D4D4"> { </tspan>
-          <tspan fill="#9CDCFE">computed</tspan>
-          <tspan fill="#D4D4D4"> } </tspan>
-          <tspan fill="#C586C0">from</tspan>
-          <tspan fill="#CE9178"> '@angular/core'</tspan>
-          <tspan fill="#D4D4D4">;</tspan>
-        </text>
-
-        <!-- Line 2: import -->
-        <text x="24" y="86" fill="#6A737D">2</text>
-        <text x="48" y="86">
-          <tspan fill="#C586C0">import</tspan>
-          <tspan fill="#D4D4D4"> {</tspan>
-        </text>
-
-        <!-- Line 3: composables -->
-        <text x="24" y="104" fill="#6A737D">3</text>
-        <text x="48" y="104">
-          <tspan fill="#D4D4D4">  </tspan>
-          <tspan fill="#9CDCFE">useControlValue</tspan>
-          <tspan fill="#D4D4D4">, </tspan>
-          <tspan fill="#9CDCFE">useDebouncedSignal</tspan>
-          <tspan fill="#D4D4D4">, </tspan>
-          <tspan fill="#9CDCFE">useWindowSize</tspan>
-        </text>
-
-        <!-- Line 4: from -->
-        <text x="24" y="122" fill="#6A737D">4</text>
-        <text x="48" y="122">
-          <tspan fill="#D4D4D4">} </tspan>
-          <tspan fill="#C586C0">from</tspan>
-          <tspan fill="#CE9178"> 'ng-reactive-utils'</tspan>
-          <tspan fill="#D4D4D4">;</tspan>
-        </text>
-
-        <!-- Line 5: empty -->
-        <text x="24" y="140" fill="#6A737D">5</text>
-
-        <!-- Line 6: comment -->
-        <text x="24" y="158" fill="#6A737D">6</text>
-        <text x="48" y="158">
-          <tspan fill="#6A9955">// Convert FormControl to reactive signal</tspan>
-        </text>
-
-        <!-- Line 7: class property -->
-        <text x="24" y="176" fill="#6A737D">7</text>
-        <text x="48" y="176">
-          <tspan fill="#9CDCFE">searchControl</tspan>
-          <tspan fill="#D4D4D4"> = </tspan>
-          <tspan fill="#C586C0">new</tspan>
-          <tspan fill="#4EC9B0"> FormControl</tspan>
-          <tspan fill="#D4D4D4">(</tspan>
-          <tspan fill="#CE9178">''</tspan>
-          <tspan fill="#D4D4D4">);</tspan>
-        </text>
-
-        <!-- Line 8: reactive value -->
-        <text x="24" y="194" fill="#6A737D">8</text>
-        <text x="48" y="194">
-          <tspan fill="#9CDCFE">searchValue</tspan>
-          <tspan fill="#D4D4D4"> = </tspan>
-          <tspan fill="#DCDCAA">useControlValue</tspan>
-          <tspan fill="#D4D4D4">(</tspan>
-          <tspan fill="#C586C0">this</tspan>
-          <tspan fill="#D4D4D4">.searchControl);</tspan>
-        </text>
-
-        <!-- Line 9: empty -->
-        <text x="24" y="212" fill="#6A737D">9</text>
-
-        <!-- Line 10: comment -->
-        <text x="24" y="230" fill="#6A737D">10</text>
-        <text x="48" y="230">
-          <tspan fill="#6A9955">// Debounce for API calls, track window size</tspan>
-        </text>
-
-        <!-- Line 11: debounced -->
-        <text x="24" y="248" fill="#6A737D">11</text>
-        <text x="48" y="248">
-          <tspan fill="#9CDCFE">debouncedSearch</tspan>
-          <tspan fill="#D4D4D4"> = </tspan>
-          <tspan fill="#DCDCAA">useDebouncedSignal</tspan>
-          <tspan fill="#D4D4D4">(</tspan>
-          <tspan fill="#C586C0">this</tspan>
-          <tspan fill="#D4D4D4">.searchValue, </tspan>
-          <tspan fill="#B5CEA8">300</tspan>
-          <tspan fill="#D4D4D4">);</tspan>
-        </text>
-
-        <!-- Line 12: window size -->
-        <text x="24" y="266" fill="#6A737D">12</text>
-        <text x="48" y="266">
-          <tspan fill="#9CDCFE">windowSize</tspan>
-          <tspan fill="#D4D4D4"> = </tspan>
-          <tspan fill="#DCDCAA">useWindowSize</tspan>
-          <tspan fill="#D4D4D4">();</tspan>
-        </text>
-
-        <!-- Line 13: empty -->
-        <text x="24" y="284" fill="#6A737D">13</text>
-
-        <!-- Line 14: computed -->
-        <text x="24" y="302" fill="#6A737D">14</text>
-        <text x="48" y="302">
-          <tspan fill="#6A9955">// Compose into derived state</tspan>
-        </text>
-
-        <!-- Line 15: isMobile -->
-        <text x="24" y="320" fill="#6A737D">15</text>
-        <text x="48" y="320">
-          <tspan fill="#9CDCFE">isMobile</tspan>
-          <tspan fill="#D4D4D4"> = </tspan>
-          <tspan fill="#DCDCAA">computed</tspan>
-          <tspan fill="#D4D4D4">(() => </tspan>
-          <tspan fill="#C586C0">this</tspan>
-          <tspan fill="#D4D4D4">.windowSize().width &lt; </tspan>
-          <tspan fill="#B5CEA8">768</tspan>
-          <tspan fill="#D4D4D4">);</tspan>
-        </text>
-      </g>
-
-      <!-- Outer Border -->
-      <rect x="10" y="10" width="500" height="320" rx="12" stroke="#3D3D3D" stroke-width="1" fill="none" />
-
-      <!-- Defs -->
-      <defs>
-        <filter id="shadow-dark" x="-10" y="-5" width="540" height="360" filterUnits="userSpaceOnUse">
-          <feGaussianBlur in="SourceAlpha" stdDeviation="10" />
-          <feOffset dx="0" dy="10" />
-          <feComponentTransfer>
-            <feFuncA type="linear" slope="0.25" />
-          </feComponentTransfer>
-          <feMerge>
-            <feMergeNode />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-
-        <radialGradient id="redGradientDark" cx="0.3" cy="0.3">
-          <stop offset="0%" stop-color="#ED6A5E" />
-          <stop offset="100%" stop-color="#E1564A" />
-        </radialGradient>
-
-        <radialGradient id="yellowGradientDark" cx="0.3" cy="0.3">
-          <stop offset="0%" stop-color="#F5BF4F" />
-          <stop offset="100%" stop-color="#F0B429" />
-        </radialGradient>
-
-        <radialGradient id="greenGradientDark" cx="0.3" cy="0.3">
-          <stop offset="0%" stop-color="#61C554" />
-          <stop offset="100%" stop-color="#4DB841" />
+          <stop offset="0%" :stop-color="colors.greenGradient[0]" />
+          <stop offset="100%" :stop-color="colors.greenGradient[1]" />
         </radialGradient>
       </defs>
     </svg>
