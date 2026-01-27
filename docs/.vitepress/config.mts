@@ -11,7 +11,7 @@ export default defineConfig({
   description:
     'A collection of small, reusable reactive building blocks for modern Angular applications',
   base: '/ng-reactive-utils/',
-  head: [['link', { rel: 'icon', href: '/ng-reactive-utils/favicon.ico' }]],
+  head: [['link', { rel: 'icon', type: 'image/svg+xml', href: '/ng-reactive-utils/favicon.svg' }]],
 
   vite: {
     plugins: [llmstxt()],

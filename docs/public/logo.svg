@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#c51162"/>
+      <stop offset="100%" style="stop-color:#e91e63"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Outer ring -->
+  <circle cx="64" cy="64" r="56" stroke="url(#logoGradient)" stroke-width="4" fill="none"/>
+  
+  <!-- Inner filled circle -->
+  <circle cx="64" cy="64" r="40" fill="url(#logoGradient)" opacity="0.15"/>
+  
+  <!-- Signal wave/arrow pointing right -->
+  <path d="M45 64 L62 47 L62 58 L90 58 L90 70 L62 70 L62 81 Z" fill="url(#logoGradient)"/>
+  
+  <!-- Small reactive dots -->
+  <circle cx="36" cy="64" r="5" fill="url(#logoGradient)" opacity="0.6"/>
+  <circle cx="28" cy="52" r="3" fill="url(#logoGradient)" opacity="0.4"/>
+  <circle cx="28" cy="76" r="3" fill="url(#logoGradient)" opacity="0.4"/>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <defs>
+    <linearGradient id="favGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#c51162"/>
+      <stop offset="100%" style="stop-color:#e91e63"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="16" cy="16" r="14" fill="url(#favGradient)"/>
+  
+  <!-- Signal arrow in white -->
+  <path d="M10 16 L15 11 L15 14 L23 14 L23 18 L15 18 L15 21 Z" fill="white"/>
+</svg>

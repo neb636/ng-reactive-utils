@@ -1,0 +1,199 @@
+/**
+ * Customize default theme styling by overriding CSS variables:
+ * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
+ */
+
+/**
+ * Colors
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --vp-c-brand-1: #c51162;
+  --vp-c-brand-2: #ab0a54;
+  --vp-c-brand-3: #c51162;
+  --vp-c-brand-soft: rgba(197, 17, 98, 0.14);
+}
+
+/**
+ * Component: Home
+ * -------------------------------------------------------------------------- */
+
+:root {
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(
+    120deg,
+    #c51162 30%,
+    #e91e63
+  );
+}
+
+/* Improve spacing on home page */
+.vp-doc h2 {
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--vp-c-divider);
+}
+
+.vp-doc h2:first-child {
+  border-top: none;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* Better code block styling on home */
+.vp-doc div[class*='language-'] {
+  margin: 20px 0;
+}
+
+/* Improve the custom block styling */
+.vp-doc .custom-block {
+  margin: 28px 0;
+}
+
+.vp-doc .custom-block a {
+  font-weight: 600;
+}
+
+/* Make feature icons bigger and more prominent */
+.VPFeature .icon {
+  font-size: 32px;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+/* Better spacing for lists */
+.vp-doc ul {
+  margin: 16px 0;
+}
+
+.vp-doc ul li {
+  margin: 8px 0;
+}
+
+/* Section styling for home page categories */
+.vp-doc h3 {
+  margin-top: 32px;
+  font-size: 18px;
+}
+
+/* Better link styling in lists */
+.vp-doc ul li code {
+  background-color: var(--vp-c-bg-soft);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* Stats boxes and principle cards hover effect */
+.vp-doc [style*='grid-template-columns'] > div,
+.vp-doc [style*='display: grid'] > div[style*='border-left'] {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.vp-doc [style*='grid-template-columns'] > div:hover,
+.vp-doc [style*='display: grid'] > div[style*='border-left']:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Principle cards specific styling */
+.vp-doc [style*='display: grid'] > div[style*='border-left'] h3 {
+  margin-top: 0 !important;
+  margin-bottom: 12px;
+  border-top: none !important;
+  padding-top: 0 !important;
+}
+
+/* Next steps card links */
+.vp-doc a[style*='text-decoration: none'] > div {
+  cursor: pointer;
+}
+
+.vp-doc a[style*='text-decoration: none'] > div:hover {
+  border-color: var(--vp-c-brand-1) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Better code comparison sections */
+.vp-doc h2 + p strong {
+  display: block;
+  margin-top: 24px;
+  margin-bottom: 16px;
+  font-size: 16px;
+  color: var(--vp-c-text-1);
+}
+
+/* Improve custom blocks for use cases */
+.vp-doc .custom-block.tip {
+  border-left: 4px solid var(--vp-c-brand-1);
+}
+
+.vp-doc .custom-block strong {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+/* Better spacing for inline code in headings */
+.vp-doc h3 code {
+  font-size: 0.9em;
+}
+
+/* Responsive grid improvements */
+@media (max-width: 768px) {
+  .vp-doc [style*='grid-template-columns'] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .vp-doc [style*='grid-template-columns'] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Better table styling */
+.vp-doc table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+}
+
+.vp-doc table thead {
+  background-color: var(--vp-c-bg-soft);
+}
+
+.vp-doc table th {
+  font-weight: 600;
+  text-align: left;
+  padding: 12px 16px;
+}
+
+.vp-doc table td {
+  padding: 12px 16px;
+  border-top: 1px solid var(--vp-c-divider);
+}
+
+.vp-doc table tbody tr:hover {
+  background-color: var(--vp-c-bg-soft);
+}
+
+/* Highlight first column */
+.vp-doc table td:first-child {
+  font-weight: 500;
+  color: var(--vp-c-text-1);
+}
+
+/* Better responsive table */
+@media (max-width: 768px) {
+  .vp-doc table {
+    font-size: 14px;
+  }
+  
+  .vp-doc table th,
+  .vp-doc table td {
+    padding: 8px 12px;
+  }
+}

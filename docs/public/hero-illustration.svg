@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 320" fill="none">
+  <defs>
+    <!-- Brand gradient -->
+    <linearGradient id="brandGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#c51162"/>
+      <stop offset="100%" style="stop-color:#e91e63"/>
+    </linearGradient>
+    
+    <!-- Secondary gradient -->
+    <linearGradient id="secondaryGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7c4dff"/>
+      <stop offset="100%" style="stop-color:#536dfe"/>
+    </linearGradient>
+    
+    <!-- Soft shadow -->
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity="0.1"/>
+    </filter>
+    
+    <!-- Glow effect -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background decorative elements -->
+  <circle cx="320" cy="60" r="40" fill="#c51162" opacity="0.03"/>
+  <circle cx="80" cy="260" r="50" fill="#7c4dff" opacity="0.03"/>
+  <circle cx="350" cy="280" r="30" fill="#e91e63" opacity="0.05"/>
+  
+  <!-- Grid dots background -->
+  <g fill="#c51162" opacity="0.1">
+    <circle cx="40" cy="40" r="2"/>
+    <circle cx="80" cy="40" r="2"/>
+    <circle cx="120" cy="40" r="2"/>
+    <circle cx="40" cy="80" r="2"/>
+    <circle cx="80" cy="80" r="2"/>
+    <circle cx="320" cy="240" r="2"/>
+    <circle cx="360" cy="240" r="2"/>
+    <circle cx="320" cy="280" r="2"/>
+    <circle cx="360" cy="280" r="2"/>
+  </g>
+  
+  <!-- Main code card -->
+  <g filter="url(#shadow)">
+    <rect x="60" y="50" width="280" height="180" rx="12" fill="white"/>
+    <rect x="60" y="50" width="280" height="36" rx="12" fill="#f8f9fa"/>
+    <rect x="60" y="74" width="280" height="12" fill="#f8f9fa"/>
+    
+    <!-- Window controls -->
+    <circle cx="80" cy="68" r="6" fill="#ff5f57"/>
+    <circle cx="100" cy="68" r="6" fill="#febc2e"/>
+    <circle cx="120" cy="68" r="6" fill="#28c840"/>
+    
+    <!-- Code content -->
+    <g font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="11">
+      <!-- Line 1 -->
+      <text x="76" y="108" fill="#7c4dff">import</text>
+      <text x="113" y="108" fill="#1e1e1e"> { useWindowSize } </text>
+      <text x="229" y="108" fill="#7c4dff">from</text>
+      <text x="258" y="108" fill="#c51162">'ng-reactive-utils'</text>
+      <text x="338" y="108" fill="#1e1e1e">;</text>
+      
+      <!-- Line 2 (blank) -->
+      
+      <!-- Line 3 -->
+      <text x="76" y="136" fill="#7c4dff">@Component</text>
+      <text x="140" y="136" fill="#1e1e1e">({</text>
+      <text x="154" y="136" fill="#666">/* ... */</text>
+      <text x="193" y="136" fill="#1e1e1e">})</text>
+      
+      <!-- Line 4 -->
+      <text x="76" y="156" fill="#7c4dff">export class</text>
+      <text x="149" y="156" fill="#1e1e1e"> MyComponent {</text>
+      
+      <!-- Line 5 -->
+      <text x="92" y="176" fill="#1e1e1e">size = </text>
+      <text x="134" y="176" fill="#c51162">useWindowSize</text>
+      <text x="222" y="176" fill="#1e1e1e">();</text>
+      
+      <!-- Line 6 -->
+      <text x="76" y="196" fill="#1e1e1e">}</text>
+    </g>
+  </g>
+  
+  <!-- Signal node - floating -->
+  <g filter="url(#shadow)" transform="translate(290, 180)">
+    <circle cx="0" cy="0" r="36" fill="white"/>
+    <circle cx="0" cy="0" r="28" fill="url(#brandGradient)" opacity="0.1"/>
+    <!-- Signal icon -->
+    <path d="M-14 0 L-2 -12 L-2 -4 L14 -4 L14 4 L-2 4 L-2 12 Z" fill="url(#brandGradient)"/>
+  </g>
+  
+  <!-- Composable node - floating -->
+  <g filter="url(#shadow)" transform="translate(100, 260)">
+    <circle cx="0" cy="0" r="30" fill="white"/>
+    <circle cx="0" cy="0" r="22" fill="url(#secondaryGradient)" opacity="0.1"/>
+    <!-- Function icon -->
+    <text x="0" y="6" text-anchor="middle" font-family="ui-monospace, monospace" font-size="20" font-weight="bold" fill="url(#secondaryGradient)">?</text>
+  </g>
+  
+  <!-- Effect node - floating -->
+  <g filter="url(#shadow)" transform="translate(220, 280)">
+    <circle cx="0" cy="0" r="26" fill="white"/>
+    <circle cx="0" cy="0" r="18" fill="url(#brandGradient)" opacity="0.1"/>
+    <!-- Lightning icon -->
+    <path d="M-2 -10 L4 -10 L0 -1 L6 -1 L-4 12 L-1 2 L-8 2 Z" fill="url(#brandGradient)"/>
+  </g>
+  
+  <!-- Connection lines -->
+  <g stroke-dasharray="4,3" stroke-width="1.5" fill="none">
+    <path d="M260 200 Q 280 240 255 260" stroke="url(#brandGradient)" opacity="0.4"/>
+    <path d="M150 230 Q 160 250 130 260" stroke="url(#secondaryGradient)" opacity="0.4"/>
+    <path d="M180 200 Q 190 250 195 260" stroke="url(#brandGradient)" opacity="0.3"/>
+  </g>
+  
+  <!-- Animated pulse rings around signal node -->
+  <g transform="translate(290, 180)">
+    <circle r="42" stroke="url(#brandGradient)" stroke-width="1" fill="none" opacity="0.3">
+      <animate attributeName="r" values="38;50;38" dur="2.5s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.3;0;0.3" dur="2.5s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Data flow particles -->
+  <g fill="url(#brandGradient)">
+    <circle cx="268" cy="220" r="3">
+      <animate attributeName="opacity" values="0.2;0.8;0.2" dur="1.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="175" cy="245" r="3">
+      <animate attributeName="opacity" values="0.2;0.8;0.2" dur="1.5s" repeatCount="indefinite" begin="0.5s"/>
+    </circle>
+  </g>
+  
+  <!-- Labels -->
+  <g font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="600">
+    <text x="290" y="232" text-anchor="middle" fill="#c51162">signal()</text>
+    <text x="100" y="304" text-anchor="middle" fill="#7c4dff">computed()</text>
+    <text x="220" y="318" text-anchor="middle" fill="#c51162">effect()</text>
+  </g>
+</svg>
