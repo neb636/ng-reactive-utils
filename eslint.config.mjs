@@ -4,16 +4,20 @@ import tseslint from "typescript-eslint";
 import angular from "angular-eslint";
 
 export default [
+  // Ignore test files
+  {
+    ignores: ["**/*.spec.ts", "**/*.test.ts", "**/*.e2e.ts"],
+  },
   // Apply to all JavaScript/TypeScript files
   { 
-    files: ["**/*.{js,mjs,cjs,ts,mts,cts}"], 
+    files: ["projects/ng-reactive-utils/src/**/*.{js,mjs,cjs,ts,mts,cts}"], 
     plugins: { js }, 
     languageOptions: { globals: globals.browser },
     rules: js.configs.recommended.rules
   },
   // TypeScript rules for .ts files
   {
-    files: ["**/*.ts"],
+    files: ["projects/ng-reactive-utils/src/**/*.ts"],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
@@ -34,7 +38,7 @@ export default [
   },
   // Template rules for .html files
   {
-    files: ["**/*.html"],
+    files: ["projects/ng-reactive-utils/src/**/*.html"],
     languageOptions: {
       parser: angular.templateParser,
     },

@@ -94,7 +94,7 @@ export default defineConfig({
                 text: 'useRouteFragment',
                 link: '/composables/route/use-route-fragment',
               },
-              { text: 'useRouteParam', link: '/composables/route/use-route-param' },
+              { text: 'useRouteParameter', link: '/composables/route/use-route-param' },
               {
                 text: 'useRouteParams',
                 link: '/composables/route/use-route-params',
