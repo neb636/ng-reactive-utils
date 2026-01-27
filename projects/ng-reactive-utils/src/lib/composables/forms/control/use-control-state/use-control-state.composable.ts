@@ -1,9 +1,5 @@
 import { computed, Signal } from '@angular/core';
-import {
-  AbstractControl,
-  FormControlStatus,
-  ValidationErrors,
-} from '@angular/forms';
+import { AbstractControl, FormControlStatus, ValidationErrors } from '@angular/forms';
 import { useControlValue } from '../use-control-value/use-control-value.composable';
 import { useControlStatus } from '../use-control-status/use-control-status.composable';
 import { useControlValid } from '../use-control-valid/use-control-valid.composable';
@@ -69,9 +65,7 @@ export interface ControlState<T> {
  * }
  * ```
  */
-export const useControlState = <T>(
-  control: AbstractControl,
-): ControlState<T> => {
+export const useControlState = <T>(control: AbstractControl): ControlState<T> => {
   const valid = useControlValid(control);
   const disabled = useControlDisabled(control);
 

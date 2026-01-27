@@ -30,9 +30,7 @@ import { map } from 'rxjs';
  * }
  * ```
  */
-export const useControlErrors = (
-  control: AbstractControl,
-): Signal<ValidationErrors | null> => {
+export const useControlErrors = (control: AbstractControl): Signal<ValidationErrors | null> => {
   return toSignal(control.statusChanges.pipe(map(() => control.errors)), {
     initialValue: control.errors,
   }) as Signal<ValidationErrors | null>;

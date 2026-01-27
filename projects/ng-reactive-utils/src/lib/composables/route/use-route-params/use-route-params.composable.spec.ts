@@ -10,7 +10,7 @@ describe('useRouteParams', () => {
 
   beforeEach(() => {
     routeParamsSubject = new BehaviorSubject({});
-    
+
     mockActivatedRoute = {
       params: routeParamsSubject.asObservable(),
       snapshot: {
@@ -84,9 +84,8 @@ describe('useRouteParams', () => {
     // Update route params
     routeParamsSubject.next({ id: '2' });
 
-    await new Promise(resolve => setTimeout(resolve, 50));
-      expect(component.params().id).toBe('2');
-      
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    expect(component.params().id).toBe('2');
   });
 
   it('should return readonly signal that cannot be directly modified', () => {
@@ -108,25 +107,25 @@ describe('useRouteParams', () => {
 
   it('should support type-safe access to route params', () => {
     mockActivatedRoute.snapshot = {
-      params: { 
+      params: {
         userId: '100',
         postId: '200',
-        commentId: '300'
+        commentId: '300',
       },
     } as any;
-    routeParamsSubject.next({ 
+    routeParamsSubject.next({
       userId: '100',
       postId: '200',
-      commentId: '300'
+      commentId: '300',
     });
 
     @Component({
       template: '',
     })
     class TestComponent {
-      params = useRouteParams<{ 
-        userId: string; 
-        postId: string; 
+      params = useRouteParams<{
+        userId: string;
+        postId: string;
         commentId: string;
       }>();
     }
@@ -136,7 +135,7 @@ describe('useRouteParams', () => {
 
     const component = fixture.componentInstance;
     const params = component.params();
-    
+
     expect(params.userId).toBe('100');
     expect(params.postId).toBe('200');
     expect(params.commentId).toBe('300');
@@ -210,7 +209,9 @@ describe('useRouteParams', () => {
     routeParamsSubject.next({ userId: '999', postId: '777' });
 
     @Component({
-      template: `<h1 data-testid="title">User {{ params().userId }} - Post {{ params().postId }}</h1>`,
+      template: `<h1 data-testid="title">
+        User {{ params().userId }} - Post {{ params().postId }}
+      </h1>`,
     })
     class TestComponent {
       params = useRouteParams<{ userId: string; postId: string }>();
@@ -299,10 +300,9 @@ describe('useRouteParams', () => {
       routeParamsSubject.next({ count: i.toString() });
     }
 
-    await new Promise(resolve => setTimeout(resolve, 100));
-      // Should have the last value
-      expect(component.params().count).toBe('10');
-      
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    // Should have the last value
+    expect(component.params().count).toBe('10');
   });
 
   it('should handle params changing from populated to empty', async () => {
@@ -327,13 +327,13 @@ describe('useRouteParams', () => {
     // Clear params
     routeParamsSubject.next({});
 
-    await new Promise(resolve => setTimeout(resolve, 50));
+    await new Promise((resolve) => setTimeout(resolve, 50));
     expect(component.params()).toEqual({});
   });
 
   it('should handle params with UUID format', () => {
     const uuid = '550e8400-e29b-41d4-a716-446655440000';
-    
+
     mockActivatedRoute.snapshot = {
       params: { resourceId: uuid },
     } as any;
@@ -376,10 +376,9 @@ describe('useRouteParams', () => {
     // Add new param
     routeParamsSubject.next({ id: '1', extra: 'value' });
 
-    await new Promise(resolve => setTimeout(resolve, 50));
-      expect(component.params().id).toBe('1');
-      expect(component.params().extra).toBe('value');
-      
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    expect(component.params().id).toBe('1');
+    expect(component.params().extra).toBe('value');
   });
 
   it('should handle null values in params', async () => {
@@ -398,10 +397,9 @@ describe('useRouteParams', () => {
     const fixture = TestBed.createComponent(TestComponent);
     fixture.detectChanges();
 
-    await new Promise(resolve => setTimeout(resolve, 50));
-      const component = fixture.componentInstance;
-      expect(component.params().optionalParam).toBeNull();
-      
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    const component = fixture.componentInstance;
+    expect(component.params().optionalParam).toBeNull();
   });
 
   it('should demonstrate use case for resource loading', () => {
@@ -415,7 +413,7 @@ describe('useRouteParams', () => {
     })
     class TestComponent {
       params = useRouteParams<{ productId: string }>();
-      
+
       // Simulate resource loading
       getProductUrl() {
         const productId = this.params().productId;
@@ -453,15 +451,14 @@ describe('useRouteParams', () => {
     // Update both params
     routeParamsSubject.next({ userId: '999', postId: '888' });
 
-    await new Promise(resolve => setTimeout(resolve, 50));
-      expect(component.params().userId).toBe('999');
-      expect(component.params().postId).toBe('888');
-      
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    expect(component.params().userId).toBe('999');
+    expect(component.params().postId).toBe('888');
   });
 
   it('should handle params with very long values', () => {
     const longValue = 'a'.repeat(1000);
-    
+
     mockActivatedRoute.snapshot = {
       params: { longParam: longValue },
     } as any;
@@ -482,4 +479,3 @@ describe('useRouteParams', () => {
     expect(component.params().longParam.length).toBe(1000);
   });
 });
-

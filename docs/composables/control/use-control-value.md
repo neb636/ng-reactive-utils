@@ -11,16 +11,14 @@ import { useControlValue } from 'ng-reactive-utils';
   template: `
     <input [formControl]="nameControl" placeholder="Enter your name" />
     <p>Hello, {{ name() }}!</p>
-  `
+  `,
 })
 class GreetingComponent {
   nameControl = new FormControl('');
   name = useControlValue<string>(this.nameControl);
-  
+
   // Use in computed signals
-  greeting = computed(() => 
-    this.name() ? `Welcome, ${this.name()}!` : 'Please enter your name'
-  );
+  greeting = computed(() => (this.name() ? `Welcome, ${this.name()}!` : 'Please enter your name'));
 }
 ```
 
@@ -36,25 +34,25 @@ import { useControlValue } from 'ng-reactive-utils';
       <option value="electronics">Electronics</option>
       <option value="clothing">Clothing</option>
     </select>
-  `
+  `,
 })
 class ProductFilterComponent {
   categoryControl = new FormControl<string | null>(null);
   category = useControlValue<string | null>(this.categoryControl);
-  
+
   // Use with resource for reactive data fetching
   products = resource({
     params: () => ({ category: this.category() }),
-    loader: ({ params }) => this.productService.getByCategory(params.category)
+    loader: ({ params }) => this.productService.getByCategory(params.category),
   });
 }
 ```
 
 ## Parameters
 
-| Parameter | Type              | Default    | Description                            |
-| --------- | ----------------- | ---------- | -------------------------------------- |
-| `control` | `AbstractControl` | _required_ | The control to get the value from      |
+| Parameter | Type              | Default    | Description                       |
+| --------- | ----------------- | ---------- | --------------------------------- |
+| `control` | `AbstractControl` | _required_ | The control to get the value from |
 
 ## Returns
 

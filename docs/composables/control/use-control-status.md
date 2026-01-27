@@ -10,11 +10,11 @@ import { useControlStatus } from 'ng-reactive-utils';
 @Component({
   template: `
     <input [formControl]="usernameControl" placeholder="Username" />
-    
+
     <span [class]="'status-' + controlStatus().toLowerCase()">
       {{ controlStatus() }}
     </span>
-    
+
     @switch (controlStatus()) {
       @case ('VALID') {
         <span class="success">Username is available</span>
@@ -31,27 +31,36 @@ import { useControlStatus } from 'ng-reactive-utils';
     }
   `,
   styles: `
-    .status-valid { color: green; }
-    .status-invalid { color: red; }
-    .status-pending { color: orange; }
-    .status-disabled { color: gray; }
-  `
+    .status-valid {
+      color: green;
+    }
+    .status-invalid {
+      color: red;
+    }
+    .status-pending {
+      color: orange;
+    }
+    .status-disabled {
+      color: gray;
+    }
+  `,
 })
 class UsernameFieldComponent {
-  usernameControl = new FormControl('', 
+  usernameControl = new FormControl(
+    '',
     [Validators.required, Validators.minLength(3)],
-    [this.usernameAvailabilityValidator()]
+    [this.usernameAvailabilityValidator()],
   );
-  
+
   controlStatus = useControlStatus(this.usernameControl);
 }
 ```
 
 ## Parameters
 
-| Parameter | Type              | Default    | Description                        |
-| --------- | ----------------- | ---------- | ---------------------------------- |
-| `control` | `AbstractControl` | _required_ | The control to get status from     |
+| Parameter | Type              | Default    | Description                    |
+| --------- | ----------------- | ---------- | ------------------------------ |
+| `control` | `AbstractControl` | _required_ | The control to get status from |
 
 ## Returns
 
@@ -59,12 +68,12 @@ class UsernameFieldComponent {
 
 ## Status Values
 
-| Status     | Description                              |
-| ---------- | ---------------------------------------- |
-| `VALID`    | Control passes all validation            |
-| `INVALID`  | Control has validation errors            |
-| `PENDING`  | Control has pending async validators     |
-| `DISABLED` | Control is disabled                      |
+| Status     | Description                          |
+| ---------- | ------------------------------------ |
+| `VALID`    | Control passes all validation        |
+| `INVALID`  | Control has validation errors        |
+| `PENDING`  | Control has pending async validators |
+| `DISABLED` | Control is disabled                  |
 
 ## Notes
 

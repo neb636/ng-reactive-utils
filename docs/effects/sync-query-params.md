@@ -29,12 +29,12 @@ class SearchComponent {
 
 ## Parameters
 
-| Parameter                      | Type                          | Default   | Description                                          |
-| ------------------------------ | ----------------------------- | --------- | ---------------------------------------------------- |
-| `queryParams`                  | `Signal<Record<string, any>>` | _required_ | Signal containing query parameters                   |
-| `options.queryParamsHandling`  | `'merge' \| 'preserve'`       | `'merge'` | How to handle existing query params                  |
-| `options.replaceUrl`           | `boolean`                     | `false`   | Replace current URL instead of pushing to history    |
-| `options.skipLocationChange`   | `boolean`                     | `false`   | Update router state without changing browser URL     |
+| Parameter                     | Type                          | Default    | Description                                       |
+| ----------------------------- | ----------------------------- | ---------- | ------------------------------------------------- |
+| `queryParams`                 | `Signal<Record<string, any>>` | _required_ | Signal containing query parameters                |
+| `options.queryParamsHandling` | `'merge' \| 'preserve'`       | `'merge'`  | How to handle existing query params               |
+| `options.replaceUrl`          | `boolean`                     | `false`    | Replace current URL instead of pushing to history |
+| `options.skipLocationChange`  | `boolean`                     | `false`    | Update router state without changing browser URL  |
 
 ## Notes
 

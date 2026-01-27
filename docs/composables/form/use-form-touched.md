@@ -11,20 +11,20 @@ import { useFormTouched } from 'ng-reactive-utils';
   template: `
     <form [formGroup]="form">
       <input formControlName="email" (blur)="onBlur()" />
-      
+
       @if (isTouched() && form.get('email')?.invalid) {
         <span class="error">Please enter a valid email</span>
       }
     </form>
-  `
+  `,
 })
 class ContactFormComponent {
   form = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email])
+    email: new FormControl('', [Validators.required, Validators.email]),
   });
-  
+
   isTouched = useFormTouched(this.form);
-  
+
   onBlur() {
     // Form will be marked as touched automatically on blur
   }

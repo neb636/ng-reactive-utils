@@ -1,9 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import {
-  Component,
-  provideZonelessChangeDetection,
-  PLATFORM_ID,
-} from '@angular/core';
+import { Component, provideZonelessChangeDetection, PLATFORM_ID } from '@angular/core';
 import { useMousePosition } from './use-mouse-position.composable';
 
 describe('useMousePosition', () => {
@@ -169,10 +165,7 @@ describe('useMousePosition', () => {
   it('should handle server-side rendering (returns default values)', () => {
     // Override PLATFORM_ID to simulate server environment
     TestBed.configureTestingModule({
-      providers: [
-        provideZonelessChangeDetection(),
-        { provide: PLATFORM_ID, useValue: 'server' },
-      ],
+      providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'server' }],
     });
 
     @Component({
@@ -195,10 +188,7 @@ describe('useMousePosition', () => {
   it('should not set up event listeners on server', async () => {
     // Override PLATFORM_ID to simulate server environment
     TestBed.configureTestingModule({
-      providers: [
-        provideZonelessChangeDetection(),
-        { provide: PLATFORM_ID, useValue: 'server' },
-      ],
+      providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'server' }],
     });
 
     @Component({

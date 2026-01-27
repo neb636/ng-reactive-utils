@@ -23,9 +23,9 @@ class ProductDetailComponent {
 
 ## Parameters
 
-| Parameter   | Type     | Default    | Description                      |
-| ----------- | -------- | ---------- | -------------------------------- |
-| `paramName` | `string` | _required_ | The name of the route parameter  |
+| Parameter   | Type     | Default    | Description                     |
+| ----------- | -------- | ---------- | ------------------------------- |
+| `paramName` | `string` | _required_ | The name of the route parameter |
 
 ## Returns
 

@@ -227,10 +227,7 @@ describe('useDocumentVisibility', () => {
   it('should handle server-side rendering (returns true by default)', () => {
     // Override PLATFORM_ID to simulate server environment
     TestBed.configureTestingModule({
-      providers: [
-        provideZonelessChangeDetection(),
-        { provide: PLATFORM_ID, useValue: 'server' },
-      ],
+      providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'server' }],
     });
 
     @Component({
@@ -252,10 +249,7 @@ describe('useDocumentVisibility', () => {
   it('should not set up event listeners on server', () => {
     // Override PLATFORM_ID to simulate server environment
     TestBed.configureTestingModule({
-      providers: [
-        provideZonelessChangeDetection(),
-        { provide: PLATFORM_ID, useValue: 'server' },
-      ],
+      providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'server' }],
     });
 
     @Component({
@@ -411,4 +405,3 @@ describe('useDocumentVisibility', () => {
     });
   });
 });
-

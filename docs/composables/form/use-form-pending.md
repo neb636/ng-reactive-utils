@@ -11,11 +11,11 @@ import { useFormPending } from 'ng-reactive-utils';
   template: `
     <form [formGroup]="form">
       <input formControlName="username" placeholder="Username" />
-      
+
       @if (isPending()) {
         <span class="loading">Checking availability...</span>
       }
-      
+
       <button [disabled]="isPending()">
         @if (isPending()) {
           Validating...
@@ -24,20 +24,20 @@ import { useFormPending } from 'ng-reactive-utils';
         }
       </button>
     </form>
-  `
+  `,
 })
 class RegistrationComponent {
   form = new FormGroup({
-    username: new FormControl('', [], [this.usernameValidator()])
+    username: new FormControl('', [], [this.usernameValidator()]),
   });
-  
+
   isPending = useFormPending(this.form);
-  
+
   usernameValidator(): AsyncValidatorFn {
     return (control) => {
-      return this.userService.checkUsername(control.value).pipe(
-        map(exists => exists ? { usernameTaken: true } : null)
-      );
+      return this.userService
+        .checkUsername(control.value)
+        .pipe(map((exists) => (exists ? { usernameTaken: true } : null)));
     };
   }
 }

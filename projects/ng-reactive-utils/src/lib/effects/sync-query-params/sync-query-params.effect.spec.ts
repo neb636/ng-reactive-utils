@@ -1,10 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import {
-  Component,
-  provideZonelessChangeDetection,
-  signal,
-  computed,
-} from '@angular/core';
+import { Component, provideZonelessChangeDetection, signal, computed } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { vi } from 'vitest';
 import { syncQueryParamsEffect } from './sync-query-params.effect';
@@ -589,8 +584,7 @@ describe('syncQueryParamsEffect', () => {
     expect(mockRouter.navigate).toHaveBeenCalled();
 
     // The last call should have the final value
-    const lastCall =
-      mockRouter.navigate.mock.calls[mockRouter.navigate.mock.calls.length - 1];
+    const lastCall = mockRouter.navigate.mock.calls[mockRouter.navigate.mock.calls.length - 1];
     expect(lastCall[1].queryParams).toEqual({ page: 10 });
   });
 

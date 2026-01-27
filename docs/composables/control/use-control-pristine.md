@@ -10,11 +10,11 @@ import { useControlPristine } from 'ng-reactive-utils';
 @Component({
   template: `
     <input [formControl]="nameControl" />
-    
+
     @if (isPristine()) {
       <span class="hint">Start typing to edit</span>
     }
-  `
+  `,
 })
 class EditableFieldComponent {
   nameControl = new FormControl('');
@@ -30,7 +30,7 @@ import { useControlPristine } from 'ng-reactive-utils';
 @Component({
   template: `
     <input [formControl]="searchControl" placeholder="Search..." />
-    
+
     @if (isPristine()) {
       <div class="suggestions">
         <h4>Popular searches</h4>
@@ -44,7 +44,7 @@ import { useControlPristine } from 'ng-reactive-utils';
         <!-- Show search results -->
       </div>
     }
-  `
+  `,
 })
 class SearchComponent {
   searchControl = new FormControl('');
@@ -54,9 +54,9 @@ class SearchComponent {
 
 ## Parameters
 
-| Parameter | Type              | Default    | Description                               |
-| --------- | ----------------- | ---------- | ----------------------------------------- |
-| `control` | `AbstractControl` | _required_ | The control to check pristine state for   |
+| Parameter | Type              | Default    | Description                             |
+| --------- | ----------------- | ---------- | --------------------------------------- |
+| `control` | `AbstractControl` | _required_ | The control to check pristine state for |
 
 ## Returns
 

@@ -87,33 +87,41 @@ A collection of signal-based reactive utilities for modern Angular (v20+).
 ## Key Patterns
 
 ### Reactive Forms → Use Form/Control Signals
+
 Instead of subscribing to valueChanges or statusChanges:
+
 - useFormValue(form) - Form value as a signal
-- useFormValid(form) - Form validity as a signal  
+- useFormValid(form) - Form validity as a signal
 - useControlValue(control) - Control value as a signal
 - useControlErrors(control) - Control errors as a signal
 
 ### ActivatedRoute → Use Route Signals
+
 Instead of subscribing to route observables:
+
 - useRouteParam('id') - Route parameter as a signal
 - useRouteQueryParam('search') - Query parameter as a signal
 - useRouteParams() - All route params as a signal
 
 ### Browser APIs → Use Browser Signals
+
 - useWindowSize() - Window dimensions as signals
 - useMousePosition() - Mouse coordinates as signals
 - useDocumentVisibility() - Tab visibility as a signal
 
 ### Signal Utilities
+
 - useDebouncedSignal(signal, ms) - Debounced value
 - useThrottledSignal(signal, ms) - Throttled value
 - usePreviousSignal(signal) - Previous value
 
 ### Effects
+
 - syncLocalStorageEffect(key, signal) - Persist to localStorage
 - syncQueryParamsEffect({ param: signal }) - Sync with URL
 
 ## Import
+
 import { useFormValid, useRouteParam } from 'ng-reactive-utils';
 ```
 
@@ -122,67 +130,74 @@ import { useFormValid, useRouteParam } from 'ng-reactive-utils';
 Here's a quick reference of all available functions:
 
 ### Browser Composables
-| Function | Description |
-|----------|-------------|
-| `useDocumentVisibility()` | Returns a signal tracking document visibility state |
-| `useElementBounding(elementRef)` | Returns signals for element position and size |
-| `useMousePosition()` | Returns `x` and `y` signals for mouse position |
-| `useWindowSize()` | Returns `width` and `height` signals for window size |
+
+| Function                         | Description                                          |
+| -------------------------------- | ---------------------------------------------------- |
+| `useDocumentVisibility()`        | Returns a signal tracking document visibility state  |
+| `useElementBounding(elementRef)` | Returns signals for element position and size        |
+| `useMousePosition()`             | Returns `x` and `y` signals for mouse position       |
+| `useWindowSize()`                | Returns `width` and `height` signals for window size |
 
 ### Route Composables
-| Function | Description |
-|----------|-------------|
-| `useRouteData()` | Returns a signal with route data |
-| `useRouteFragment()` | Returns a signal with URL fragment |
-| `useRouteParam(name)` | Returns a signal with a single route parameter |
-| `useRouteParams()` | Returns a signal with all route parameters |
+
+| Function                   | Description                                    |
+| -------------------------- | ---------------------------------------------- |
+| `useRouteData()`           | Returns a signal with route data               |
+| `useRouteFragment()`       | Returns a signal with URL fragment             |
+| `useRouteParam(name)`      | Returns a signal with a single route parameter |
+| `useRouteParams()`         | Returns a signal with all route parameters     |
 | `useRouteQueryParam(name)` | Returns a signal with a single query parameter |
-| `useRouteQueryParams()` | Returns a signal with all query parameters |
+| `useRouteQueryParams()`    | Returns a signal with all query parameters     |
 
 ### Form Composables
-| Function | Description |
-|----------|-------------|
-| `useFormValue(form)` | Form value as a signal |
-| `useFormValid(form)` | Form validity as a signal |
-| `useFormErrors(form)` | Form errors as a signal |
-| `useFormStatus(form)` | Form status as a signal |
-| `useFormDirty(form)` | Form dirty state as a signal |
-| `useFormPristine(form)` | Form pristine state as a signal |
-| `useFormTouched(form)` | Form touched state as a signal |
-| `useFormUntouched(form)` | Form untouched state as a signal |
-| `useFormPending(form)` | Form pending state as a signal |
-| `useFormDisabled(form)` | Form disabled state as a signal |
-| `useFormState(form)` | Complete form state object as a signal |
+
+| Function                 | Description                            |
+| ------------------------ | -------------------------------------- |
+| `useFormValue(form)`     | Form value as a signal                 |
+| `useFormValid(form)`     | Form validity as a signal              |
+| `useFormErrors(form)`    | Form errors as a signal                |
+| `useFormStatus(form)`    | Form status as a signal                |
+| `useFormDirty(form)`     | Form dirty state as a signal           |
+| `useFormPristine(form)`  | Form pristine state as a signal        |
+| `useFormTouched(form)`   | Form touched state as a signal         |
+| `useFormUntouched(form)` | Form untouched state as a signal       |
+| `useFormPending(form)`   | Form pending state as a signal         |
+| `useFormDisabled(form)`  | Form disabled state as a signal        |
+| `useFormState(form)`     | Complete form state object as a signal |
 
 ### Control Composables
-| Function | Description |
-|----------|-------------|
-| `useControlValue(control)` | Control value as a signal |
-| `useControlValid(control)` | Control validity as a signal |
-| `useControlErrors(control)` | Control errors as a signal |
-| `useControlStatus(control)` | Control status as a signal |
-| `useControlDirty(control)` | Control dirty state as a signal |
-| `useControlPristine(control)` | Control pristine state as a signal |
-| `useControlTouched(control)` | Control touched state as a signal |
-| `useControlUntouched(control)` | Control untouched state as a signal |
-| `useControlPending(control)` | Control pending state as a signal |
-| `useControlDisabled(control)` | Control disabled state as a signal |
-| `useControlState(control)` | Complete control state object as a signal |
+
+| Function                       | Description                               |
+| ------------------------------ | ----------------------------------------- |
+| `useControlValue(control)`     | Control value as a signal                 |
+| `useControlValid(control)`     | Control validity as a signal              |
+| `useControlErrors(control)`    | Control errors as a signal                |
+| `useControlStatus(control)`    | Control status as a signal                |
+| `useControlDirty(control)`     | Control dirty state as a signal           |
+| `useControlPristine(control)`  | Control pristine state as a signal        |
+| `useControlTouched(control)`   | Control touched state as a signal         |
+| `useControlUntouched(control)` | Control untouched state as a signal       |
+| `useControlPending(control)`   | Control pending state as a signal         |
+| `useControlDisabled(control)`  | Control disabled state as a signal        |
+| `useControlState(control)`     | Complete control state object as a signal |
 
 ### General Composables
-| Function | Description |
-|----------|-------------|
+
+| Function                         | Description                               |
+| -------------------------------- | ----------------------------------------- |
 | `useDebouncedSignal(signal, ms)` | Returns a debounced version of the signal |
 | `useThrottledSignal(signal, ms)` | Returns a throttled version of the signal |
-| `usePreviousSignal(signal)` | Returns a signal with the previous value |
+| `usePreviousSignal(signal)`      | Returns a signal with the previous value  |
 
 ### Effects
-| Function | Description |
-|----------|-------------|
-| `syncLocalStorageEffect(key, signal)` | Syncs a signal with localStorage |
-| `syncQueryParamsEffect(config)` | Syncs signals with URL query parameters |
+
+| Function                              | Description                             |
+| ------------------------------------- | --------------------------------------- |
+| `syncLocalStorageEffect(key, signal)` | Syncs a signal with localStorage        |
+| `syncQueryParamsEffect(config)`       | Syncs signals with URL query parameters |
 
 ### Utilities
-| Function | Description |
-|----------|-------------|
+
+| Function                     | Description                               |
+| ---------------------------- | ----------------------------------------- |
 | `createSharedComposable(fn)` | Creates a shared instance of a composable |

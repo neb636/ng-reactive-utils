@@ -10,7 +10,7 @@ describe('useRouteQueryParam', () => {
 
   beforeEach(() => {
     routeQueryParamsSubject = new BehaviorSubject({});
-    
+
     mockActivatedRoute = {
       queryParams: routeQueryParamsSubject.asObservable(),
       snapshot: {
@@ -83,9 +83,8 @@ describe('useRouteQueryParam', () => {
     // Update query param
     routeQueryParamsSubject.next({ filter: 'completed' });
 
-    await new Promise(resolve => setTimeout(resolve, 50));
-      expect(component.filter()).toBe('completed');
-      
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    expect(component.filter()).toBe('completed');
   });
 
   it('should return readonly signal that cannot be directly modified', () => {
@@ -129,18 +128,18 @@ describe('useRouteQueryParam', () => {
 
   it('should only return the requested query param value', () => {
     mockActivatedRoute.snapshot = {
-      queryParams: { 
+      queryParams: {
         query: 'test',
         sort: 'date',
         order: 'asc',
-        page: '1'
+        page: '1',
       },
     } as any;
-    routeQueryParamsSubject.next({ 
+    routeQueryParamsSubject.next({
       query: 'test',
       sort: 'date',
       order: 'asc',
-      page: '1'
+      page: '1',
     });
 
     @Component({
@@ -217,9 +216,8 @@ describe('useRouteQueryParam', () => {
     // Add query param
     routeQueryParamsSubject.next({ filter: 'new-filter' });
 
-    await new Promise(resolve => setTimeout(resolve, 50));
-      expect(component.filter()).toBe('new-filter');
-      
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    expect(component.filter()).toBe('new-filter');
   });
 
   it('should handle query param changing from a value to undefined', async () => {
@@ -244,9 +242,8 @@ describe('useRouteQueryParam', () => {
     // Remove query param
     routeQueryParamsSubject.next({});
 
-    await new Promise(resolve => setTimeout(resolve, 50));
-      expect(component.filter()).toBeUndefined();
-      
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    expect(component.filter()).toBeUndefined();
   });
 
   it('should maintain separate instances for different components', () => {
@@ -323,10 +320,9 @@ describe('useRouteQueryParam', () => {
       routeQueryParamsSubject.next({ count: i.toString(), other: 'stable' });
     }
 
-    await new Promise(resolve => setTimeout(resolve, 100));
-      // Should have the last value
-      expect(component.count()).toBe('10');
-      
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    // Should have the last value
+    expect(component.count()).toBe('10');
   });
 
   it('should not be affected by changes to other query params', async () => {
@@ -351,10 +347,9 @@ describe('useRouteQueryParam', () => {
     // Update only the 'other' query param
     routeQueryParamsSubject.next({ stable: 'value', other: 'changed' });
 
-    await new Promise(resolve => setTimeout(resolve, 50));
-      // 'stable' should remain the same
-      expect(component.stableParam()).toBe('value');
-      
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    // 'stable' should remain the same
+    expect(component.stableParam()).toBe('value');
   });
 
   it('should handle query param with special characters', () => {
@@ -408,7 +403,7 @@ describe('useRouteQueryParam', () => {
     })
     class TestComponent {
       searchQuery = useRouteQueryParam<string>('query');
-      
+
       // Simulate resource loading
       getSearchUrl() {
         const query = this.searchQuery();
@@ -425,7 +420,7 @@ describe('useRouteQueryParam', () => {
 
   it('should handle query param with very long value', () => {
     const longValue = 'a'.repeat(1000);
-    
+
     mockActivatedRoute.snapshot = {
       queryParams: { longParam: longValue },
     } as any;
@@ -448,16 +443,16 @@ describe('useRouteQueryParam', () => {
 
   it('should handle case-sensitive query param names', () => {
     mockActivatedRoute.snapshot = {
-      queryParams: { 
+      queryParams: {
         param: 'lowercase',
         Param: 'mixedcase',
-        PARAM: 'uppercase'
+        PARAM: 'uppercase',
       },
     } as any;
-    routeQueryParamsSubject.next({ 
+    routeQueryParamsSubject.next({
       param: 'lowercase',
       Param: 'mixedcase',
-      PARAM: 'uppercase'
+      PARAM: 'uppercase',
     });
 
     @Component({
@@ -529,7 +524,7 @@ describe('useRouteQueryParam', () => {
     })
     class TestComponent {
       tags = useRouteQueryParam<string>('tags');
-      
+
       // Simulate parsing tags
       getTagsArray() {
         const tags = this.tags();
@@ -567,10 +562,9 @@ describe('useRouteQueryParam', () => {
     // Update both params
     routeQueryParamsSubject.next({ param1: 'updated1', param2: 'updated2' });
 
-    await new Promise(resolve => setTimeout(resolve, 50));
-      // Should have the updated value for param1
-      expect(component.param1()).toBe('updated1');
-      
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    // Should have the updated value for param1
+    expect(component.param1()).toBe('updated1');
   });
 
   it('should demonstrate use case for pagination', () => {
@@ -585,7 +579,7 @@ describe('useRouteQueryParam', () => {
     class TestComponent {
       page = useRouteQueryParam<string>('page');
       limit = useRouteQueryParam<string>('limit');
-      
+
       // Simulate pagination calculation
       getOffset() {
         const page = parseInt(this.page() || '1', 10);
@@ -621,11 +615,3 @@ describe('useRouteQueryParam', () => {
     expect(component.offset()).toBe('0');
   });
 });
-
-
-
-
-
-
-
-

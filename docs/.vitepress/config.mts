@@ -12,7 +12,7 @@ export default defineConfig({
     'A collection of small, reusable reactive building blocks for modern Angular applications',
   base: '/ng-reactive-utils/',
   head: [['link', { rel: 'icon', href: '/ng-reactive-utils/favicon.ico' }]],
-  
+
   vite: {
     plugins: [llmstxt()],
     resolve: {
@@ -174,8 +174,7 @@ export default defineConfig({
     },
 
     editLink: {
-      pattern:
-        'https://github.com/neb636/ng-reactive-utils/edit/main/docs/:path',
+      pattern: 'https://github.com/neb636/ng-reactive-utils/edit/main/docs/:path',
       text: 'Edit this page on GitHub',
     },
   },

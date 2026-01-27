@@ -9,15 +9,12 @@ import { useControlTouched } from 'ng-reactive-utils';
 
 @Component({
   template: `
-    <input 
-      [formControl]="emailControl" 
-      placeholder="Email"
-    />
-    
+    <input [formControl]="emailControl" placeholder="Email" />
+
     @if (isTouched() && emailControl.invalid) {
       <span class="error">Please enter a valid email</span>
     }
-  `
+  `,
 })
 class EmailInputComponent {
   emailControl = new FormControl('', [Validators.required, Validators.email]);
@@ -27,9 +24,9 @@ class EmailInputComponent {
 
 ## Parameters
 
-| Parameter | Type              | Default    | Description                                |
-| --------- | ----------------- | ---------- | ------------------------------------------ |
-| `control` | `AbstractControl` | _required_ | The control to check touched state for     |
+| Parameter | Type              | Default    | Description                            |
+| --------- | ----------------- | ---------- | -------------------------------------- |
+| `control` | `AbstractControl` | _required_ | The control to check touched state for |
 
 ## Returns
 

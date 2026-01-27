@@ -10,7 +10,7 @@ describe('useRouteParameter', () => {
 
   beforeEach(() => {
     routeParamsSubject = new BehaviorSubject({});
-    
+
     mockActivatedRoute = {
       params: routeParamsSubject.asObservable(),
       snapshot: {
@@ -83,9 +83,8 @@ describe('useRouteParameter', () => {
     // Update parameter
     routeParamsSubject.next({ userId: '2' });
 
-    await new Promise(resolve => setTimeout(resolve, 50));
-      expect(component.userId()).toBe('2');
-      
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    expect(component.userId()).toBe('2');
   });
 
   it('should return readonly signal that cannot be directly modified', () => {
@@ -129,16 +128,16 @@ describe('useRouteParameter', () => {
 
   it('should only return the requested parameter value', () => {
     mockActivatedRoute.snapshot = {
-      params: { 
+      params: {
         userId: '123',
         postId: '456',
-        commentId: '789'
+        commentId: '789',
       },
     } as any;
-    routeParamsSubject.next({ 
+    routeParamsSubject.next({
       userId: '123',
       postId: '456',
-      commentId: '789'
+      commentId: '789',
     });
 
     @Component({
@@ -215,9 +214,8 @@ describe('useRouteParameter', () => {
     // Add parameter
     routeParamsSubject.next({ id: 'new-id' });
 
-    await new Promise(resolve => setTimeout(resolve, 50));
-      expect(component.id()).toBe('new-id');
-      
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    expect(component.id()).toBe('new-id');
   });
 
   it('should handle parameter changing from a value to undefined', async () => {
@@ -242,9 +240,8 @@ describe('useRouteParameter', () => {
     // Remove parameter
     routeParamsSubject.next({});
 
-    await new Promise(resolve => setTimeout(resolve, 50));
-      expect(component.id()).toBeUndefined();
-      
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    expect(component.id()).toBeUndefined();
   });
 
   it('should maintain separate instances for different components', () => {
@@ -321,10 +318,9 @@ describe('useRouteParameter', () => {
       routeParamsSubject.next({ count: i.toString() });
     }
 
-    await new Promise(resolve => setTimeout(resolve, 100));
-      // Should have the last value
-      expect(component.count()).toBe('10');
-      
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    // Should have the last value
+    expect(component.count()).toBe('10');
   });
 
   it('should not be affected by changes to other parameters', async () => {
@@ -349,15 +345,14 @@ describe('useRouteParameter', () => {
     // Update only the 'other' parameter
     routeParamsSubject.next({ id: 'stable', other: 'changed' });
 
-    await new Promise(resolve => setTimeout(resolve, 50));
-      // 'id' should remain the same
-      expect(component.id()).toBe('stable');
-      
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    // 'id' should remain the same
+    expect(component.id()).toBe('stable');
   });
 
   it('should handle parameter with UUID format', () => {
     const uuid = '550e8400-e29b-41d4-a716-446655440000';
-    
+
     mockActivatedRoute.snapshot = {
       params: { resourceId: uuid },
     } as any;
@@ -413,10 +408,9 @@ describe('useRouteParameter', () => {
     const fixture = TestBed.createComponent(TestComponent);
     fixture.detectChanges();
 
-    await new Promise(resolve => setTimeout(resolve, 50));
-      const component = fixture.componentInstance;
-      expect(component.optionalParam()).toBeNull();
-      
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    const component = fixture.componentInstance;
+    expect(component.optionalParam()).toBeNull();
   });
 
   it('should demonstrate use case for resource loading', () => {
@@ -430,7 +424,7 @@ describe('useRouteParameter', () => {
     })
     class TestComponent {
       productId = useRouteParameter<string>('productId');
-      
+
       // Simulate resource loading
       getProductUrl() {
         const id = this.productId();
@@ -447,7 +441,7 @@ describe('useRouteParameter', () => {
 
   it('should handle parameter with very long value', () => {
     const longValue = 'a'.repeat(1000);
-    
+
     mockActivatedRoute.snapshot = {
       params: { longParam: longValue },
     } as any;
@@ -470,16 +464,16 @@ describe('useRouteParameter', () => {
 
   it('should handle case-sensitive parameter names', () => {
     mockActivatedRoute.snapshot = {
-      params: { 
+      params: {
         userId: 'lowercase',
         UserId: 'mixedcase',
-        USERID: 'uppercase'
+        USERID: 'uppercase',
       },
     } as any;
-    routeParamsSubject.next({ 
+    routeParamsSubject.next({
       userId: 'lowercase',
       UserId: 'mixedcase',
-      USERID: 'uppercase'
+      USERID: 'uppercase',
     });
 
     @Component({
@@ -520,11 +514,3 @@ describe('useRouteParameter', () => {
     expect(component.emptyParam()).toBe('');
   });
 });
-
-
-
-
-
-
-
-

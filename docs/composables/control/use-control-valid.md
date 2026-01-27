@@ -10,13 +10,13 @@ import { useControlValid } from 'ng-reactive-utils';
 @Component({
   template: `
     <input [formControl]="emailControl" placeholder="Email" />
-    
+
     @if (!isValid()) {
       <span class="error">Email is invalid</span>
     }
-    
+
     <button [disabled]="!isValid()">Continue</button>
-  `
+  `,
 })
 class EmailStepComponent {
   emailControl = new FormControl('', [Validators.required, Validators.email]);
@@ -26,9 +26,9 @@ class EmailStepComponent {
 
 ## Parameters
 
-| Parameter | Type              | Default    | Description                             |
-| --------- | ----------------- | ---------- | --------------------------------------- |
-| `control` | `AbstractControl` | _required_ | The control to check validity for       |
+| Parameter | Type              | Default    | Description                       |
+| --------- | ----------------- | ---------- | --------------------------------- |
+| `control` | `AbstractControl` | _required_ | The control to check validity for |
 
 ## Returns
 

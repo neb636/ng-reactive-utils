@@ -1,11 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { Component, provideZonelessChangeDetection } from '@angular/core';
-import {
-  FormGroup,
-  FormControl,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { useFormValid } from './use-form-valid.composable';
 
 describe('useFormValid', () => {
@@ -117,9 +112,7 @@ describe('useFormValid', () => {
           validators: (group) => {
             const password = group.get('password')?.value;
             const confirmPassword = group.get('confirmPassword')?.value;
-            return password === confirmPassword
-              ? null
-              : { passwordMismatch: true };
+            return password === confirmPassword ? null : { passwordMismatch: true };
           },
         },
       );

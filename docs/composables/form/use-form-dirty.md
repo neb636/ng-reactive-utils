@@ -12,30 +12,30 @@ import { useFormDirty } from 'ng-reactive-utils';
     <form [formGroup]="form">
       <input formControlName="title" />
       <textarea formControlName="content"></textarea>
-      
+
       @if (isDirty()) {
         <div class="unsaved-warning">
           You have unsaved changes
           <button (click)="resetForm()">Discard</button>
         </div>
       }
-      
+
       <button [disabled]="!isDirty()">Save Changes</button>
     </form>
-  `
+  `,
 })
 class EditorComponent {
   form = new FormGroup({
     title: new FormControl(''),
-    content: new FormControl('')
+    content: new FormControl(''),
   });
-  
+
   isDirty = useFormDirty(this.form);
-  
+
   resetForm() {
     this.form.reset();
   }
-  
+
   // Use with canDeactivate guard
   canDeactivate(): boolean {
     return !this.isDirty() || confirm('Discard unsaved changes?');

@@ -12,30 +12,30 @@ import { useFormValid } from 'ng-reactive-utils';
     <form [formGroup]="form">
       <input formControlName="email" placeholder="Email" />
       <input formControlName="password" type="password" placeholder="Password" />
-      
+
       <button [disabled]="!isValid()">Submit</button>
-      
+
       @if (!isValid()) {
         <p class="error">Please fill in all required fields correctly.</p>
       }
     </form>
-  `
+  `,
 })
 class LoginFormComponent {
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(8)])
+    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
   });
-  
+
   isValid = useFormValid(this.form);
 }
 ```
 
 ## Parameters
 
-| Parameter | Type        | Default    | Description                           |
-| --------- | ----------- | ---------- | ------------------------------------- |
-| `form`    | `FormGroup` | _required_ | The FormGroup to check validity for   |
+| Parameter | Type        | Default    | Description                         |
+| --------- | ----------- | ---------- | ----------------------------------- |
+| `form`    | `FormGroup` | _required_ | The FormGroup to check validity for |
 
 ## Returns
 

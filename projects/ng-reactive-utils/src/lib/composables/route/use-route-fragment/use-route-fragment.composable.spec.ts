@@ -10,7 +10,7 @@ describe('useRouteFragment', () => {
 
   beforeEach(() => {
     routeFragmentSubject = new BehaviorSubject<string | null>(null);
-    
+
     mockActivatedRoute = {
       fragment: routeFragmentSubject.asObservable(),
       snapshot: {
@@ -83,9 +83,8 @@ describe('useRouteFragment', () => {
     // Update fragment
     routeFragmentSubject.next('section2');
 
-    await new Promise(resolve => setTimeout(resolve, 50));
-      expect(component.fragment()).toBe('section2');
-      
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    expect(component.fragment()).toBe('section2');
   });
 
   it('should return readonly signal that cannot be directly modified', () => {
@@ -122,9 +121,8 @@ describe('useRouteFragment', () => {
     // Update fragment to a value
     routeFragmentSubject.next('introduction');
 
-    await new Promise(resolve => setTimeout(resolve, 50));
-      expect(component.fragment()).toBe('introduction');
-      
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    expect(component.fragment()).toBe('introduction');
   });
 
   it('should handle fragment changing from a value to null', async () => {
@@ -149,9 +147,8 @@ describe('useRouteFragment', () => {
     // Clear fragment
     routeFragmentSubject.next(null);
 
-    await new Promise(resolve => setTimeout(resolve, 50));
-      expect(component.fragment()).toBeNull();
-      
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    expect(component.fragment()).toBeNull();
   });
 
   it('should work correctly in template bindings', () => {
@@ -178,7 +175,7 @@ describe('useRouteFragment', () => {
 
   it('should handle fragments with special characters', () => {
     const specialFragment = 'section-1_part-a';
-    
+
     mockActivatedRoute.snapshot = {
       fragment: specialFragment,
     } as any;
@@ -289,12 +286,11 @@ describe('useRouteFragment', () => {
 
     // Rapidly update fragment
     const fragments = ['section2', 'section3', 'section4', 'section5'];
-    fragments.forEach(frag => routeFragmentSubject.next(frag));
+    fragments.forEach((frag) => routeFragmentSubject.next(frag));
 
-    await new Promise(resolve => setTimeout(resolve, 100));
-      // Should have the last value
-      expect(component.fragment()).toBe('section5');
-      
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    // Should have the last value
+    expect(component.fragment()).toBe('section5');
   });
 
   it('should handle empty string fragment', () => {
@@ -328,7 +324,7 @@ describe('useRouteFragment', () => {
     })
     class TestComponent {
       fragment = useRouteFragment();
-      
+
       // Simulate what would happen in a real component with effect
       scrollToSection() {
         const section = this.fragment();
@@ -348,7 +344,7 @@ describe('useRouteFragment', () => {
 
   it('should handle fragments with URL-encoded characters', () => {
     const encodedFragment = 'section%20with%20spaces';
-    
+
     mockActivatedRoute.snapshot = {
       fragment: encodedFragment,
     } as any;
@@ -369,8 +365,9 @@ describe('useRouteFragment', () => {
   });
 
   it('should handle very long fragment values', () => {
-    const longFragment = 'this-is-a-very-long-fragment-identifier-that-might-be-used-for-deep-linking-in-some-applications';
-    
+    const longFragment =
+      'this-is-a-very-long-fragment-identifier-that-might-be-used-for-deep-linking-in-some-applications';
+
     mockActivatedRoute.snapshot = {
       fragment: longFragment,
     } as any;
@@ -390,11 +387,3 @@ describe('useRouteFragment', () => {
     expect(component.fragment()).toBe(longFragment);
   });
 });
-
-
-
-
-
-
-
-

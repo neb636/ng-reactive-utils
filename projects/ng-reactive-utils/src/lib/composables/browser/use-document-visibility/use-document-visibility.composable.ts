@@ -33,20 +33,14 @@ export const useDocumentVisibility = createSharedComposable(() => {
 
   // Only set up event listeners in the browser
   if (isBrowser && document.defaultView) {
-    document.defaultView.addEventListener(
-      'visibilitychange',
-      handleVisibilityChange,
-    );
+    document.defaultView.addEventListener('visibilitychange', handleVisibilityChange);
   }
 
   return {
     value: visibilitySignal.asReadonly(),
     cleanup: () => {
       if (isBrowser && document.defaultView) {
-        document.defaultView.removeEventListener(
-          'visibilitychange',
-          handleVisibilityChange,
-        );
+        document.defaultView.removeEventListener('visibilitychange', handleVisibilityChange);
       }
     },
   };

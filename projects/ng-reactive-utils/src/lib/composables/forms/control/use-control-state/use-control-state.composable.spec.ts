@@ -1,10 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { Component, provideZonelessChangeDetection } from '@angular/core';
-import {
-  FormControl,
-  Validators,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { useControlState } from './use-control-state.composable';
 
 describe('useControlState', () => {

@@ -340,7 +340,7 @@ describe('createSharedComposable', () => {
           return {
             value: data,
           };
-        }
+        },
       );
 
       @Component({
@@ -459,7 +459,7 @@ describe('createSharedComposable', () => {
       fixture.detectChanges();
 
       expect(fixture.componentInstance.simple()).toBe('no cleanup');
-      
+
       // Should destroy without errors
       expect(() => fixture.destroy()).not.toThrow();
     });
@@ -642,10 +642,10 @@ describe('createSharedComposable', () => {
       // Both use value 100, but different cache keys (no args vs [100])
       // This tests whether JSON.stringify creates different keys for these cases
       expect(factoryCalls).toEqual([100, 100]); // Called twice
-      
+
       const resource1 = fixture1.componentInstance.resource;
       const resource2 = fixture2.componentInstance.resource;
-      
+
       // They might be different instances due to different cache keys
       // (empty array vs [100])
       expect(resource1()).toBe(100);
@@ -659,7 +659,7 @@ describe('createSharedComposable', () => {
           return {
             value: data,
           };
-        }
+        },
       );
 
       @Component({
@@ -748,7 +748,7 @@ describe('createSharedComposable', () => {
       fixture.detectChanges();
 
       const readonlySignal = fixture.componentInstance.readonly;
-      
+
       // Should not have .set() method
       expect((readonlySignal as any).set).toBeUndefined();
       expect(readonlySignal()).toBe(0);
@@ -804,7 +804,7 @@ describe('createSharedComposable', () => {
       expect(resource1).toBe(resource2);
       // Same null values should share instance
       expect(resource1).toBe(resource3);
-      
+
       // The value will be null because that's what was created first
       expect(resource1()).toBeNull();
     });
@@ -852,4 +852,3 @@ describe('createSharedComposable', () => {
     });
   });
 });
-

@@ -22,11 +22,11 @@ class FormComponent {
 
 ## Parameters
 
-| Parameter   | Type                         | Default          | Description                              |
-| ----------- | ---------------------------- | ---------------- | ---------------------------------------- |
-| `signal`    | `Signal<any>`                | _required_       | The signal to sync to localStorage       |
-| `key`       | `string`                     | _required_       | localStorage key to use                  |
-| `serialize` | `(value: any) => string`     | `JSON.stringify` | Optional custom serialization function   |
+| Parameter   | Type                     | Default          | Description                            |
+| ----------- | ------------------------ | ---------------- | -------------------------------------- |
+| `signal`    | `Signal<any>`            | _required_       | The signal to sync to localStorage     |
+| `key`       | `string`                 | _required_       | localStorage key to use                |
+| `serialize` | `(value: any) => string` | `JSON.stringify` | Optional custom serialization function |
 
 ## Notes
 

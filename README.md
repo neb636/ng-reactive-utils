@@ -20,10 +20,7 @@ import { useDebouncedSignal } from 'ng-reactive-utils';
 @Component({
   selector: 'search-box',
   template: `
-    <input
-      [value]="searchTerm()"
-      (input)="searchTerm.set($any($event.target).value)"
-    />
+    <input [value]="searchTerm()" (input)="searchTerm.set($any($event.target).value)" />
     <p>Debounced: {{ debouncedSearch() }}</p>
   `,
 })

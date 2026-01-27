@@ -19,15 +19,15 @@ class ExampleComponent {
   previousCount = usePreviousSignal(this.count);
 
   increment() {
-    this.count.update(v => v + 1);
+    this.count.update((v) => v + 1);
   }
 }
 ```
 
 ## Parameters
 
-| Parameter      | Type        | Default    | Description                              |
-| -------------- | ----------- | ---------- | ---------------------------------------- |
+| Parameter      | Type        | Default    | Description                               |
+| -------------- | ----------- | ---------- | ----------------------------------------- |
 | `sourceSignal` | `Signal<T>` | _required_ | The source signal to track previous value |
 
 ## Returns

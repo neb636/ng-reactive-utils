@@ -13,31 +13,29 @@ import { useFormValue } from 'ng-reactive-utils';
       <input formControlName="firstName" />
       <input formControlName="lastName" />
     </form>
-    
+
     <p>Hello, {{ formValue().firstName }} {{ formValue().lastName }}!</p>
     <pre>{{ formValue() | json }}</pre>
-  `
+  `,
 })
 class GreetingComponent {
   form = new FormGroup({
     firstName: new FormControl(''),
-    lastName: new FormControl('')
+    lastName: new FormControl(''),
   });
-  
+
   formValue = useFormValue<{ firstName: string; lastName: string }>(this.form);
-  
+
   // Use in computed signals
-  fullName = computed(() => 
-    `${this.formValue().firstName} ${this.formValue().lastName}`.trim()
-  );
+  fullName = computed(() => `${this.formValue().firstName} ${this.formValue().lastName}`.trim());
 }
 ```
 
 ## Parameters
 
-| Parameter | Type        | Default    | Description                          |
-| --------- | ----------- | ---------- | ------------------------------------ |
-| `form`    | `FormGroup` | _required_ | The FormGroup to get the value from  |
+| Parameter | Type        | Default    | Description                         |
+| --------- | ----------- | ---------- | ----------------------------------- |
+| `form`    | `FormGroup` | _required_ | The FormGroup to get the value from |
 
 ## Returns
 

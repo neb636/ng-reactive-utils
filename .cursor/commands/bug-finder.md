@@ -61,7 +61,8 @@ For each issue found, provide:
 [code snippet]
 ```
 
-**Severity**: 
+**Severity**:
+
 - 🔴 **Critical**: Crashes, data loss, common scenarios
 - 🟠 **High**: Breaks functionality in edge cases
 - 🟡 **Medium**: Unexpected behavior

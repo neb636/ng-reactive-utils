@@ -11,18 +11,18 @@ import { useFormUntouched } from 'ng-reactive-utils';
   template: `
     <form [formGroup]="form">
       <input formControlName="email" />
-      
+
       @if (isUntouched()) {
         <p class="hint">Click on the field to start</p>
       }
     </form>
-  `
+  `,
 })
 class GuidedFormComponent {
   form = new FormGroup({
-    email: new FormControl('')
+    email: new FormControl(''),
   });
-  
+
   isUntouched = useFormUntouched(this.form);
 }
 ```

@@ -11,20 +11,20 @@ import { useFormPristine } from 'ng-reactive-utils';
   template: `
     <form [formGroup]="form">
       <input formControlName="name" />
-      
+
       @if (isPristine()) {
         <p class="hint">Start typing to make changes</p>
       } @else {
         <p class="info">Form has been modified</p>
       }
     </form>
-  `
+  `,
 })
 class SimpleFormComponent {
   form = new FormGroup({
-    name: new FormControl('')
+    name: new FormControl(''),
   });
-  
+
   isPristine = useFormPristine(this.form);
 }
 ```

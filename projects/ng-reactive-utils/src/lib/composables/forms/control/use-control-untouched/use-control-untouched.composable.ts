@@ -27,9 +27,7 @@ import { map } from 'rxjs';
  * }
  * ```
  */
-export const useControlUntouched = (
-  control: AbstractControl,
-): Signal<boolean> => {
+export const useControlUntouched = (control: AbstractControl): Signal<boolean> => {
   return toSignal(control.statusChanges.pipe(map(() => control.untouched)), {
     initialValue: control.untouched,
   }) as Signal<boolean>;

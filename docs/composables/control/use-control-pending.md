@@ -10,11 +10,11 @@ import { useControlPending } from 'ng-reactive-utils';
 @Component({
   template: `
     <input [formControl]="usernameControl" />
-    
+
     @if (isPending()) {
       <span class="loading-spinner">Checking availability...</span>
     }
-  `
+  `,
 })
 class UsernameFieldComponent {
   usernameControl = new FormControl('', [], [asyncUsernameValidator]);
@@ -30,7 +30,7 @@ import { useControlPending } from 'ng-reactive-utils';
 @Component({
   template: `
     <input [formControl]="emailControl" />
-    
+
     @if (isPending()) {
       <div class="validation-status">
         <span class="spinner"></span>
@@ -39,11 +39,9 @@ import { useControlPending } from 'ng-reactive-utils';
     } @else if (emailControl.valid) {
       <div class="validation-status success">Email is available</div>
     }
-    
-    <button [disabled]="isPending() || emailControl.invalid">
-      Continue
-    </button>
-  `
+
+    <button [disabled]="isPending() || emailControl.invalid">Continue</button>
+  `,
 })
 class EmailVerificationComponent {
   emailControl = new FormControl('', [Validators.email], [asyncEmailValidator]);
@@ -53,9 +51,9 @@ class EmailVerificationComponent {
 
 ## Parameters
 
-| Parameter | Type              | Default    | Description                              |
-| --------- | ----------------- | ---------- | ---------------------------------------- |
-| `control` | `AbstractControl` | _required_ | The control to check pending state for   |
+| Parameter | Type              | Default    | Description                            |
+| --------- | ----------------- | ---------- | -------------------------------------- |
+| `control` | `AbstractControl` | _required_ | The control to check pending state for |
 
 ## Returns
 

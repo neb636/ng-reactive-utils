@@ -40,10 +40,7 @@ import { useDebouncedSignal } from 'ng-reactive-utils';
 @Component({
   selector: 'search-box',
   template: `
-    <input
-      [value]="searchTerm()"
-      (input)="searchTerm.set($any($event.target).value)"
-    />
+    <input [value]="searchTerm()" (input)="searchTerm.set($any($event.target).value)" />
     <p>Debounced: {{ debouncedSearch() }}</p>
   `,
 })
@@ -63,7 +60,11 @@ import { syncLocalStorageEffect } from 'ng-reactive-utils';
   selector: 'preferences',
   template: `
     <label>
-      <input type="checkbox" [checked]="darkMode()" (change)="darkMode.set($any($event.target).checked)" />
+      <input
+        type="checkbox"
+        [checked]="darkMode()"
+        (change)="darkMode.set($any($event.target).checked)"
+      />
       Dark Mode
     </label>
   `,

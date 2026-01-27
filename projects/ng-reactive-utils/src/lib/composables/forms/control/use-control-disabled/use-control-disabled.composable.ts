@@ -31,9 +31,7 @@ import { map } from 'rxjs';
  * }
  * ```
  */
-export const useControlDisabled = (
-  control: AbstractControl,
-): Signal<boolean> => {
+export const useControlDisabled = (control: AbstractControl): Signal<boolean> => {
   return toSignal(control.statusChanges.pipe(map(() => control.disabled)), {
     initialValue: control.disabled,
   }) as Signal<boolean>;

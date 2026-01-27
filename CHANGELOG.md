@@ -10,17 +10,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 #### Browser Composables
+
 - `useDocumentVisibility()` - Track document visibility state
 - `useElementBounding()` - Observe element position and size
 - `useMousePosition()` - Track mouse coordinates
 - `useWindowSize()` - Monitor window dimensions
 
 #### General Composables
+
 - `useDebouncedSignal()` - Debounce signal changes
 - `usePreviousSignal()` - Track previous signal values
 - `useThrottledSignal()` - Throttle signal updates
 
 #### Router Composables
+
 - `useRouteData()` - Route data as a signal
 - `useRouteFragment()` - URL fragment as a signal
 - `useRouteParameter()` - Single route parameter
@@ -29,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `useRouteQueryParams()` - All query parameters as a signal
 
 #### Form Composables
+
 - `useFormState()` - Complete form state object
 - `useFormValue()` - Form value signal
 - `useFormValid()` - Form validity signal
@@ -42,6 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `useFormStatus()` - Form status signal
 
 #### Control Composables
+
 - `useControlState()` - Complete control state object
 - `useControlValue()` - Control value signal
 - `useControlValid()` - Control validity signal
@@ -55,10 +60,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `useControlStatus()` - Control status signal
 
 #### Effects
+
 - `syncLocalStorageEffect()` - Sync signals with localStorage
 - `syncQueryParamsEffect()` - Sync signals with URL query parameters
 
 #### Utilities
+
 - `createSharedComposable()` - Convert composables to shared instances with reference counting
 
 ### Notes

@@ -32,9 +32,7 @@ import { map } from 'rxjs';
  * }
  * ```
  */
-export const useFormErrors = (
-  form: FormGroup,
-): Signal<ValidationErrors | null> => {
+export const useFormErrors = (form: FormGroup): Signal<ValidationErrors | null> => {
   return toSignal(form.statusChanges.pipe(map(() => form.errors)), {
     initialValue: form.errors,
   }) as Signal<ValidationErrors | null>;

@@ -32,9 +32,7 @@ import { AbstractControl, FormControlStatus } from '@angular/forms';
  * }
  * ```
  */
-export const useControlStatus = (
-  control: AbstractControl,
-): Signal<FormControlStatus> => {
+export const useControlStatus = (control: AbstractControl): Signal<FormControlStatus> => {
   return toSignal(control.statusChanges, {
     initialValue: control.status,
   }) as Signal<FormControlStatus>;

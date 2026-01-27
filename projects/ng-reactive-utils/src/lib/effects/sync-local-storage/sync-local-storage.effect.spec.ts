@@ -15,7 +15,7 @@ describe('syncLocalStorageEffect', () => {
 
     // Create spy functions
     localStorageSetItemSpy = vi.fn();
-    
+
     // Create a mock localStorage
     mockLocalStorage = {
       getItem: vi.fn(),
@@ -73,7 +73,7 @@ describe('syncLocalStorageEffect', () => {
     // Effect should run immediately and save initial value
     expect(localStorageSetItemSpy).toHaveBeenCalledWith(
       'form-draft',
-      JSON.stringify({ name: 'John', email: 'john@example.com' })
+      JSON.stringify({ name: 'John', email: 'john@example.com' }),
     );
   });
 
@@ -103,11 +103,11 @@ describe('syncLocalStorageEffect', () => {
     component.formData.set({ name: 'Jane', email: 'jane@example.com' });
 
     // Wait for effect to run
-    await new Promise(resolve => setTimeout(resolve, 50));
+    await new Promise((resolve) => setTimeout(resolve, 50));
 
     expect(localStorageSetItemSpy).toHaveBeenCalledWith(
       'form-draft',
-      JSON.stringify({ name: 'Jane', email: 'jane@example.com' })
+      JSON.stringify({ name: 'Jane', email: 'jane@example.com' }),
     );
   });
 
@@ -131,7 +131,7 @@ describe('syncLocalStorageEffect', () => {
 
     expect(localStorageSetItemSpy).toHaveBeenCalledWith(
       'test-key',
-      JSON.stringify({ test: 'value', number: 42, nested: { deep: true } })
+      JSON.stringify({ test: 'value', number: 42, nested: { deep: true } }),
     );
   });
 
@@ -156,10 +156,7 @@ describe('syncLocalStorageEffect', () => {
     const fixture = TestBed.createComponent(TestComponent);
     fixture.detectChanges();
 
-    expect(localStorageSetItemSpy).toHaveBeenCalledWith(
-      'custom-key',
-      'custom:{"name":"test"}'
-    );
+    expect(localStorageSetItemSpy).toHaveBeenCalledWith('custom-key', 'custom:{"name":"test"}');
   });
 
   it('should handle string values', async () => {
@@ -180,10 +177,7 @@ describe('syncLocalStorageEffect', () => {
     const fixture = TestBed.createComponent(TestComponent);
     fixture.detectChanges();
 
-    expect(localStorageSetItemSpy).toHaveBeenCalledWith(
-      'text-key',
-      JSON.stringify('hello world')
-    );
+    expect(localStorageSetItemSpy).toHaveBeenCalledWith('text-key', JSON.stringify('hello world'));
   });
 
   it('should handle number values', async () => {
@@ -204,10 +198,7 @@ describe('syncLocalStorageEffect', () => {
     const fixture = TestBed.createComponent(TestComponent);
     fixture.detectChanges();
 
-    expect(localStorageSetItemSpy).toHaveBeenCalledWith(
-      'count-key',
-      JSON.stringify(42)
-    );
+    expect(localStorageSetItemSpy).toHaveBeenCalledWith('count-key', JSON.stringify(42));
   });
 
   it('should handle boolean values', async () => {
@@ -228,10 +219,7 @@ describe('syncLocalStorageEffect', () => {
     const fixture = TestBed.createComponent(TestComponent);
     fixture.detectChanges();
 
-    expect(localStorageSetItemSpy).toHaveBeenCalledWith(
-      'enabled-key',
-      JSON.stringify(true)
-    );
+    expect(localStorageSetItemSpy).toHaveBeenCalledWith('enabled-key', JSON.stringify(true));
   });
 
   it('should handle array values', async () => {
@@ -254,7 +242,7 @@ describe('syncLocalStorageEffect', () => {
 
     expect(localStorageSetItemSpy).toHaveBeenCalledWith(
       'items-key',
-      JSON.stringify([1, 2, 3, 4, 5])
+      JSON.stringify([1, 2, 3, 4, 5]),
     );
   });
 
@@ -276,10 +264,7 @@ describe('syncLocalStorageEffect', () => {
     const fixture = TestBed.createComponent(TestComponent);
     fixture.detectChanges();
 
-    expect(localStorageSetItemSpy).toHaveBeenCalledWith(
-      'null-key',
-      JSON.stringify(null)
-    );
+    expect(localStorageSetItemSpy).toHaveBeenCalledWith('null-key', JSON.stringify(null));
   });
 
   it('should handle undefined values', async () => {
@@ -322,10 +307,7 @@ describe('syncLocalStorageEffect', () => {
     const fixture = TestBed.createComponent(TestComponent);
     fixture.detectChanges();
 
-    expect(localStorageSetItemSpy).toHaveBeenCalledWith(
-      'empty-key',
-      JSON.stringify('')
-    );
+    expect(localStorageSetItemSpy).toHaveBeenCalledWith('empty-key', JSON.stringify(''));
   });
 
   it('should update localStorage on every signal change', async () => {
@@ -355,19 +337,19 @@ describe('syncLocalStorageEffect', () => {
 
     // First update
     component.count.set(1);
-    await new Promise(resolve => setTimeout(resolve, 50));
+    await new Promise((resolve) => setTimeout(resolve, 50));
     expect(localStorageSetItemSpy).toHaveBeenCalledTimes(1);
     expect(localStorageSetItemSpy).toHaveBeenCalledWith('counter', JSON.stringify(1));
 
     // Second update
     component.count.set(2);
-    await new Promise(resolve => setTimeout(resolve, 50));
+    await new Promise((resolve) => setTimeout(resolve, 50));
     expect(localStorageSetItemSpy).toHaveBeenCalledTimes(2);
     expect(localStorageSetItemSpy).toHaveBeenCalledWith('counter', JSON.stringify(2));
 
     // Third update
     component.count.set(3);
-    await new Promise(resolve => setTimeout(resolve, 50));
+    await new Promise((resolve) => setTimeout(resolve, 50));
     expect(localStorageSetItemSpy).toHaveBeenCalledTimes(3);
     expect(localStorageSetItemSpy).toHaveBeenCalledWith('counter', JSON.stringify(3));
   });
@@ -400,32 +382,32 @@ describe('syncLocalStorageEffect', () => {
     // Both should have saved initial values
     expect(localStorageSetItemSpy).toHaveBeenCalledWith(
       'form-data',
-      JSON.stringify({ name: '', email: '' })
+      JSON.stringify({ name: '', email: '' }),
     );
     expect(localStorageSetItemSpy).toHaveBeenCalledWith(
       'user-preferences',
-      JSON.stringify({ theme: 'dark', notifications: true })
+      JSON.stringify({ theme: 'dark', notifications: true }),
     );
 
     localStorageSetItemSpy.mockClear();
 
     // Update only formData
     component.formData.set({ name: 'John', email: 'john@example.com' });
-    await new Promise(resolve => setTimeout(resolve, 50));
+    await new Promise((resolve) => setTimeout(resolve, 50));
 
     expect(localStorageSetItemSpy).toHaveBeenCalledWith(
       'form-data',
-      JSON.stringify({ name: 'John', email: 'john@example.com' })
+      JSON.stringify({ name: 'John', email: 'john@example.com' }),
     );
     expect(localStorageSetItemSpy).toHaveBeenCalledTimes(1);
 
     // Update only preferences
     component.preferences.set({ theme: 'light', notifications: false });
-    await new Promise(resolve => setTimeout(resolve, 50));
+    await new Promise((resolve) => setTimeout(resolve, 50));
 
     expect(localStorageSetItemSpy).toHaveBeenCalledWith(
       'user-preferences',
-      JSON.stringify({ theme: 'light', notifications: false })
+      JSON.stringify({ theme: 'light', notifications: false }),
     );
     expect(localStorageSetItemSpy).toHaveBeenCalledTimes(2);
   });
@@ -433,7 +415,7 @@ describe('syncLocalStorageEffect', () => {
   it('should warn and return early when localStorage is not available', () => {
     // Temporarily remove localStorage from window
     const originalDescriptor = Object.getOwnPropertyDescriptor(window, 'localStorage');
-    
+
     // @ts-ignore - intentionally deleting for test
     delete window.localStorage;
 
@@ -484,13 +466,15 @@ describe('syncLocalStorageEffect', () => {
     }
 
     const fixture = TestBed.createComponent(TestComponent);
-    
+
     // Should not throw during initialization
     expect(() => fixture.detectChanges()).not.toThrow();
 
     // Documentation: "Automatically handles errors if... quota exceeded"
     expect(consoleWarnSpy).toHaveBeenCalled();
-    expect(consoleWarnSpy.mock.calls[0][0]).toBe('Failed to save to localStorage for key "test-key":');
+    expect(consoleWarnSpy.mock.calls[0][0]).toBe(
+      'Failed to save to localStorage for key "test-key":',
+    );
     expect(consoleWarnSpy.mock.calls[0][1]).toBeInstanceOf(Error);
 
     const component = fixture.componentInstance;
@@ -498,10 +482,12 @@ describe('syncLocalStorageEffect', () => {
     // Update signal - should also not throw
     consoleWarnSpy.mockClear();
     component.data.set({ large: 'updated data' });
-    await new Promise(resolve => setTimeout(resolve, 50));
+    await new Promise((resolve) => setTimeout(resolve, 50));
 
     expect(consoleWarnSpy).toHaveBeenCalled();
-    expect(consoleWarnSpy.mock.calls[0][0]).toBe('Failed to save to localStorage for key "test-key":');
+    expect(consoleWarnSpy.mock.calls[0][0]).toBe(
+      'Failed to save to localStorage for key "test-key":',
+    );
     expect(consoleWarnSpy.mock.calls[0][1]).toBeInstanceOf(Error);
   });
 
@@ -526,12 +512,14 @@ describe('syncLocalStorageEffect', () => {
     }
 
     const fixture = TestBed.createComponent(TestComponent);
-    
+
     // Should not throw during initialization
     expect(() => fixture.detectChanges()).not.toThrow();
 
     expect(consoleWarnSpy).toHaveBeenCalled();
-    expect(consoleWarnSpy.mock.calls[0][0]).toBe('Failed to save to localStorage for key "test-key":');
+    expect(consoleWarnSpy.mock.calls[0][0]).toBe(
+      'Failed to save to localStorage for key "test-key":',
+    );
     expect(consoleWarnSpy.mock.calls[0][1]).toBeInstanceOf(Error);
   });
 
@@ -572,7 +560,7 @@ describe('syncLocalStorageEffect', () => {
       }
 
       increment() {
-        this.count.update(v => v + 1);
+        this.count.update((v) => v + 1);
       }
     }
 
@@ -583,12 +571,12 @@ describe('syncLocalStorageEffect', () => {
     localStorageSetItemSpy.mockClear();
 
     component.increment();
-    await new Promise(resolve => setTimeout(resolve, 50));
+    await new Promise((resolve) => setTimeout(resolve, 50));
 
     expect(localStorageSetItemSpy).toHaveBeenCalledWith('counter', JSON.stringify(1));
 
     component.increment();
-    await new Promise(resolve => setTimeout(resolve, 50));
+    await new Promise((resolve) => setTimeout(resolve, 50));
 
     expect(localStorageSetItemSpy).toHaveBeenCalledWith('counter', JSON.stringify(2));
   });
@@ -635,7 +623,7 @@ describe('syncLocalStorageEffect', () => {
 
     expect(localStorageSetItemSpy).toHaveBeenCalledWith(
       'complex-data',
-      JSON.stringify(fixture.componentInstance.complexData())
+      JSON.stringify(fixture.componentInstance.complexData()),
     );
   });
 
@@ -662,25 +650,25 @@ describe('syncLocalStorageEffect', () => {
     // Initial save
     expect(localStorageSetItemSpy).toHaveBeenCalledWith(
       'form-draft',
-      JSON.stringify({ name: '', email: '' })
+      JSON.stringify({ name: '', email: '' }),
     );
 
     // User types in form
     component.formData.set({ name: 'John', email: '' });
-    await new Promise(resolve => setTimeout(resolve, 50));
+    await new Promise((resolve) => setTimeout(resolve, 50));
 
     expect(localStorageSetItemSpy).toHaveBeenCalledWith(
       'form-draft',
-      JSON.stringify({ name: 'John', email: '' })
+      JSON.stringify({ name: 'John', email: '' }),
     );
 
     // User continues typing
     component.formData.set({ name: 'John', email: 'john@example.com' });
-    await new Promise(resolve => setTimeout(resolve, 50));
+    await new Promise((resolve) => setTimeout(resolve, 50));
 
     expect(localStorageSetItemSpy).toHaveBeenCalledWith(
       'form-draft',
-      JSON.stringify({ name: 'John', email: 'john@example.com' })
+      JSON.stringify({ name: 'John', email: 'john@example.com' }),
     );
   });
 
@@ -705,7 +693,7 @@ describe('syncLocalStorageEffect', () => {
 
     expect(localStorageSetItemSpy).toHaveBeenCalledWith(
       'form-data',
-      JSON.stringify({ name: '', email: '' })
+      JSON.stringify({ name: '', email: '' }),
     );
   });
 
@@ -735,14 +723,14 @@ describe('syncLocalStorageEffect', () => {
 
     // Set to same value - Angular signals don't trigger effects when value is unchanged
     component.count.set(5);
-    await new Promise(resolve => setTimeout(resolve, 50));
+    await new Promise((resolve) => setTimeout(resolve, 50));
 
     // Should not have saved again
     expect(localStorageSetItemSpy).not.toHaveBeenCalled();
 
     // Set to different value
     component.count.set(6);
-    await new Promise(resolve => setTimeout(resolve, 50));
+    await new Promise((resolve) => setTimeout(resolve, 50));
 
     // Should save now
     expect(localStorageSetItemSpy).toHaveBeenCalledWith('counter', JSON.stringify(6));
@@ -788,22 +776,22 @@ describe('syncLocalStorageEffect', () => {
     // Both should have saved their initial values
     expect(localStorageSetItemSpy).toHaveBeenCalledWith(
       'component1-data',
-      JSON.stringify('component1')
+      JSON.stringify('component1'),
     );
     expect(localStorageSetItemSpy).toHaveBeenCalledWith(
       'component2-data',
-      JSON.stringify('component2')
+      JSON.stringify('component2'),
     );
 
     localStorageSetItemSpy.mockClear();
 
     // Update only component1
     fixture1.componentInstance.data.set('updated1');
-    await new Promise(resolve => setTimeout(resolve, 50));
+    await new Promise((resolve) => setTimeout(resolve, 50));
 
     expect(localStorageSetItemSpy).toHaveBeenCalledWith(
       'component1-data',
-      JSON.stringify('updated1')
+      JSON.stringify('updated1'),
     );
     expect(localStorageSetItemSpy).toHaveBeenCalledTimes(1);
   });
@@ -835,7 +823,7 @@ describe('syncLocalStorageEffect', () => {
     }
 
     // Wait for effects to run
-    await new Promise(resolve => setTimeout(resolve, 100));
+    await new Promise((resolve) => setTimeout(resolve, 100));
 
     // Should have saved the final value
     // Note: Angular effects may batch updates, so we can't guarantee exactly 10 calls
@@ -906,8 +894,7 @@ describe('syncLocalStorageEffect', () => {
 
     expect(localStorageSetItemSpy).toHaveBeenCalledWith(
       'my-app:user:settings',
-      JSON.stringify('test')
+      JSON.stringify('test'),
     );
   });
 });
-
