@@ -50,7 +50,7 @@ export class MyComponent {
 Effects **perform side effects** and sync signals with external systems:
 
 ```typescript
-import { syncLocalStorage, syncQueryParams } from 'ng-reactive-utils';
+import { syncLocalStorageEffect, syncQueryParamsEffect } from 'ng-reactive-utils';
 
 export class MyComponent {
   darkMode = signal(false);
@@ -58,21 +58,21 @@ export class MyComponent {
 
   constructor() {
     // Effects don't return values - they perform actions
-    syncLocalStorage({
+    syncLocalStorageEffect({
       signal: this.darkMode,
       key: 'dark-mode'
     });
     
-    syncQueryParams({
-      q: this.searchQuery
+    syncQueryParamsEffect({
+      query: this.searchQuery
     });
   }
 }
 ```
 
 **Common effects:**
-- `syncLocalStorage()` - Persist signal to localStorage
-- `syncQueryParams()` - Sync signals with URL query params
+- `syncLocalStorageEffect()` - Persist signal to localStorage
+- `syncQueryParamsEffect()` - Sync signals with URL query params
 
 ## When to Use NG Reactive Utils vs Vanilla Angular
 
@@ -95,67 +95,6 @@ userId = useRouteParam('id');
 // Built-in debouncing, throttling, previous value tracking
 debouncedSearch = useDebouncedSignal(this.searchTerm, 300);
 ```
-
-✅ Syncing with external systems
-```typescript
-// Automatic localStorage persistence
-syncLocalStorage({ signal: this.settings, key: 'user-settings' });
-```
-
-### Use vanilla Angular when:
-
-⭕ Simple signal creation
-```typescript
-// Don't need a utility for basic signals
-count = signal(0);
-doubled = computed(() => this.count() * 2);
-```
-
-⭕ Simple effects
-```typescript
-// Basic effects don't need utilities
-effect(() => {
-  console.log('Count changed:', this.count());
-});
-```
-
-⭕ One-off observable conversions
-```typescript
-// If you only do it once, toSignal() is fine
-data = toSignal(this.http.get('/api/data'));
-```
-
-## When NOT to Use This Library
-
-### Use RxJS directly when:
-
-❌ You need complex stream operations
-```typescript
-// RxJS operators like switchMap, mergeMap, etc.
-search$ = this.searchTerm$.pipe(
-  debounceTime(300),
-  distinctUntilChanged(),
-  switchMap(term => this.api.search(term)),
-  catchError(err => of([]))
-);
-```
-
-❌ You need precise async control
-```typescript
-// Fine-grained subscription management
-subscription = observable$.subscribe(...);
-// Later: subscription.unsubscribe();
-```
-
-### Stick with vanilla Angular when:
-
-❌ Your team doesn't use signals yet
-- This library is signal-first
-- Wait until your team adopts signal patterns
-
-❌ You're on Angular < 20
-- Signals are best in Angular 20+
-- Earlier versions have limited signal support
 
 ## Type Safety
 
@@ -187,7 +126,7 @@ export class MyComponent {
   
   constructor() {
     // Effect automatically cleaned up on component destroy
-    syncLocalStorage({ signal: this.settings, key: 'settings' });
+    syncLocalStorageEffect({ signal: this.settings, key: 'settings' });
   }
 }
 ```
