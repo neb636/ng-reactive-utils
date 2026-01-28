@@ -145,7 +145,7 @@ Combining form and route utilities in a search component:
 ```typescript
 import { Component, computed } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { useFormState, useRouteQueryParam, syncQueryParams } from 'ng-reactive-utils';
+import { useFormState, useRouteQueryParam } from 'ng-reactive-utils';
 
 @Component({
   selector: 'app-search',
@@ -175,14 +175,6 @@ export class SearchComponent {
 
   formState = useFormState<{ query: string; category: string }>(this.form);
   queryParam = useRouteQueryParam('q');
-
-  constructor() {
-    // Sync form with URL query params
-    syncQueryParams({
-      q: computed(() => this.form.value.query || ''),
-      category: computed(() => this.form.value.category || ''),
-    });
-  }
 }
 ```
 
