@@ -24,17 +24,15 @@ yarn add ng-reactive-utils
 
 :::
 
-## Your First Import
+## Add AI Support (Optional)
 
-All utilities are imported from the main package:
+If you use an AI coding assistant (Cursor, Claude Code, GitHub Copilot, etc.), install the agent skill:
 
-```typescript
-import { 
-  useDebouncedSignal,    // Composable: returns a signal
-  useFormState,          // Composable: returns form signals
-  syncLocalStorage       // Effect: syncs signal with localStorage
-} from 'ng-reactive-utils';
+```bash
+npx skills add neb636/ng-reactive-utils
 ```
+
+This teaches your AI assistant ng-reactive-utils patterns so it can suggest the right composables and effects. See [AI Integration](/getting-started/ai-integration) for more details.
 
 ## Quick Start Examples
 

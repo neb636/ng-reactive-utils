@@ -33,7 +33,7 @@ export default defineConfig({
 
     sidebar: [
       {
-        text: 'Getting Started',
+        text: 'Guide',
         items: [
           { text: 'Introduction', link: '/getting-started/introduction' },
           { text: 'Installation', link: '/getting-started/installation' },

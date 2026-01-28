@@ -11,6 +11,13 @@
   display: none;
 }
 
+
+/* Smaller hero text */
+.VPHero .text {
+  font-size: 25px !important;
+  line-height: 1.2 !important;
+}
+
 /* Better spacing for hero on larger screens */
 @media (min-width: 960px) {
   .VPHero .container {
@@ -22,13 +29,18 @@
     left: 30px;
     top: 20px;
   }
+
+  .VPHero .text {
+    font-size: 40px !important;
+  }
 }
 
-/* Smaller hero text */
-.VPHero .text {
-  font-size: 40px !important;
-  line-height: 1.2 !important;
+@media (max-width: 960px) {
+  .VPHero .image {
+    display: none !important;
+  }
 }
+
 
 /* Enhance the brand gradient */
 :root {
