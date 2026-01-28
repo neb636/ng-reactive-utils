@@ -2,7 +2,11 @@
 
 Complete API reference for all composables, effects, and utilities.
 
-## Form Composables
+## Form Composables (Legacy Reactive Forms Only)
+
+> **Important:** These composables are for **existing/legacy Reactive Forms** that use `FormGroup`, `FormControl`, and `FormBuilder`. Do NOT use these as a reason to create new forms with Reactive Forms. Angular's signal-based forms are the path forward for new form development.
+>
+> Use these when maintaining existing forms or in codebases that haven't adopted signal-based forms yet.
 
 ### useFormValue
 

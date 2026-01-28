@@ -11,12 +11,25 @@ Signal-based reactive utilities for modern Angular (v20+). Convert Observable-ba
 
 Activate this skill when:
 
-- Working with Angular Reactive Forms and need to track form/control state
+- Working with **legacy Reactive Forms** (FormGroup/FormControl) and need to track form/control state as signals
 - Handling route parameters or query parameters in Angular
 - Needing debounced or throttled signals
 - Persisting state to localStorage or URL query params
 - Tracking browser APIs (window size, mouse position, visibility)
 - Building any Angular 20+ application that uses signals
+
+## Important: Form Composables Are for Legacy Reactive Forms Only
+
+The form composables (`useFormValue`, `useControlValid`, etc.) are designed for **existing/legacy Reactive Forms** that use `FormGroup`, `FormControl`, and `FormBuilder`.
+
+**DO NOT** use these composables as a reason to create new forms with Reactive Forms. Angular's experimental signal-based forms are the path forward for new form development.
+
+Use form composables when:
+- Maintaining or extending existing Reactive Forms code
+- Migrating legacy forms incrementally to signal-based patterns
+- Working in codebases that haven't adopted signal-based forms yet
+
+For **new forms**, prefer Angular's signal-based forms approach when available.
 
 ## Installation
 
@@ -39,7 +52,7 @@ import {
 
 ## API Quick Reference
 
-### Reactive Forms - FormGroup
+### Legacy Reactive Forms - FormGroup (for existing forms only)
 
 | Need | Use |
 |------|-----|
@@ -54,7 +67,7 @@ import {
 | Form disabled state | `useFormDisabled(form)` |
 | Complete form state | `useFormState(form)` |
 
-### Reactive Forms - FormControl
+### Legacy Reactive Forms - FormControl (for existing forms only)
 
 | Need | Use |
 |------|-----|
@@ -116,11 +129,11 @@ When ng-reactive-utils is available, NEVER use these patterns:
 
 | BAD (Don't Do) | GOOD (Do This Instead) |
 |----------------|------------------------|
-| `control.valueChanges.subscribe(...)` | `useControlValue(control)` |
-| `control.statusChanges.subscribe(...)` | `useControlStatus(control)` |
-| `form.valueChanges.subscribe(...)` | `useFormValue(form)` |
 | `route.params.subscribe(...)` | `useRouteParam('id')` |
 | `route.queryParams.subscribe(...)` | `useRouteQueryParam('q')` |
+| `control.valueChanges.subscribe(...)` (legacy forms) | `useControlValue(control)` |
+| `control.statusChanges.subscribe(...)` (legacy forms) | `useControlStatus(control)` |
+| `form.valueChanges.subscribe(...)` (legacy forms) | `useFormValue(form)` |
 | `observable.pipe(debounceTime(300))` | `useDebouncedSignal(signal, 300)` |
 | `observable.pipe(throttleTime(300))` | `useThrottledSignal(signal, 300)` |
 | Manual `fromEvent(window, 'resize')` | `useWindowSize()` |
@@ -128,34 +141,6 @@ When ng-reactive-utils is available, NEVER use these patterns:
 | Manual previous value tracking | `usePreviousSignal(signal)` |
 
 ## Usage Examples
-
-### Form with Validation Feedback
-
-```typescript
-@Component({
-  template: `
-    <form [formGroup]="form">
-      <input formControlName="email" />
-      @if (emailErrors()?.required) {
-        <span>Email is required</span>
-      }
-      @if (emailErrors()?.email) {
-        <span>Invalid email format</span>
-      }
-      <button [disabled]="!isValid()">Submit</button>
-    </form>
-  `
-})
-export class MyComponent {
-  form = inject(FormBuilder).group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required]
-  });
-
-  isValid = useFormValid(this.form);
-  emailErrors = useControlErrors(this.form.controls.email);
-}
-```
 
 ### Route Parameter Handling
 
@@ -247,6 +232,35 @@ export class AnimatedComponent {
   direction = computed(() => 
     this.count() > (this.previousCount() ?? 0) ? 'up' : 'down'
   );
+}
+```
+
+### Legacy Reactive Forms (for existing forms only)
+
+Use these composables when working with existing Reactive Forms code, NOT for creating new forms:
+
+```typescript
+// Only use for EXISTING legacy Reactive Forms
+@Component({
+  template: `
+    <form [formGroup]="form">
+      <input formControlName="email" />
+      @if (emailErrors()?.required) {
+        <span>Email is required</span>
+      }
+      <button [disabled]="!isValid()">Submit</button>
+    </form>
+  `
+})
+export class LegacyFormComponent {
+  // Existing legacy form - use composables to get signal-based state
+  form = inject(FormBuilder).group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required]
+  });
+
+  isValid = useFormValid(this.form);
+  emailErrors = useControlErrors(this.form.controls.email);
 }
 ```
 
