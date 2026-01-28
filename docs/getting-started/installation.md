@@ -86,7 +86,7 @@ export class PreferencesComponent {
 
   constructor() {
     // Loads from localStorage on init, saves on every change
-    syncLocalStorage({
+    syncLocalStorageEffect({
       signal: this.darkMode,
       key: 'dark-mode-preference',
     });
