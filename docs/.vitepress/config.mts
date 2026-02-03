@@ -87,6 +87,20 @@ export default defineConfig({
             ],
           },
           {
+            text: 'State',
+            collapsed: false,
+            items: [
+              {
+                text: 'useLocalStorage',
+                link: '/composables/state/use-local-storage',
+              },
+              {
+                text: 'useSessionStorage',
+                link: '/composables/state/use-session-storage',
+              },
+            ],
+          },
+          {
             text: 'Route',
             collapsed: false,
             items: [
