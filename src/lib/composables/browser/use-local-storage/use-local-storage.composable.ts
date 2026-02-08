@@ -206,8 +206,8 @@ function useStorage<T>(
       // Only respond to changes for our key and from other tabs
       if (event.key === key && event.storageArea === storage) {
         try {
-          // When storage is cleared/removed, use null if T includes null, otherwise defaultValue
-          const newValue = event.newValue === null ? null as T : serializer.read(event.newValue);
+          // When storage is cleared/removed, use defaultValue as fallback
+          const newValue = event.newValue === null ? defaultValue : serializer.read(event.newValue);
           originalSet(newValue);
         } catch (error) {
           console.warn(`Error handling storage event for key "${key}":`, error);
