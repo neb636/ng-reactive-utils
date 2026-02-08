@@ -128,7 +128,10 @@ describe('useLocalStorage', () => {
     component.prefs.update((p) => ({ ...p, theme: 'dark' }));
 
     expect(component.prefs()).toEqual({ theme: 'dark', fontSize: 16 });
-    expect(JSON.parse(localStorage.getItem('test-prefs')!)).toEqual({ theme: 'dark', fontSize: 16 });
+    expect(JSON.parse(localStorage.getItem('test-prefs')!)).toEqual({
+      theme: 'dark',
+      fontSize: 16,
+    });
   });
 
   it('should handle array values', () => {
@@ -173,16 +176,12 @@ describe('useLocalStorage', () => {
       template: '',
     })
     class TestComponent {
-      lastVisit = useLocalStorage(
-        'test-date',
-        new Date('2024-01-01'),
-        {
-          serializer: {
-            read: (value: string) => new Date(value),
-            write: (value: Date) => value.toISOString(),
-          },
-        }
-      );
+      lastVisit = useLocalStorage('test-date', new Date('2024-01-01'), {
+        serializer: {
+          read: (value: string) => new Date(value),
+          write: (value: Date) => value.toISOString(),
+        },
+      });
     }
 
     const fixture = TestBed.createComponent(TestComponent);
@@ -454,7 +453,10 @@ describe('useSessionStorage', () => {
     component.wizard.update((w) => ({ ...w, step: 2 }));
 
     expect(component.wizard()).toEqual({ step: 2, completed: false });
-    expect(JSON.parse(sessionStorage.getItem('test-wizard')!)).toEqual({ step: 2, completed: false });
+    expect(JSON.parse(sessionStorage.getItem('test-wizard')!)).toEqual({
+      step: 2,
+      completed: false,
+    });
   });
 
   it('should remove from storage when value is null', () => {

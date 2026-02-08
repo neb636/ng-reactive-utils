@@ -9,10 +9,7 @@ if (typeof MediaQueryListEvent === 'undefined') {
     matches: boolean;
     media: string;
 
-    constructor(
-      type: string,
-      eventInitDict?: { matches?: boolean; media?: string },
-    ) {
+    constructor(type: string, eventInitDict?: { matches?: boolean; media?: string }) {
       super(type);
       this.matches = eventInitDict?.matches ?? false;
       this.media = eventInitDict?.media ?? '';
@@ -63,7 +60,7 @@ describe('useMediaQuery', () => {
     (window as any).matchMedia = (query: string) => {
       // Normalize the query for consistent lookup (matches implementation)
       const normalizedQuery = query.toLowerCase().replace(/\s+/g, ' ').trim();
-      
+
       if (!mockMediaQueryLists.has(normalizedQuery)) {
         // Determine initial matches value based on query
         let matches = false;
@@ -146,7 +143,7 @@ describe('useMediaQuery', () => {
     // Get the mock MediaQueryList and dispatch event
     const normalizedQuery = '(max-width: 768px)'.toLowerCase().replace(/\s+/g, ' ').trim();
     const mediaQueryList = mockMediaQueryLists.get(normalizedQuery)!;
-    
+
     const event = new MediaQueryListEvent('change', {
       matches: !initialValue,
       media: '(max-width: 768px)',
@@ -371,7 +368,7 @@ describe('useMediaQuery', () => {
     // Get the mock MediaQueryList and try to dispatch event
     const normalizedQuery = '(max-width: 768px)'.toLowerCase().replace(/\s+/g, ' ').trim();
     const mediaQueryList = mockMediaQueryLists.get(normalizedQuery);
-    
+
     if (mediaQueryList) {
       const event = new MediaQueryListEvent('change', {
         matches: !initialValue,
@@ -452,10 +449,10 @@ describe('useMediaQuery', () => {
     const value1 = component.query1();
     const value2 = component.query2();
     const value3 = component.query3();
-    
+
     expect(value1).toBe(value2);
     expect(value1).toBe(value3);
-    
+
     // Verify they all normalized to the same key (only one mock should exist)
     const normalizedQuery = '(max-width: 768px)'.toLowerCase().replace(/\s+/g, ' ').trim();
     expect(mockMediaQueryLists.has(normalizedQuery)).toBe(true);

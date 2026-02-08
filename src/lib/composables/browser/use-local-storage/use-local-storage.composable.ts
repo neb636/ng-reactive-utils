@@ -80,7 +80,7 @@ const defaultSerializer: StorageSerializer<any> = {
 export function useLocalStorage<T>(
   key: string,
   defaultValue: T,
-  options: UseStorageOptions<T> = {}
+  options: UseStorageOptions<T> = {},
 ): WritableSignal<T> {
   return useStorage('localStorage', key, defaultValue, options);
 }
@@ -113,7 +113,7 @@ export function useLocalStorage<T>(
 export function useSessionStorage<T>(
   key: string,
   defaultValue: T,
-  options: UseStorageOptions<T> = {}
+  options: UseStorageOptions<T> = {},
 ): WritableSignal<T> {
   return useStorage('sessionStorage', key, defaultValue, options);
 }
@@ -125,7 +125,7 @@ function useStorage<T>(
   storageType: 'localStorage' | 'sessionStorage',
   key: string,
   defaultValue: T,
-  options: UseStorageOptions<T> = {}
+  options: UseStorageOptions<T> = {},
 ): WritableSignal<T> {
   const platformId = inject(PLATFORM_ID);
   const destroyRef = inject(DestroyRef);

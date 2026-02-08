@@ -44,51 +44,51 @@ import { createSharedComposable } from '../../../utils/create-shared-composable/
 export const useMediaQuery = (query: string) => {
   // Normalize query BEFORE passing to createSharedComposable to ensure consistent cache keys
   const normalizedQuery = query.toLowerCase().replace(/\s+/g, ' ').trim();
-  
+
   return createSharedComposable((normalizedQuery: string) => {
-  const document = inject(DOCUMENT);
-  const platformId = inject(PLATFORM_ID);
-  const isBrowser = isPlatformBrowser(platformId);
+    const document = inject(DOCUMENT);
+    const platformId = inject(PLATFORM_ID);
+    const isBrowser = isPlatformBrowser(platformId);
 
-  const getInitialMatches = () => {
-    if (!isBrowser || !document.defaultView) {
-      return false;
-    }
-    return document.defaultView.matchMedia(normalizedQuery).matches;
-  };
-
-  const matchesSignal = signal<boolean>(getInitialMatches());
-
-  let mediaQueryList: MediaQueryList | null = null;
-  const handleChange = (event: MediaQueryListEvent) => {
-    matchesSignal.set(event.matches);
-  };
-
-  // Only set up media query listener in the browser
-  if (isBrowser && document.defaultView) {
-    mediaQueryList = document.defaultView.matchMedia(normalizedQuery);
-    
-    // Use addEventListener if available (modern browsers), fallback to addListener
-    if (mediaQueryList.addEventListener) {
-      mediaQueryList.addEventListener('change', handleChange);
-    } else {
-      // Fallback for older browsers
-      mediaQueryList.addListener(handleChange);
-    }
-  }
-
-  return {
-    value: matchesSignal.asReadonly(),
-    cleanup: () => {
-      if (mediaQueryList) {
-        if (mediaQueryList.removeEventListener) {
-          mediaQueryList.removeEventListener('change', handleChange);
-        } else {
-          // Fallback for older browsers
-          mediaQueryList.removeListener(handleChange);
-        }
+    const getInitialMatches = () => {
+      if (!isBrowser || !document.defaultView) {
+        return false;
       }
-    },
-  };
-})(normalizedQuery);
+      return document.defaultView.matchMedia(normalizedQuery).matches;
+    };
+
+    const matchesSignal = signal<boolean>(getInitialMatches());
+
+    let mediaQueryList: MediaQueryList | null = null;
+    const handleChange = (event: MediaQueryListEvent) => {
+      matchesSignal.set(event.matches);
+    };
+
+    // Only set up media query listener in the browser
+    if (isBrowser && document.defaultView) {
+      mediaQueryList = document.defaultView.matchMedia(normalizedQuery);
+
+      // Use addEventListener if available (modern browsers), fallback to addListener
+      if (mediaQueryList.addEventListener) {
+        mediaQueryList.addEventListener('change', handleChange);
+      } else {
+        // Fallback for older browsers
+        mediaQueryList.addListener(handleChange);
+      }
+    }
+
+    return {
+      value: matchesSignal.asReadonly(),
+      cleanup: () => {
+        if (mediaQueryList) {
+          if (mediaQueryList.removeEventListener) {
+            mediaQueryList.removeEventListener('change', handleChange);
+          } else {
+            // Fallback for older browsers
+            mediaQueryList.removeListener(handleChange);
+          }
+        }
+      },
+    };
+  })(normalizedQuery);
 };

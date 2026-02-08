@@ -55,7 +55,7 @@ describe('useEventListener', () => {
           () => {
             eventFired = true;
           },
-          { target: this.document }
+          { target: this.document },
         );
       }
     }
@@ -84,7 +84,7 @@ describe('useEventListener', () => {
           () => {
             eventFired = true;
           },
-          { target: this.divRef }
+          { target: this.divRef },
         );
       }
     }
@@ -181,7 +181,7 @@ describe('useEventListener', () => {
           () => {
             eventFired = true;
           },
-          { passive: true }
+          { passive: true },
         );
       }
     }
@@ -207,7 +207,7 @@ describe('useEventListener', () => {
           () => {
             eventFired = true;
           },
-          { capture: true }
+          { capture: true },
         );
       }
     }
@@ -233,7 +233,7 @@ describe('useEventListener', () => {
           () => {
             eventCount++;
           },
-          { once: true }
+          { once: true },
         );
       }
     }
@@ -296,7 +296,7 @@ describe('useEventListener', () => {
           () => {
             eventCount++;
           },
-          { target: this.currentTarget }
+          { target: this.currentTarget },
         );
       }
     }
@@ -346,7 +346,7 @@ describe('useEventListener', () => {
           () => {
             eventFired = true;
           },
-          { target: this.btnRef }
+          { target: this.btnRef },
         );
       }
     }
@@ -371,7 +371,7 @@ describe('useEventListener', () => {
           () => {
             // Should not throw
           },
-          { target: null }
+          { target: null },
         );
       }
     }
@@ -501,7 +501,7 @@ describe('useEventListener', () => {
           () => {
             eventCount++;
           },
-          { target: this.divRef }
+          { target: this.divRef },
         );
       }
     }
