@@ -124,7 +124,8 @@ export function useEventListener(
 
     const cleanupEffect = effect(() => {
       const signalValue = (targetOption as Signal<Element | ElementRef | null | undefined>)();
-      const element = resolveTarget(signalValue, document);
+      // For signals, don't default to window - wait for a valid value
+      const element = resolveTarget(signalValue, document, false);
 
       // Only update listener if element reference actually changed
       // This prevents unnecessary re-registration when signal emits same element
@@ -156,7 +157,8 @@ export function useEventListener(
     });
   } else {
     // Handle non-signal target
-    const target = resolveTarget(targetOption, document);
+    // For non-signals, default to window if target is null/undefined
+    const target = resolveTarget(targetOption, document, true);
 
     if (target) {
       target.addEventListener(event, handler, listenerOptions);
@@ -171,14 +173,19 @@ export function useEventListener(
 
 /**
  * Resolves the target to an event target (Window, Document, or Element)
+ * @param target - The target to resolve
+ * @param document - The document instance
+ * @param defaultToWindow - Whether to default to window when target is null/undefined
  */
 function resolveTarget(
   target: Window | Document | Element | ElementRef | null | undefined,
-  document: Document
+  document: Document,
+  defaultToWindow: boolean
 ): EventTarget | null {
   if (!target) {
-    // Default to window
-    return document.defaultView;
+    // For non-signal targets, default to window
+    // For signal targets, return null to wait for a valid value
+    return defaultToWindow ? document.defaultView : null;
   }
 
   if (target instanceof ElementRef) {
