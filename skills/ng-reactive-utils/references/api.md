@@ -347,6 +347,87 @@ useElementBounding(elementRef: ElementRef): {
 }
 ```
 
+### useMediaQuery
+
+Tracks whether a CSS media query matches.
+
+```typescript
+useMediaQuery(query: string): Signal<boolean>
+```
+
+**Example:**
+```typescript
+const isMobile = useMediaQuery('(max-width: 768px)');
+const prefersDark = useMediaQuery('(prefers-color-scheme: dark)');
+// isMobile() => true/false
+```
+
+### useEventListener
+
+Attaches an event listener to a target with automatic cleanup.
+
+```typescript
+useEventListener<K extends keyof WindowEventMap>(
+  event: K,
+  handler: (event: WindowEventMap[K]) => void,
+  options?: UseEventListenerOptions
+): void
+
+interface UseEventListenerOptions {
+  target?: Window | Document | Element | ElementRef | Signal<Element | ElementRef | null>;
+  capture?: boolean;
+  passive?: boolean;
+  once?: boolean;
+}
+```
+
+**Example:**
+```typescript
+// Listen to window keydown events
+useEventListener('keydown', (event) => {
+  console.log('Key pressed:', event.key);
+});
+
+// Listen to element click with signal target
+useEventListener('click', handleClick, { target: elementRef });
+```
+
+### useLocalStorage
+
+Creates a writable signal synced with localStorage.
+
+```typescript
+useLocalStorage<T>(
+  key: string,
+  defaultValue: T,
+  options?: UseStorageOptions<T>
+): WritableSignal<T>
+```
+
+**Example:**
+```typescript
+const theme = useLocalStorage('theme', 'light');
+theme.set('dark'); // Persists to localStorage
+```
+
+### useSessionStorage
+
+Creates a writable signal synced with sessionStorage.
+
+```typescript
+useSessionStorage<T>(
+  key: string,
+  defaultValue: T,
+  options?: UseStorageOptions<T>
+): WritableSignal<T>
+```
+
+**Example:**
+```typescript
+const wizardStep = useSessionStorage('wizard-step', 1);
+wizardStep.update(step => step + 1); // Persists to sessionStorage
+```
+
 ## Signal Utilities
 
 ### useDebouncedSignal
