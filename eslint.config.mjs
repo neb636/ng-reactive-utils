@@ -23,17 +23,28 @@ export default [
       parserOptions: {
         ecmaVersion: "latest",
         sourceType: "module",
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
       },
     },
     plugins: {
       "@angular-eslint/ts": angular.tsPlugin,
+      "@typescript-eslint": tseslint.plugin,
     },
     rules: {
       // Enforce modern Angular patterns
       "@angular-eslint/ts/prefer-on-push-component-change-detection": "error",
       "@angular-eslint/ts/no-inputs-metadata-property": "error", // Prefer @Input() or input()
       "@angular-eslint/ts/no-outputs-metadata-property": "error", // Prefer @Output() or output()
+      
+      // TypeScript-specific rules
       "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": ["warn", { 
+        argsIgnorePattern: "^_",
+        varsIgnorePattern: "^_" 
+      }],
+      "no-redeclare": "off", // Disable base rule
+      "@typescript-eslint/no-redeclare": "error", // Use TS version that understands overloads
     }
   },
   // Template rules for .html files

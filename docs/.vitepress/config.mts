@@ -59,6 +59,18 @@ export default defineConfig({
                 link: '/composables/browser/use-element-bounding',
               },
               {
+                text: 'useEventListener',
+                link: '/composables/browser/use-event-listener',
+              },
+              {
+                text: 'useLocalStorage',
+                link: '/composables/browser/use-local-storage',
+              },
+              {
+                text: 'useMediaQuery',
+                link: '/composables/browser/use-media-query',
+              },
+              {
                 text: 'useMousePosition',
                 link: '/composables/browser/use-mouse-position',
               },

@@ -1,4 +1,4 @@
-import { Signal, signal, inject, DestroyRef, PLATFORM_ID } from '@angular/core';
+import { signal, inject, PLATFORM_ID } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { createSharedComposable } from '../../../utils/create-shared-composable/create-shared-composable';
 

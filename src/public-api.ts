@@ -41,6 +41,9 @@ export * from './lib/composables/browser/use-document-visibility/use-document-vi
 export * from './lib/composables/browser/use-element-bounding/use-element-bounding.composable';
 export * from './lib/composables/browser/use-window-size/use-window-size.composable';
 export * from './lib/composables/browser/use-mouse-position/use-mouse-position.composable';
+export * from './lib/composables/browser/use-media-query/use-media-query.composable';
+export * from './lib/composables/browser/use-event-listener/use-event-listener.composable';
+export * from './lib/composables/browser/use-local-storage/use-local-storage.composable';
 
 // General Composables
 export * from './lib/composables/general/use-debounced-signal/use-debounced-signal.composable';
