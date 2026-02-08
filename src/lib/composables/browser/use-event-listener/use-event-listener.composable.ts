@@ -105,6 +105,12 @@ export function useEventListener<K extends keyof HTMLElementEventMap>(
 export function useEventListener(
   event: string,
   handler: (event: Event) => void,
+  options?: UseEventListenerOptions,
+): void;
+
+export function useEventListener(
+  event: string,
+  handler: (event: Event) => void,
   options: UseEventListenerOptions = {},
 ): void {
   const document = inject(DOCUMENT);
