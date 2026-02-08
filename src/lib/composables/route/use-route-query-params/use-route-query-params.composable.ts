@@ -1,4 +1,4 @@
-import { computed, inject, Signal } from '@angular/core';
+import { inject, Signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 

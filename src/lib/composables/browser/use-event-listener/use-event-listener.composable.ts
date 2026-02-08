@@ -1,4 +1,12 @@
-import { inject, PLATFORM_ID, DestroyRef, effect, Signal, ElementRef, isSignal } from '@angular/core';
+import {
+  inject,
+  PLATFORM_ID,
+  DestroyRef,
+  effect,
+  Signal,
+  ElementRef,
+  isSignal,
+} from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 
 export type UseEventListenerTarget =
@@ -11,10 +19,6 @@ export type UseEventListenerTarget =
   | undefined;
 
 export interface UseEventListenerOptions extends AddEventListenerOptions {
-  /**
-   * Event target (window, document, element, or signal containing element/ElementRef).
-   * @default window
-   */
   target?: UseEventListenerTarget;
 }
 
@@ -83,25 +87,25 @@ export interface UseEventListenerOptions extends AddEventListenerOptions {
 export function useEventListener<K extends keyof WindowEventMap>(
   event: K,
   handler: (event: WindowEventMap[K]) => void,
-  options?: UseEventListenerOptions
+  options?: UseEventListenerOptions,
 ): void;
 
 export function useEventListener<K extends keyof DocumentEventMap>(
   event: K,
   handler: (event: DocumentEventMap[K]) => void,
-  options?: UseEventListenerOptions
+  options?: UseEventListenerOptions,
 ): void;
 
 export function useEventListener<K extends keyof HTMLElementEventMap>(
   event: K,
   handler: (event: HTMLElementEventMap[K]) => void,
-  options?: UseEventListenerOptions
+  options?: UseEventListenerOptions,
 ): void;
 
 export function useEventListener(
   event: string,
   handler: (event: Event) => void,
-  options: UseEventListenerOptions = {}
+  options: UseEventListenerOptions = {},
 ): void {
   const document = inject(DOCUMENT);
   const platformId = inject(PLATFORM_ID);
@@ -180,7 +184,7 @@ export function useEventListener(
 function resolveTarget(
   target: Window | Document | Element | ElementRef | null | undefined,
   document: Document,
-  defaultToWindow: boolean
+  defaultToWindow: boolean,
 ): EventTarget | null {
   if (!target) {
     // For non-signal targets, default to window
