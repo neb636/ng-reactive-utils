@@ -41,9 +41,11 @@ import { createSharedComposable } from '../../../utils/create-shared-composable/
  * const isHighDPI = useMediaQuery('(min-resolution: 2dppx)');
  * ```
  */
-export const useMediaQuery = createSharedComposable((query: string) => {
-  // Normalize query for consistent caching: lowercase and collapse whitespace
+export const useMediaQuery = (query: string) => {
+  // Normalize query BEFORE passing to createSharedComposable to ensure consistent cache keys
   const normalizedQuery = query.toLowerCase().replace(/\s+/g, ' ').trim();
+  
+  return createSharedComposable((normalizedQuery: string) => {
   const document = inject(DOCUMENT);
   const platformId = inject(PLATFORM_ID);
   const isBrowser = isPlatformBrowser(platformId);
@@ -88,4 +90,5 @@ export const useMediaQuery = createSharedComposable((query: string) => {
       }
     },
   };
-});
+})(normalizedQuery);
+};
