@@ -357,4 +357,4 @@ Use **localStorage** when:
 
 ## Source
 
-<<< @/../src/lib/composables/browser/use-session-storage/use-session-storage.composable.ts
+<<< @/../src/lib/composables/browser/use-local-storage/use-local-storage.composable.ts#useSessionStorage
