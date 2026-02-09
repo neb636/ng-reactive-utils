@@ -2,6 +2,8 @@
 
 Creates a writable signal that automatically syncs with localStorage. The signal persists its value across page reloads and updates when the storage value changes in other tabs/windows.
 
+**MDN Reference:** [Window.localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
+
 ## Usage
 
 ### Basic Usage

@@ -2,6 +2,8 @@
 
 Creates a writable signal that automatically syncs with sessionStorage. The signal persists its value during the page session (until the tab/window is closed) but does not sync across tabs like localStorage.
 
+**MDN Reference:** [Window.sessionStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage)
+
 ## Usage
 
 ### Basic Usage

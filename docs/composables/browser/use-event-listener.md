@@ -2,6 +2,8 @@
 
 Attaches an event listener to a target (window, document, or element) with automatic cleanup. The listener is automatically removed when the component is destroyed.
 
+**MDN Reference:** [EventTarget.addEventListener()](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener)
+
 ## Usage
 
 ### Window Events
