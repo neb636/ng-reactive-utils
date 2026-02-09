@@ -19,11 +19,6 @@ export interface UseStorageOptions<T> {
    */
   serializer?: StorageSerializer<T>;
   /**
-   * Listen to storage events from other tabs/windows.
-   * @default true
-   */
-  listenToStorageChanges?: boolean;
-  /**
    * Write default value to storage on initialization if not present.
    * @default true
    */
@@ -50,7 +45,6 @@ export function useStorage<T>(
 
   const {
     serializer = defaultSerializer,
-    listenToStorageChanges = true,
     writeDefaults = true,
   } = options;
 
@@ -118,7 +112,7 @@ export function useStorage<T>(
   };
 
   // Listen to storage events for cross-tab synchronization
-  if (isBrowser && listenToStorageChanges) {
+  if (isBrowser) {
     const handleStorageChange = (event: StorageEvent) => {
       // Only respond to changes for our key and from other tabs
       if (event.key === key && event.storageArea === storage) {

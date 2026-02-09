@@ -158,20 +158,6 @@ class CrossTabSyncComponent {
 }
 ```
 
-### With listenToStorageChanges Option
-
-```typescript
-@Component({
-  template: `<p>Session token: {{ token() ? 'Present' : 'Missing' }}</p>`,
-})
-class AuthComponent {
-  // Don't listen to storage events (useful for write-only scenarios)
-  token = useLocalStorage('auth-token', '', {
-    listenToStorageChanges: false,
-  });
-}
-```
-
 ### Computed from Storage
 
 ```typescript
@@ -290,7 +276,6 @@ class LoginComponent {
 | Property                    | Type                                                  | Default        | Description                                                    |
 | --------------------------- | ----------------------------------------------------- | -------------- | -------------------------------------------------------------- |
 | `serializer`                | `{ read: (value: string) => T; write: (value: T) => string }` | JSON serializer | Custom serialization logic                                     |
-| `listenToStorageChanges`    | `boolean`                                             | `true`         | Listen to storage events from other tabs/windows              |
 | `writeDefaults`             | `boolean`                                             | `true`         | Write default value to storage on initialization if not present |
 
 ## Returns
@@ -301,14 +286,14 @@ class LoginComponent {
 
 - **Writable signal**: Returned signal can be updated using `.set()` and `.update()`
 - **Automatic persistence**: Changes to the signal automatically save to localStorage
-- **Cross-tab sync**: Changes in other tabs/windows automatically update the signal (if `listenToStorageChanges: true`)
+- **Cross-tab sync**: Changes in other tabs/windows automatically update the signal
 - **SSR safe**: Returns default value on server, hydrates from localStorage on client
 - **Type safe**: Full TypeScript support with generic type parameter
 - **JSON by default**: Uses `JSON.stringify`/`JSON.parse` for serialization by default
 - **Custom serialization**: Provide custom serializer for complex types (Date, Map, Set, etc.)
 - **Null removes**: Setting the value to `null` removes the key from localStorage
 - **Error handling**: Gracefully handles quota exceeded errors and parse errors
-- **Storage events**: Listens to `storage` events to sync across tabs (can be disabled)
+- **Storage events**: Automatically listens to `storage` events to sync across tabs
 - **Automatic cleanup**: Storage event listeners are removed when component is destroyed
 
 ## Common Serializers
