@@ -1,5 +1,6 @@
 import { WritableSignal } from '@angular/core';
-import { useStorage, UseStorageOptions } from '../use-storage-base/use-storage-base.composable';
+import { useStorage } from '../use-storage-base/use-storage-base.composable';
+import { UseStorageOptions } from '../use-storage-base/types';
 
 /**
  * Creates a writable signal that automatically syncs with localStorage. The signal persists

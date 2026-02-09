@@ -1,29 +1,6 @@
 import { signal, inject, PLATFORM_ID, DestroyRef, WritableSignal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-
-export interface StorageSerializer<T> {
-  /**
-   * Deserialize value from storage string
-   */
-  read: (value: string) => T;
-  /**
-   * Serialize value to storage string
-   */
-  write: (value: T) => string;
-}
-
-export interface UseStorageOptions<T> {
-  /**
-   * Custom serializer for complex types.
-   * @default JSON serializer
-   */
-  serializer?: StorageSerializer<T>;
-  /**
-   * Write default value to storage on initialization if not present.
-   * @default true
-   */
-  writeDefaults?: boolean;
-}
+import { StorageSerializer, UseStorageOptions } from './types';
 
 const defaultSerializer: StorageSerializer<any> = {
   read: (value: string) => JSON.parse(value),
@@ -43,10 +20,7 @@ export function useStorage<T>(
   const destroyRef = inject(DestroyRef);
   const isBrowser = isPlatformBrowser(platformId);
 
-  const {
-    serializer = defaultSerializer,
-    writeDefaults = true,
-  } = options;
+  const { serializer = defaultSerializer, writeDefaults = true } = options;
 
   const storage = isBrowser ? window[storageType] : null;
 

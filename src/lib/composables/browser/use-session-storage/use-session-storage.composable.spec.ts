@@ -1,34 +1,34 @@
 import { TestBed } from '@angular/core/testing';
 import { Component, provideZonelessChangeDetection } from '@angular/core';
-import { useLocalStorage } from './use-local-storage.composable';
+import { useSessionStorage } from './use-session-storage.composable';
 
-describe('useLocalStorage', () => {
+describe('useSessionStorage', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [provideZonelessChangeDetection()],
     });
-    localStorage.clear();
+    sessionStorage.clear();
   });
 
   afterEach(() => {
-    localStorage.clear();
+    sessionStorage.clear();
   });
 
-  it('should use localStorage as storage type', () => {
+  it('should use sessionStorage as storage type', () => {
     @Component({
       template: '',
     })
     class TestComponent {
-      counter = useLocalStorage('test-storage-type', 123);
+      counter = useSessionStorage('test-storage-type', 123);
     }
 
     const fixture = TestBed.createComponent(TestComponent);
     fixture.detectChanges();
 
-    // Should be in localStorage
-    expect(localStorage.getItem('test-storage-type')).toBe('123');
-    // Should NOT be in sessionStorage
-    expect(sessionStorage.getItem('test-storage-type')).toBeNull();
+    // Should be in sessionStorage
+    expect(sessionStorage.getItem('test-storage-type')).toBe('123');
+    // Should NOT be in localStorage
+    expect(localStorage.getItem('test-storage-type')).toBeNull();
   });
 
   it('should create a writable signal', () => {
@@ -36,7 +36,7 @@ describe('useLocalStorage', () => {
       template: '',
     })
     class TestComponent {
-      counter = useLocalStorage('test-writable', 0);
+      counter = useSessionStorage('test-writable', 0);
     }
 
     const fixture = TestBed.createComponent(TestComponent);
@@ -55,7 +55,7 @@ describe('useLocalStorage', () => {
       template: '',
     })
     class TestComponent {
-      counter = useLocalStorage('test-persist', 42);
+      counter = useSessionStorage('test-persist', 42);
     }
 
     const fixture = TestBed.createComponent(TestComponent);
@@ -69,7 +69,7 @@ describe('useLocalStorage', () => {
     // Update value
     component.counter.set(100);
     expect(component.counter()).toBe(100);
-    expect(localStorage.getItem('test-persist')).toBe('100');
+    expect(sessionStorage.getItem('test-persist')).toBe('100');
   });
 
   it('should pass options to useStorage', () => {
@@ -77,14 +77,14 @@ describe('useLocalStorage', () => {
       template: '',
     })
     class TestComponent {
-      counter = useLocalStorage('test-options', 42, { writeDefaults: false });
+      counter = useSessionStorage('test-options', 42, { writeDefaults: false });
     }
 
     const fixture = TestBed.createComponent(TestComponent);
     fixture.detectChanges();
 
     // Should respect writeDefaults option
-    expect(localStorage.getItem('test-options')).toBeNull();
+    expect(sessionStorage.getItem('test-options')).toBeNull();
   });
 
   it('should support custom serializer', () => {
@@ -92,7 +92,7 @@ describe('useLocalStorage', () => {
       template: '',
     })
     class TestComponent {
-      date = useLocalStorage('test-serializer', new Date('2024-01-01'), {
+      date = useSessionStorage('test-serializer', new Date('2024-01-01'), {
         serializer: {
           read: (value: string) => new Date(value),
           write: (value: Date) => value.toISOString(),
@@ -108,6 +108,6 @@ describe('useLocalStorage', () => {
     component.date.set(newDate);
 
     expect(component.date().getTime()).toBe(newDate.getTime());
-    expect(localStorage.getItem('test-serializer')).toBe(newDate.toISOString());
+    expect(sessionStorage.getItem('test-serializer')).toBe(newDate.toISOString());
   });
 });
