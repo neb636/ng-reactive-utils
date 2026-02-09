@@ -2,6 +2,10 @@
 
 Creates a signal that tracks an element's bounding box (position and dimensions). The signal automatically updates when the element is resized or when the page is scrolled/resized.
 
+**MDN References:**
+- [Element.getBoundingClientRect()](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect)
+- [ResizeObserver](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver)
+
 ## Usage
 
 ### Basic Usage

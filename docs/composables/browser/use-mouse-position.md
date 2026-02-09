@@ -2,6 +2,8 @@
 
 Creates signals that track the mouse position (x and y coordinates). The signals update when the mouse moves, with throttling to prevent excessive updates.
 
+**MDN Reference:** [MouseEvent](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent)
+
 ## Usage
 
 ```typescript

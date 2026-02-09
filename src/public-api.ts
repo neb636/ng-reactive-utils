@@ -43,7 +43,9 @@ export * from './lib/composables/browser/use-window-size/use-window-size.composa
 export * from './lib/composables/browser/use-mouse-position/use-mouse-position.composable';
 export * from './lib/composables/browser/use-media-query/use-media-query.composable';
 export * from './lib/composables/browser/use-event-listener/use-event-listener.composable';
+export * from './lib/composables/browser/use-storage-base/types';
 export * from './lib/composables/browser/use-local-storage/use-local-storage.composable';
+export * from './lib/composables/browser/use-session-storage/use-session-storage.composable';
 
 // General Composables
 export * from './lib/composables/general/use-debounced-signal/use-debounced-signal.composable';

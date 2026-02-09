@@ -2,6 +2,8 @@
 
 Creates a writable signal that automatically syncs with sessionStorage. The signal persists its value during the page session (until the tab/window is closed) but does not sync across tabs like localStorage.
 
+**MDN Reference:** [Window.sessionStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage)
+
 ## Usage
 
 ### Basic Usage
@@ -271,20 +273,6 @@ class SessionTrackerComponent {
 }
 ```
 
-### Without Storage Events
-
-```typescript
-@Component({
-  template: `<p>Form draft saved</p>`,
-})
-class FormDraftComponent {
-  // Don't listen to storage events (sessionStorage rarely needs cross-tab sync anyway)
-  draft = useSessionStorage('form-draft', '', {
-    listenToStorageChanges: false,
-  });
-}
-```
-
 ## Parameters
 
 | Parameter       | Type                            | Description                                           |
@@ -298,7 +286,6 @@ class FormDraftComponent {
 | Property                    | Type                                                  | Default        | Description                                                    |
 | --------------------------- | ----------------------------------------------------- | -------------- | -------------------------------------------------------------- |
 | `serializer`                | `{ read: (value: string) => T; write: (value: T) => string }` | JSON serializer | Custom serialization logic                                     |
-| `listenToStorageChanges`    | `boolean`                                             | `true`         | Listen to storage events (rarely needed for sessionStorage)   |
 | `writeDefaults`             | `boolean`                                             | `true`         | Write default value to storage on initialization if not present |
 
 ## Returns
@@ -317,7 +304,7 @@ class FormDraftComponent {
 - **Custom serialization**: Provide custom serializer for complex types (Date, Map, Set, etc.)
 - **Null removes**: Setting the value to `null` removes the key from sessionStorage
 - **Error handling**: Gracefully handles quota exceeded errors and parse errors
-- **Storage events**: Can listen to `storage` events but rarely needed for sessionStorage
+- **Storage events**: Automatically listens to `storage` events (though rarely triggered for sessionStorage)
 - **Automatic cleanup**: Storage event listeners are removed when component is destroyed
 
 ## sessionStorage vs localStorage

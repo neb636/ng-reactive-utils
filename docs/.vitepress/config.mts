@@ -67,6 +67,10 @@ export default defineConfig({
                 link: '/composables/browser/use-local-storage',
               },
               {
+                text: 'useSessionStorage',
+                link: '/composables/browser/use-session-storage',
+              },
+              {
                 text: 'useMediaQuery',
                 link: '/composables/browser/use-media-query',
               },

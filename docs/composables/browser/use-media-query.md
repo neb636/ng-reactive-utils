@@ -2,6 +2,8 @@
 
 Creates a signal that tracks whether a CSS media query matches. The signal automatically updates when the match state changes (e.g., when the window is resized or device orientation changes).
 
+**MDN Reference:** [Window.matchMedia()](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia)
+
 ## Usage
 
 ### Basic Usage
