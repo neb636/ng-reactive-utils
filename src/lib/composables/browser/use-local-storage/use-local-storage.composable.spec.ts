@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { Component, provideZonelessChangeDetection, PLATFORM_ID } from '@angular/core';
-import { useLocalStorage, useSessionStorage } from './use-local-storage.composable';
+import { useLocalStorage } from './use-local-storage.composable';
+import { useSessionStorage } from '../use-session-storage/use-session-storage.composable';
 
 describe('useLocalStorage', () => {
   beforeEach(() => {
