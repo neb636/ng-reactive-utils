@@ -321,7 +321,12 @@ describe('useMediaQuery', () => {
     fixture.destroy();
 
     // Verify cleanup was called
-    vitestExpect(removeEventListenerSpy).toHaveBeenCalledWith('change', vitestExpect.any(Function));
+    // Note: useEventListener passes options object as third parameter
+    vitestExpect(removeEventListenerSpy).toHaveBeenCalledWith(
+      'change',
+      vitestExpect.any(Function),
+      vitestExpect.any(Object),
+    );
   });
 
   it('should handle server-side rendering (returns false)', () => {

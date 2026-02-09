@@ -1,5 +1,6 @@
-import { signal, inject, PLATFORM_ID, DestroyRef, WritableSignal } from '@angular/core';
+import { signal, inject, PLATFORM_ID, WritableSignal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { useEventListener } from '../use-event-listener/use-event-listener.composable';
 
 export interface StorageSerializer<T> {
   /**
@@ -128,7 +129,6 @@ function useStorage<T>(
   options: UseStorageOptions<T> = {},
 ): WritableSignal<T> {
   const platformId = inject(PLATFORM_ID);
-  const destroyRef = inject(DestroyRef);
   const isBrowser = isPlatformBrowser(platformId);
 
   const {
@@ -215,11 +215,8 @@ function useStorage<T>(
       }
     };
 
-    window.addEventListener('storage', handleStorageChange);
-
-    destroyRef.onDestroy(() => {
-      window.removeEventListener('storage', handleStorageChange);
-    });
+    // Use useEventListener for automatic cleanup
+    useEventListener('storage', handleStorageChange);
   }
 
   return writableSignal;

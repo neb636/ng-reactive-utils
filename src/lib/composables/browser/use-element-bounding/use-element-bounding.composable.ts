@@ -1,6 +1,7 @@
 import { signal, inject, PLATFORM_ID, effect, DestroyRef, Signal, ElementRef } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import throttle from 'lodash-es/throttle';
+import { useEventListener } from '../use-event-listener/use-event-listener.composable';
 
 export type ElementBounding = {
   /** X position relative to the viewport (same as left) */
@@ -103,7 +104,6 @@ export function useElementBounding(
   });
 
   let resizeObserver: ResizeObserver | null = null;
-  let windowListenersActive = false;
 
   const updateBounding = () => {
     const elementOrRef = elementSignal();
@@ -136,6 +136,14 @@ export function useElementBounding(
     update: updateBounding,
   }));
 
+  // Set up window event listeners if enabled (these are always active)
+  if (windowResize) {
+    useEventListener('resize', throttledUpdate);
+  }
+  if (windowScroll) {
+    useEventListener('scroll', throttledUpdate, { capture: true });
+  }
+
   if (isBrowser) {
     // Watch for element changes
     effect(() => {
@@ -149,17 +157,6 @@ export function useElementBounding(
         resizeObserver = null;
       }
 
-      // Clean up window event listeners
-      if (windowListenersActive) {
-        if (windowResize) {
-          window.removeEventListener('resize', throttledUpdate);
-        }
-        if (windowScroll) {
-          window.removeEventListener('scroll', throttledUpdate, true);
-        }
-        windowListenersActive = false;
-      }
-
       if (element) {
         // Initial update
         updateBounding();
@@ -167,15 +164,6 @@ export function useElementBounding(
         // Set up ResizeObserver for size changes
         resizeObserver = new ResizeObserver(throttledUpdate);
         resizeObserver.observe(element);
-
-        // Set up window event listeners if enabled
-        if (windowResize) {
-          window.addEventListener('resize', throttledUpdate);
-        }
-        if (windowScroll) {
-          window.addEventListener('scroll', throttledUpdate, true); // Use capture to catch all scroll events
-        }
-        windowListenersActive = true;
       } else {
         boundingSignal.update((prev) => ({ ...defaultBounding, update: prev.update }));
       }
@@ -188,16 +176,6 @@ export function useElementBounding(
 
     if (resizeObserver) {
       resizeObserver.disconnect();
-    }
-
-    if (isBrowser && windowListenersActive) {
-      if (windowResize) {
-        window.removeEventListener('resize', throttledUpdate);
-      }
-
-      if (windowScroll) {
-        window.removeEventListener('scroll', throttledUpdate, true);
-      }
     }
   });
 

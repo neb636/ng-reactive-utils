@@ -1,6 +1,7 @@
 import { signal, inject, PLATFORM_ID } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { createSharedComposable } from '../../../utils/create-shared-composable/create-shared-composable';
+import { useEventListener } from '../use-event-listener/use-event-listener.composable';
 
 /**
  * Creates a signal that tracks whether a CSS media query matches. The signal automatically
@@ -59,35 +60,23 @@ export const useMediaQuery = (query: string) => {
 
     const matchesSignal = signal<boolean>(getInitialMatches());
 
-    let mediaQueryList: MediaQueryList | null = null;
     const handleChange = (event: MediaQueryListEvent) => {
       matchesSignal.set(event.matches);
     };
 
     // Only set up media query listener in the browser
     if (isBrowser && document.defaultView) {
-      mediaQueryList = document.defaultView.matchMedia(normalizedQuery);
+      const mediaQueryList = document.defaultView.matchMedia(normalizedQuery);
 
-      // Use addEventListener if available (modern browsers), fallback to addListener
-      if (mediaQueryList.addEventListener) {
-        mediaQueryList.addEventListener('change', handleChange);
-      } else {
-        // Fallback for older browsers
-        mediaQueryList.addListener(handleChange);
-      }
+      // Use useEventListener for automatic cleanup
+      // MediaQueryList implements EventTarget in modern browsers
+      useEventListener('change', handleChange as any, { target: mediaQueryList as any });
     }
 
     return {
       value: matchesSignal.asReadonly(),
       cleanup: () => {
-        if (mediaQueryList) {
-          if (mediaQueryList.removeEventListener) {
-            mediaQueryList.removeEventListener('change', handleChange);
-          } else {
-            // Fallback for older browsers
-            mediaQueryList.removeListener(handleChange);
-          }
-        }
+        // Cleanup is handled by useEventListener or destroyRef
       },
     };
   })(normalizedQuery);

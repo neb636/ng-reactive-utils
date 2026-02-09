@@ -1,6 +1,7 @@
 import { signal, inject, PLATFORM_ID } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { createSharedComposable } from '../../../utils/create-shared-composable/create-shared-composable';
+import { useEventListener } from '../use-event-listener/use-event-listener.composable';
 
 /*
  * Creates a signal that tracks whether the document/tab is visible or hidden.
@@ -31,17 +32,14 @@ export const useDocumentVisibility = createSharedComposable(() => {
 
   const handleVisibilityChange = () => visibilitySignal.set(!document.hidden);
 
-  // Only set up event listeners in the browser
-  if (isBrowser && document.defaultView) {
-    document.defaultView.addEventListener('visibilitychange', handleVisibilityChange);
-  }
+  // Use useEventListener for automatic cleanup
+  // Note: visibilitychange event bubbles to window from document
+  useEventListener('visibilitychange', handleVisibilityChange);
 
   return {
     value: visibilitySignal.asReadonly(),
     cleanup: () => {
-      if (isBrowser && document.defaultView) {
-        document.defaultView.removeEventListener('visibilitychange', handleVisibilityChange);
-      }
+      // Cleanup is handled by useEventListener
     },
   };
 });

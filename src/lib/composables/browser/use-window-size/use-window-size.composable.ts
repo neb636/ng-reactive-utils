@@ -1,7 +1,8 @@
-import { signal, inject, PLATFORM_ID } from '@angular/core';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { signal, inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { debounce } from 'lodash-es';
 import { createSharedComposable } from '../../../utils/create-shared-composable/create-shared-composable';
+import { useEventListener } from '../use-event-listener/use-event-listener.composable';
 
 export type WindowSize = {
   width: number;
@@ -34,8 +35,6 @@ export type WindowSize = {
  */
 export const useWindowSize = createSharedComposable((debounceMs: number = 100) => {
   const document = inject(DOCUMENT);
-  const platformId = inject(PLATFORM_ID);
-  const isBrowser = isPlatformBrowser(platformId);
 
   const getWindowSize = (): WindowSize => ({
     width: document.defaultView?.innerWidth ?? 0,
@@ -46,18 +45,13 @@ export const useWindowSize = createSharedComposable((debounceMs: number = 100) =
   const handleResize = () => windowSizeSignal.set(getWindowSize());
   const debouncedHandleResize = debounce(handleResize, debounceMs);
 
-  // Only set up event listeners in the browser
-  if (isBrowser && document.defaultView) {
-    document.defaultView.addEventListener('resize', debouncedHandleResize);
-  }
+  // Use useEventListener for automatic cleanup
+  useEventListener('resize', debouncedHandleResize);
 
   // Cleanup and return readonly signal
   return {
     value: windowSizeSignal.asReadonly(),
     cleanup: () => {
-      if (isBrowser && document.defaultView) {
-        document.defaultView.removeEventListener('resize', debouncedHandleResize);
-      }
       debouncedHandleResize.cancel();
     },
   };
