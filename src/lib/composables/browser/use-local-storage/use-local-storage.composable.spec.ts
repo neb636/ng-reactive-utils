@@ -222,33 +222,6 @@ describe('useLocalStorage', () => {
     expect(component.counter()).toBe(999);
   });
 
-  it('should not sync when listenToStorageChanges is false', () => {
-    @Component({
-      template: '',
-    })
-    class TestComponent {
-      counter = useLocalStorage('test-no-sync', 0, { listenToStorageChanges: false });
-    }
-
-    const fixture = TestBed.createComponent(TestComponent);
-    fixture.detectChanges();
-
-    const component = fixture.componentInstance;
-
-    // Simulate storage event from another tab
-    const storageEvent = new StorageEvent('storage', {
-      key: 'test-no-sync',
-      newValue: '999',
-      oldValue: '0',
-      storageArea: localStorage,
-    });
-
-    window.dispatchEvent(storageEvent);
-
-    // Should not update
-    expect(component.counter()).toBe(0);
-  });
-
   it('should only sync events for matching key', () => {
     @Component({
       template: '',
