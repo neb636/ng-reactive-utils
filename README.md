@@ -61,6 +61,15 @@ These primitives follow these design principles:
 4. **Type-safe** - Leverage TypeScript for better DX
 5. **Framework-aligned** - Follow Angular's conventions and patterns
 
+## Influenced By
+
+This project is influenced by the following projects:
+
+- [VueUse](https://github.com/vueuse/vueuse) - Collection of essential Vue Composition Utilities
+- [usehooks-ts](https://github.com/juliencrn/usehooks-ts) - React hook library, written in TypeScript
+- [Solid Primitives](https://primitives.solidjs.community/) - A project that strives to develop high-quality, community contributed Solid primitives
+- [Svelte Use](https://svelte-use.vercel.app/) - Collection of essential Svelte utilities
+
 ## Contributing
 
 Install dependencies:
