@@ -96,6 +96,64 @@ class ElementEventsComponent {
 }
 ```
 
+### Manual Cleanup
+
+```typescript
+@Component({
+  template: `
+    <p>Tracking: {{ isTracking() }}</p>
+    <p>Move count: {{ moveCount() }}</p>
+    <button (click)="stopTracking()">Stop Tracking</button>
+  `,
+})
+class ManualCleanupComponent {
+  isTracking = signal(true);
+  moveCount = signal(0);
+  private cleanupMouseMove: () => void;
+
+  constructor() {
+    // Returns a cleanup function to remove the listener early
+    this.cleanupMouseMove = useEventListener('mousemove', () => {
+      this.moveCount.update((count) => count + 1);
+    });
+  }
+
+  stopTracking() {
+    this.cleanupMouseMove();
+    this.isTracking.set(false);
+  }
+}
+```
+
+### Manual Cleanup with Signal Target
+
+```typescript
+@Component({
+  template: `
+    <div #box>Hover zone</div>
+    <button (click)="disableTracking()">Disable</button>
+  `,
+})
+class SignalCleanupComponent {
+  boxRef = viewChild<ElementRef>('box');
+  private cleanupHover: () => void;
+
+  constructor() {
+    // Cleanup also works with signal targets — destroys the
+    // underlying effect and removes the current listener
+    this.cleanupHover = useEventListener(
+      'mouseenter',
+      () => console.log('Entered'),
+      { target: this.boxRef }
+    );
+  }
+
+  disableTracking() {
+    this.cleanupHover();
+  }
+}
+```
+
 ### Scroll Event with Throttling
 
 ```typescript
@@ -271,13 +329,16 @@ class MultipleEventsComponent {
 
 ## Returns
 
-`void` - No return value. Cleanup is handled automatically.
+`() => void` - A cleanup function that removes the event listener immediately. Safe to call multiple times — subsequent calls are no-ops. If the listener has already been removed (manually or via component destroy), calling the cleanup function again has no effect.
 
 ## Notes
 
 - **Automatic cleanup**: Event listeners are automatically removed when the component is destroyed
-- **SSR safe**: No-op on the server, listeners only attached in the browser
-- **Signal support**: Target can be a signal containing an element/ElementRef that changes over time
+- **Manual cleanup**: The returned cleanup function allows removing the listener early, before the component is destroyed
+- **Safe to call multiple times**: The cleanup function is idempotent — calling it after the listener has already been removed is a safe no-op
+- **Works with component destroy**: If cleanup is called manually, the automatic `onDestroy` cleanup gracefully handles the already-cleaned-up state
+- **SSR safe**: Returns a no-op function on the server, listeners only attached in the browser
+- **Signal support**: Target can be a signal containing an element/ElementRef that changes over time. Manual cleanup destroys the underlying effect and removes the current listener
 - **Signal timing**: When using `viewChild()` or `viewChildren()` signals, they are `undefined` during constructor execution. The composable handles this gracefully - the effect waits for a non-null value before attaching listeners
 - **Element identity check**: When signal targets update, the composable checks if the element reference actually changed to avoid unnecessary listener re-registration
 - **Standard options**: Supports all standard `addEventListener` options (capture, passive, once)

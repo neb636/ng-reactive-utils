@@ -83,43 +83,60 @@ export interface UseEventListenerOptions extends AddEventListenerOptions {
  *   }, { passive: true });
  * }
  * ```
+ *
+ * @example
+ * ```ts
+ * // Manual cleanup before component destroy
+ * constructor() {
+ *   const cleanup = useEventListener('mousemove', (event) => {
+ *     console.log('Mouse moved:', event.clientX, event.clientY);
+ *   });
+ *
+ *   // Later, remove the listener early
+ *   cleanup();
+ * }
+ * ```
+ *
+ * @returns A cleanup function that removes the event listener. Safe to call multiple times.
  */
 export function useEventListener<K extends keyof WindowEventMap>(
   event: K,
   handler: (event: WindowEventMap[K]) => void,
   options?: UseEventListenerOptions,
-): void;
+): () => void;
 
 export function useEventListener<K extends keyof DocumentEventMap>(
   event: K,
   handler: (event: DocumentEventMap[K]) => void,
   options?: UseEventListenerOptions,
-): void;
+): () => void;
 
 export function useEventListener<K extends keyof HTMLElementEventMap>(
   event: K,
   handler: (event: HTMLElementEventMap[K]) => void,
   options?: UseEventListenerOptions,
-): void;
+): () => void;
 
 export function useEventListener(
   event: string,
   handler: (event: Event) => void,
   options?: UseEventListenerOptions,
-): void;
+): () => void;
 
 export function useEventListener(
   event: string,
   handler: (event: Event) => void,
   options: UseEventListenerOptions = {},
-): void {
+): () => void {
   const document = inject(DOCUMENT);
   const platformId = inject(PLATFORM_ID);
   const destroyRef = inject(DestroyRef);
   const isBrowser = isPlatformBrowser(platformId);
 
+  const noop = () => {};
+
   if (!isBrowser) {
-    return; // No-op on server
+    return noop; // No-op on server
   }
 
   const { target: targetOption, ...listenerOptions } = options;
@@ -127,9 +144,12 @@ export function useEventListener(
   // Determine if target is a signal
   const targetIsSignal = isSignal(targetOption);
 
+  // Track whether cleanup has already been called to make it safe to call multiple times
+  let isCleanedUp = false;
+
   if (targetIsSignal) {
     // Handle signal target with effect
-    let currentCleanup: (() => void) | null = null;
+    let currentListenerCleanup: (() => void) | null = null;
     let previousElement: EventTarget | null = null;
 
     const cleanupEffect = effect(() => {
@@ -141,15 +161,15 @@ export function useEventListener(
       // This prevents unnecessary re-registration when signal emits same element
       if (element !== previousElement) {
         // Clean up previous listener
-        if (currentCleanup) {
-          currentCleanup();
-          currentCleanup = null;
+        if (currentListenerCleanup) {
+          currentListenerCleanup();
+          currentListenerCleanup = null;
         }
 
-        // Add new listener if element exists
-        if (element) {
+        // Add new listener if element exists and not already cleaned up
+        if (element && !isCleanedUp) {
           element.addEventListener(event, handler, listenerOptions);
-          currentCleanup = () => {
+          currentListenerCleanup = () => {
             element.removeEventListener(event, handler, listenerOptions);
           };
         }
@@ -158,26 +178,41 @@ export function useEventListener(
       }
     });
 
-    // Cleanup on destroy: first destroy effect, then remove any remaining listener
-    destroyRef.onDestroy(() => {
+    const cleanup = () => {
+      if (isCleanedUp) return;
+      isCleanedUp = true;
       cleanupEffect.destroy();
-      if (currentCleanup) {
-        currentCleanup();
+      if (currentListenerCleanup) {
+        currentListenerCleanup();
+        currentListenerCleanup = null;
       }
-    });
+    };
+
+    // Cleanup on destroy: first destroy effect, then remove any remaining listener
+    destroyRef.onDestroy(cleanup);
+
+    return cleanup;
   } else {
     // Handle non-signal target
     // For non-signals, default to window if target is null/undefined
     const target = resolveTarget(targetOption, document, true);
 
-    if (target) {
-      target.addEventListener(event, handler, listenerOptions);
-
-      // Cleanup on destroy
-      destroyRef.onDestroy(() => {
-        target.removeEventListener(event, handler, listenerOptions);
-      });
+    if (!target) {
+      return noop;
     }
+
+    target.addEventListener(event, handler, listenerOptions);
+
+    const cleanup = () => {
+      if (isCleanedUp) return;
+      isCleanedUp = true;
+      target.removeEventListener(event, handler, listenerOptions);
+    };
+
+    // Cleanup on destroy
+    destroyRef.onDestroy(cleanup);
+
+    return cleanup;
   }
 }
 
