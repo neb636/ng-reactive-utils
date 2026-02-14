@@ -103,6 +103,20 @@ export default defineConfig({
             ],
           },
           {
+            text: 'Resource',
+            collapsed: false,
+            items: [
+              {
+                text: 'useOnResourceError',
+                link: '/composables/resource/use-on-resource-error',
+              },
+              {
+                text: 'useCancelResource',
+                link: '/composables/resource/use-cancel-resource',
+              },
+            ],
+          },
+          {
             text: 'Route',
             collapsed: false,
             items: [
