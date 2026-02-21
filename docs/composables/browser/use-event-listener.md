@@ -54,7 +54,7 @@ class DocumentEventsComponent {
       (event) => {
         this.mouseButton.set(`Button ${event.button}`);
       },
-      { target: this.document }
+      { target: this.document },
     );
   }
 }
@@ -82,7 +82,7 @@ class ElementEventsComponent {
       () => {
         this.isHovering.set(true);
       },
-      { target: this.boxRef }
+      { target: this.boxRef },
     );
 
     useEventListener(
@@ -90,7 +90,7 @@ class ElementEventsComponent {
       () => {
         this.isHovering.set(false);
       },
-      { target: this.boxRef }
+      { target: this.boxRef },
     );
   }
 }
@@ -109,14 +109,10 @@ class ElementEventsComponent {
 class ManualCleanupComponent {
   isTracking = signal(true);
   moveCount = signal(0);
-  private cleanupMouseMove: () => void;
 
-  constructor() {
-    // Returns a cleanup function to remove the listener early
-    this.cleanupMouseMove = useEventListener('mousemove', () => {
-      this.moveCount.update((count) => count + 1);
-    });
-  }
+  cleanupMouseMove = useEventListener('mousemove', () => {
+    this.moveCount.update((count) => count + 1);
+  });
 
   stopTracking() {
     this.cleanupMouseMove();
@@ -141,11 +137,9 @@ class SignalCleanupComponent {
   constructor() {
     // Cleanup also works with signal targets — destroys the
     // underlying effect and removes the current listener
-    this.cleanupHover = useEventListener(
-      'mouseenter',
-      () => console.log('Entered'),
-      { target: this.boxRef }
-    );
+    this.cleanupHover = useEventListener('mouseenter', () => console.log('Entered'), {
+      target: this.boxRef,
+    });
   }
 
   disableTracking() {
@@ -273,16 +267,14 @@ class CustomEventComponent {
       (event) => {
         console.log('Custom event received:', event.detail);
       },
-      { target: this.elementRef }
+      { target: this.elementRef },
     );
   }
 
   triggerCustomEvent() {
     const element = this.elementRef()?.nativeElement;
     if (element) {
-      element.dispatchEvent(
-        new CustomEvent('custom-event', { detail: { data: 'test' } })
-      );
+      element.dispatchEvent(new CustomEvent('custom-event', { detail: { data: 'test' } }));
     }
   }
 }
@@ -312,20 +304,20 @@ class MultipleEventsComponent {
 
 ## Parameters
 
-| Parameter | Type                                           | Description                         |
-| --------- | ---------------------------------------------- | ----------------------------------- |
-| `event`   | `string`                                       | Event name (e.g., 'click', 'keydown') |
-| `handler` | `(event: Event) => void`                       | Event handler function              |
-| `options` | `UseEventListenerOptions` (optional)           | Configuration options               |
+| Parameter | Type                                 | Description                           |
+| --------- | ------------------------------------ | ------------------------------------- |
+| `event`   | `string`                             | Event name (e.g., 'click', 'keydown') |
+| `handler` | `(event: Event) => void`             | Event handler function                |
+| `options` | `UseEventListenerOptions` (optional) | Configuration options                 |
 
 ### Options Object
 
-| Property   | Type                                                     | Default  | Description                                       |
-| ---------- | -------------------------------------------------------- | -------- | ------------------------------------------------- |
-| `target`   | `Window \| Document \| Signal<Element \| ElementRef \| null \| undefined>` | `window` | Event target (window, document, element, or signal) |
-| `capture`  | `boolean`                                                | `false`  | Use capture phase for event propagation           |
-| `passive`  | `boolean`                                                | `false`  | Mark listener as passive (improves scroll performance) |
-| `once`     | `boolean`                                                | `false`  | Remove listener after first invocation            |
+| Property  | Type                                                                       | Default  | Description                                            |
+| --------- | -------------------------------------------------------------------------- | -------- | ------------------------------------------------------ |
+| `target`  | `Window \| Document \| Signal<Element \| ElementRef \| null \| undefined>` | `window` | Event target (window, document, element, or signal)    |
+| `capture` | `boolean`                                                                  | `false`  | Use capture phase for event propagation                |
+| `passive` | `boolean`                                                                  | `false`  | Mark listener as passive (improves scroll performance) |
+| `once`    | `boolean`                                                                  | `false`  | Remove listener after first invocation                 |
 
 ## Returns
 
@@ -371,11 +363,13 @@ class MultipleEventsComponent {
 ### When to Use Template Event Binding vs useEventListener
 
 **Use template event binding `(click)="..."`** for:
+
 - Component-local interactions with template elements
 - Simple event handlers that don't need dynamic targets
 - Better readability and Angular's idiomatic patterns
 
 **Use `useEventListener`** for:
+
 - Window or document-level events
 - Programmatic element listeners where template binding isn't feasible
 - Dynamic event targets (especially signal-based targets)
@@ -430,3 +424,18 @@ constructor() {
 ## Source
 
 <<< @/../src/lib/composables/browser/use-event-listener/use-event-listener.composable.ts
+
+---
+
+Maybe we should have something like below as well>
+
+```ts
+
+mouseMoveCounter = useEventListener('mousemove', (currentValue) => {
+   return currentValue {}
+});
+```
+
+What could we call it? Any issues? Not useful?
+
+What other ways could you write the same functionality?
