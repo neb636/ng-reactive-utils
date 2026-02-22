@@ -4,231 +4,46 @@ Attaches an event listener to a target (window, document, or element) with autom
 
 **MDN Reference:** [EventTarget.addEventListener()](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener)
 
+## When to Use `useEventListener`
+
+`useEventListener` is best suited for **global or document-level events** where Angular template binding isn't available, and for **building reusable composables** that encapsulate event-driven behaviour.
+
+**Prefer Angular template binding `(event)="handler()"`** for interactions with elements inside your component's template. Template bindings are automatically cleaned up, more readable, and idiomatic Angular.
+
+```html
+<!-- ✅ Prefer this for element interactions -->
+<div (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">Hover me</div>
+```
+
+**Use `useEventListener`** when you need to listen to `window`, `document`, or when building a composable that other components can consume.
+
 ## Usage
 
-### Window Events
+### Building a Reusable Composable
+
+The primary value of `useEventListener` is encapsulating event logic into a composable that can be shared across components. Here the hover behaviour is self-contained and reusable:
 
 ```typescript
 import { useEventListener } from 'ng-reactive-utils';
 
-@Component({
-  template: `
-    <p>Key pressed: {{ lastKey() }}</p>
-    <p>Total clicks: {{ clickCount() }}</p>
-  `,
-})
-class WindowEventsComponent {
-  lastKey = signal('');
-  clickCount = signal(0);
+function useIsHovered(element: Signal<ElementRef | undefined>) {
+  const isHovering = signal(false);
 
-  constructor() {
-    // Listen to keydown events on window
-    useEventListener('keydown', (event) => {
-      this.lastKey.set(event.key);
-    });
+  useEventListener('mouseenter', () => isHovering.set(true), { target: element });
+  useEventListener('mouseleave', () => isHovering.set(false), { target: element });
 
-    // Listen to click events on window
-    useEventListener('click', () => {
-      this.clickCount.update((count) => count + 1);
-    });
-  }
+  return isHovering.asReadonly();
 }
-```
 
-### Document Events
-
-```typescript
-import { DOCUMENT } from '@angular/common';
-
-@Component({
-  template: `<p>Mouse button: {{ mouseButton() }}</p>`,
-})
-class DocumentEventsComponent {
-  private document = inject(DOCUMENT);
-  mouseButton = signal('');
-
-  constructor() {
-    // Listen to mousedown events on document
-    useEventListener(
-      'mousedown',
-      (event) => {
-        this.mouseButton.set(`Button ${event.button}`);
-      },
-      { target: this.document },
-    );
-  }
-}
-```
-
-### Element Events
-
-```typescript
 @Component({
   template: `
     <div #box>Hover over me</div>
-    <p>Mouse in box: {{ isHovering() }}</p>
+    <p>Hovering: {{ isHovering() }}</p>
   `,
 })
-class ElementEventsComponent {
+class HoverExampleComponent {
   boxRef = viewChild<ElementRef>('box');
-  isHovering = signal(false);
-
-  constructor() {
-    // Listen to mouseenter/mouseleave on element
-    // Note: boxRef() is undefined in constructor, but the composable
-    // handles this gracefully - listener attaches once element is available
-    useEventListener(
-      'mouseenter',
-      () => {
-        this.isHovering.set(true);
-      },
-      { target: this.boxRef },
-    );
-
-    useEventListener(
-      'mouseleave',
-      () => {
-        this.isHovering.set(false);
-      },
-      { target: this.boxRef },
-    );
-  }
-}
-```
-
-### Manual Cleanup
-
-```typescript
-@Component({
-  template: `
-    <p>Tracking: {{ isTracking() }}</p>
-    <p>Move count: {{ moveCount() }}</p>
-    <button (click)="stopTracking()">Stop Tracking</button>
-  `,
-})
-class ManualCleanupComponent {
-  isTracking = signal(true);
-  moveCount = signal(0);
-
-  cleanupMouseMove = useEventListener('mousemove', () => {
-    this.moveCount.update((count) => count + 1);
-  });
-
-  stopTracking() {
-    this.cleanupMouseMove();
-    this.isTracking.set(false);
-  }
-}
-```
-
-### Manual Cleanup with Signal Target
-
-```typescript
-@Component({
-  template: `
-    <div #box>Hover zone</div>
-    <button (click)="disableTracking()">Disable</button>
-  `,
-})
-class SignalCleanupComponent {
-  boxRef = viewChild<ElementRef>('box');
-  private cleanupHover: () => void;
-
-  constructor() {
-    // Cleanup also works with signal targets — destroys the
-    // underlying effect and removes the current listener
-    this.cleanupHover = useEventListener('mouseenter', () => console.log('Entered'), {
-      target: this.boxRef,
-    });
-  }
-
-  disableTracking() {
-    this.cleanupHover();
-  }
-}
-```
-
-### Scroll Event with Throttling
-
-```typescript
-@Component({
-  template: `<p>Scroll position: {{ scrollY() }}</p>`,
-})
-class ScrollTrackerComponent {
-  scrollY = signal(0);
-
-  constructor() {
-    const throttledHandler = throttle((event: Event) => {
-      this.scrollY.set(window.scrollY);
-    }, 100);
-
-    useEventListener('scroll', throttledHandler, { passive: true });
-  }
-}
-```
-
-### Keyboard Shortcuts
-
-```typescript
-@Component({
-  template: `<p>Press Ctrl+S to save ({{ saveCount() }} times)</p>`,
-})
-class KeyboardShortcutsComponent {
-  saveCount = signal(0);
-
-  constructor() {
-    useEventListener('keydown', (event) => {
-      if (event.ctrlKey && event.key === 's') {
-        event.preventDefault();
-        this.saveCount.update((count) => count + 1);
-        console.log('Save triggered!');
-      }
-    });
-  }
-}
-```
-
-### Resize with Debouncing
-
-```typescript
-@Component({
-  template: `<p>Resize count: {{ resizeCount() }}</p>`,
-})
-class ResizeCounterComponent {
-  resizeCount = signal(0);
-
-  constructor() {
-    const debouncedHandler = debounce(() => {
-      this.resizeCount.update((count) => count + 1);
-    }, 300);
-
-    useEventListener('resize', debouncedHandler);
-  }
-}
-```
-
-### Click Outside Detection
-
-```typescript
-@Component({
-  template: `
-    <div #modal [class.hidden]="!isOpen()">
-      <p>Click outside to close</p>
-    </div>
-  `,
-})
-class ModalComponent {
-  modalRef = viewChild<ElementRef>('modal');
-  isOpen = signal(true);
-
-  constructor() {
-    useEventListener('click', (event) => {
-      const modal = this.modalRef()?.nativeElement;
-      if (modal && !modal.contains(event.target as Node)) {
-        this.isOpen.set(false);
-      }
-    });
-  }
+  isHovering = useIsHovered(this.boxRef);
 }
 ```
 
@@ -241,64 +56,13 @@ class ModalComponent {
 class UnsavedChangesComponent {
   hasUnsavedChanges = signal(true);
 
-  constructor() {
-    useEventListener('beforeunload', (event) => {
-      if (this.hasUnsavedChanges()) {
-        event.preventDefault();
-        event.returnValue = ''; // Chrome requires returnValue to be set
-      }
-    });
-  }
-}
-```
-
-### Custom Event on Element
-
-```typescript
-@Component({
-  template: `<div #customElement>Custom events enabled</div>`,
-})
-class CustomEventComponent {
-  elementRef = viewChild<ElementRef>('customElement');
-
-  constructor() {
-    useEventListener(
-      'custom-event',
-      (event) => {
-        console.log('Custom event received:', event.detail);
-      },
-      { target: this.elementRef },
-    );
-  }
-
-  triggerCustomEvent() {
-    const element = this.elementRef()?.nativeElement;
-    if (element) {
-      element.dispatchEvent(new CustomEvent('custom-event', { detail: { data: 'test' } }));
+  // Returned remove listener is avaliable to use manually if you need to remove before the component is destroyed
+  cleanupListenerFn = useEventListener('beforeunload', (event) => {
+    if (this.hasUnsavedChanges()) {
+      event.preventDefault();
+      event.returnValue = '';
     }
-  }
-}
-```
-
-### Multiple Event Types
-
-```typescript
-@Component({
-  template: `<p>Input interaction detected: {{ interactions() }}</p>`,
-})
-class MultipleEventsComponent {
-  interactions = signal(0);
-
-  constructor() {
-    const handler = () => {
-      this.interactions.update((count) => count + 1);
-    };
-
-    // Track multiple input methods
-    useEventListener('mousedown', handler);
-    useEventListener('touchstart', handler);
-    useEventListener('keydown', handler);
-  }
+  });
 }
 ```
 
@@ -340,17 +104,6 @@ class MultipleEventsComponent {
 - Passive listeners improve scroll performance - use for scroll, wheel, touch events
 - Capture phase listeners receive events before target phase - useful for event interception
 
-## Common Use Cases
-
-- **Global keyboard shortcuts**: Listen to keydown events on window
-- **Click outside detection**: Close modals/dropdowns when clicking outside
-- **Scroll tracking**: Monitor scroll position for infinite scroll or animations
-- **Resize handling**: Respond to window resize events
-- **Custom events**: Listen to custom events dispatched by other components
-- **Drag and drop**: Handle mouse/touch move events
-- **Form warnings**: Warn users about unsaved changes before leaving
-- **Accessibility**: Track focus/blur for keyboard navigation
-
 ## Performance Tips
 
 - Use `passive: true` for scroll, wheel, and touch events to improve performance
@@ -360,82 +113,19 @@ class MultipleEventsComponent {
 
 ## Best Practices
 
-### When to Use Template Event Binding vs useEventListener
+### Prefer Template Binding for Element Events
 
-**Use template event binding `(click)="..."`** for:
+For interactions with elements in your own template, Angular's built-in event binding is cleaner, more readable, and automatically cleaned up:
 
-- Component-local interactions with template elements
-- Simple event handlers that don't need dynamic targets
-- Better readability and Angular's idiomatic patterns
-
-**Use `useEventListener`** for:
-
-- Window or document-level events
-- Programmatic element listeners where template binding isn't feasible
-- Dynamic event targets (especially signal-based targets)
-- Events that need custom options (passive, capture, once)
-- Cross-tab communication or global state management
-
-### ViewChild Signal Timing
-
-```typescript
-// ✅ Safe: Works in constructor (effect waits for non-null value)
-boxRef = viewChild<ElementRef>('box');
-
-constructor() {
-  useEventListener('click', handler, { target: this.boxRef });
-  // Listener attaches once boxRef() becomes non-null after view initialization
-}
-
-// ✅ Also works: Explicit lifecycle hook (if you prefer)
-boxRef = viewChild<ElementRef>('box');
-
-constructor() {
-  afterNextRender(() => {
-    // boxRef() is guaranteed to be available here
-    useEventListener('click', handler, { target: this.boxRef });
-  });
-}
+```html
+<!-- ✅ Prefer template binding for component-local element events -->
+<button (click)="submit()">Submit</button>
+<input (focus)="onFocus()" (blur)="onBlur()" />
+<div (mouseenter)="highlight()" (mouseleave)="unhighlight()">Hover me</div>
 ```
 
-### Avoiding Common Pitfalls
-
-```typescript
-// ❌ Don't: Use for simple template interactions
-constructor() {
-  useEventListener('click', () => {
-    this.handleClick();
-  }, { target: this.buttonRef });
-}
-
-// ✅ Do: Use template binding instead
-// <button (click)="handleClick()">Click me</button>
-
-// ✅ Do: Use for window/document events
-constructor() {
-  useEventListener('keydown', (event) => {
-    if (event.key === 'Escape') {
-      this.closeModal();
-    }
-  });
-}
-```
+Reserve `useEventListener` for `window`/`document` targets, or when creating reusable composables.
 
 ## Source
 
 <<< @/../src/lib/composables/browser/use-event-listener/use-event-listener.composable.ts
-
----
-
-Maybe we should have something like below as well>
-
-```ts
-
-mouseMoveCounter = useEventListener('mousemove', (currentValue) => {
-   return currentValue {}
-});
-```
-
-What could we call it? Any issues? Not useful?
-
-What other ways could you write the same functionality?
