@@ -157,13 +157,6 @@ export default defineConfig({
         ],
       },
       {
-        text: 'Effects',
-        items: [
-          { text: 'syncLocalStorage', link: '/effects/sync-local-storage' },
-          { text: 'syncQueryParams', link: '/effects/sync-query-params' },
-        ],
-      },
-      {
         text: 'Utilities',
         items: [
           {

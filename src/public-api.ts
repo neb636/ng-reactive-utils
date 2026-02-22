@@ -52,10 +52,6 @@ export * from './lib/composables/general/use-debounced-signal/use-debounced-sign
 export * from './lib/composables/general/use-previous-signal/use-previous-signal.composable';
 export * from './lib/composables/general/use-throttled-signal/use-throttled-signal.composable';
 
-// Effects
-export * from './lib/effects/sync-query-params/sync-query-params.effect';
-export * from './lib/effects/sync-local-storage/sync-local-storage.effect';
-
 // Utils
 export * from './lib/utils/create-shared-composable/create-shared-composable';
 

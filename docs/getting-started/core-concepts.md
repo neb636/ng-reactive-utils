@@ -19,11 +19,9 @@ Angular's modern reactivity is built on **signals**, which provide synchronous, 
 **When to use NG Reactive Utils:**
 - Converting observables to signals (forms, routes)
 - Common reactive patterns (debounce, throttle)
-- Syncing signals with external systems (localStorage, URL)
+- Reading browser state reactively (window size, mouse position, storage)
 
-## Composables vs Effects
-
-### Composables
+## Composables
 
 Composables **return** reactive values (signals) that you can use in your templates and logic:
 
@@ -31,10 +29,9 @@ Composables **return** reactive values (signals) that you can use in your templa
 import { useWindowSize, useDebouncedSignal } from 'ng-reactive-utils';
 
 export class MyComponent {
-  // Returns a signal you can read
   windowSize = useWindowSize();
   debouncedValue = useDebouncedSignal(this.searchTerm, 300);
-  
+
   // Use in template: {{ windowSize().width }}
 }
 ```
@@ -43,36 +40,8 @@ export class MyComponent {
 - `useWindowSize()` - Track window dimensions
 - `useRouteParam()` - Read route parameters
 - `useFormState()` - Get form state as signals
-- `useDebouncedSignal()` - Create debounced signal
-
-### Effects
-
-Effects **perform side effects** and sync signals with external systems:
-
-```typescript
-import { syncLocalStorageEffect, syncQueryParamsEffect } from 'ng-reactive-utils';
-
-export class MyComponent {
-  darkMode = signal(false);
-  searchQuery = signal('');
-
-  constructor() {
-    // Effects don't return values - they perform actions
-    syncLocalStorageEffect({
-      signal: this.darkMode,
-      key: 'dark-mode'
-    });
-    
-    syncQueryParamsEffect({
-      query: this.searchQuery
-    });
-  }
-}
-```
-
-**Common effects:**
-- `syncLocalStorageEffect()` - Persist signal to localStorage
-- `syncQueryParamsEffect()` - Sync signals with URL query params
+- `useDebouncedSignal()` - Create a debounced signal
+- `useLocalStorage()` - Two-way signal sync with localStorage
 
 ## When to Use NG Reactive Utils vs Vanilla Angular
 
@@ -117,24 +86,19 @@ params(); // { id: string; postId: string }
 
 ## Memory Management
 
-Signals and effects created by NG Reactive Utils are automatically cleaned up when the component is destroyed:
+Signals created by NG Reactive Utils are automatically cleaned up when the component is destroyed:
 
 ```typescript
 export class MyComponent {
   // Automatically cleaned up on component destroy
   windowSize = useWindowSize();
-  
-  constructor() {
-    // Effect automatically cleaned up on component destroy
-    syncLocalStorageEffect({ signal: this.settings, key: 'settings' });
-  }
+  theme = useLocalStorage('theme', 'light');
 }
 ```
 
-No manual cleanup needed - Angular handles it through the injection context.
+No manual cleanup needed — Angular handles it through the injection context.
 
 ## Next Steps
 
 - Explore [Browser Composables](/composables/browser/use-window-size)
 - Check out [Form Composables](/composables/form/use-form-state)
-- Try [Effects](/effects/sync-local-storage)

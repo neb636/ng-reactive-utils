@@ -36,10 +36,9 @@ This is a published npm library used by other developers. Code quality, API desi
 | Type | Pattern | Examples |
 |------|---------|---------|
 | Composables | `use<Feature>` | `useControlValue`, `useWindowSize`, `useRouteParam` |
-| Effects | `sync<Feature>Effect` | `syncLocalStorageEffect`, `syncQueryParamsEffect` |
 | Utils/factories | `create<Feature>` | `createSharedComposable` |
 | Internal helpers | descriptive camelCase | `resolveTarget`, `getInitialValue` |
-| Filenames | kebab-case with type suffix | `use-control-value.composable.ts`, `sync-local-storage.effect.ts` |
+| Filenames | kebab-case with type suffix | `use-control-value.composable.ts` |
 | Spec files | co-located, same name | `use-control-value.composable.spec.ts` |
 
 ### Function Parameters
@@ -97,7 +96,6 @@ src/lib/
 │   ├── forms/         # useFormValue, useControlValue, etc.
 │   ├── route/         # useRouteParam, useRouteQueryParam, etc.
 │   └── general/       # useDebouncedSignal, useThrottledSignal, usePreviousSignal
-├── effects/           # syncLocalStorageEffect, syncQueryParamsEffect
 ├── utils/             # createSharedComposable
 └── types/             # Shared TypeScript types
 ```
@@ -126,14 +124,13 @@ All public exports go through `src/public-api.ts`.
 
 ## Documentation Requirements — Mandatory
 
-Every new composable, effect, or utility **must** have a corresponding documentation file. A function without docs is an incomplete task.
+Every new composable or utility **must** have a corresponding documentation file. A function without docs is an incomplete task.
 
 ### File Location
 
 | Type | Path |
 |------|------|
 | Composable | `docs/composables/<category>/<function-name>.md` |
-| Effect | `docs/effects/<function-name>.md` |
 | Util | `docs/utils/<function-name>.md` |
 
 ### Documentation Structure

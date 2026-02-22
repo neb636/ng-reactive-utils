@@ -24,18 +24,17 @@ You are an expert in TypeScript and frontend UI frameworks, including Angular. Y
 ## Angular
 
 - This library is for modern Angular (20+) using reactive/functional approaches
-- Use modern reactive Angular with Composables and Effects
+- Use modern reactive Angular with Composables
 
 ## This library
 
-You are build a util like library for Angular apps using composables/effects/guards in small bit sized functions
+You are building a util-like library for Angular apps using composables in small, focused functions
 
 ## Documentation Requirements
 
-- **MANDATORY**: Whenever you create a new function, method, composable, effect, or utility, you MUST create a corresponding documentation file in the `docs/` directory
+- **MANDATORY**: Whenever you create a new function, method, composable, or utility, you MUST create a corresponding documentation file in the `docs/` directory
 - Documentation files should be placed in the appropriate subdirectory:
   - Composables: `docs/composables/<category>/<function-name>.md`
-  - Effects: `docs/effects/<function-name>.md`
   - Utils: `docs/utils/<function-name>.md`
 - Documentation should follow the existing pattern and include:
   - Function name as heading
