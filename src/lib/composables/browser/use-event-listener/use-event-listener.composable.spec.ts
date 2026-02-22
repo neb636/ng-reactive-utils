@@ -484,6 +484,207 @@ describe('useEventListener', () => {
     expect(eventCount).toBe(100);
   });
 
+  it('should return a cleanup function', () => {
+    let cleanup: () => void;
+
+    @Component({
+      template: '',
+    })
+    class TestComponent {
+      constructor() {
+        cleanup = useEventListener('test-return', () => {});
+      }
+    }
+
+    const fixture = TestBed.createComponent(TestComponent);
+    fixture.detectChanges();
+
+    expect(cleanup!).toBeDefined();
+    expect(typeof cleanup!).toBe('function');
+  });
+
+  it('should remove event listener when cleanup is called manually', () => {
+    let eventCount = 0;
+    let cleanup: () => void;
+
+    @Component({
+      template: '',
+    })
+    class TestComponent {
+      constructor() {
+        cleanup = useEventListener('test-manual-cleanup', () => {
+          eventCount++;
+        });
+      }
+    }
+
+    const fixture = TestBed.createComponent(TestComponent);
+    fixture.detectChanges();
+
+    // Event should fire before cleanup
+    window.dispatchEvent(new Event('test-manual-cleanup'));
+    expect(eventCount).toBe(1);
+
+    // Call cleanup manually
+    cleanup!();
+
+    // Event should not fire after manual cleanup
+    window.dispatchEvent(new Event('test-manual-cleanup'));
+    expect(eventCount).toBe(1); // Still 1, not 2
+  });
+
+  it('should be safe to call cleanup multiple times', () => {
+    let cleanup: () => void;
+
+    @Component({
+      template: '',
+    })
+    class TestComponent {
+      constructor() {
+        cleanup = useEventListener('test-double-cleanup', () => {});
+      }
+    }
+
+    const fixture = TestBed.createComponent(TestComponent);
+    fixture.detectChanges();
+
+    // Should not throw when called multiple times
+    expect(() => {
+      cleanup!();
+      cleanup!();
+      cleanup!();
+    }).not.toThrow();
+  });
+
+  it('should not fail when component destroys after manual cleanup', () => {
+    let eventCount = 0;
+    let cleanup: () => void;
+
+    @Component({
+      template: '',
+    })
+    class TestComponent {
+      constructor() {
+        cleanup = useEventListener('test-cleanup-then-destroy', () => {
+          eventCount++;
+        });
+      }
+    }
+
+    const fixture = TestBed.createComponent(TestComponent);
+    fixture.detectChanges();
+
+    // Event fires
+    window.dispatchEvent(new Event('test-cleanup-then-destroy'));
+    expect(eventCount).toBe(1);
+
+    // Manual cleanup
+    cleanup!();
+
+    // Destroy should not throw even though cleanup was already called
+    expect(() => fixture.destroy()).not.toThrow();
+
+    // Event should still not fire
+    window.dispatchEvent(new Event('test-cleanup-then-destroy'));
+    expect(eventCount).toBe(1);
+  });
+
+  it('should remove event listener via cleanup for document targets', () => {
+    let eventCount = 0;
+    let cleanup: () => void;
+
+    @Component({
+      template: '',
+    })
+    class TestComponent {
+      private document = TestBed.inject(DOCUMENT);
+
+      constructor() {
+        cleanup = useEventListener(
+          'test-doc-cleanup',
+          () => {
+            eventCount++;
+          },
+          { target: this.document },
+        );
+      }
+    }
+
+    const fixture = TestBed.createComponent(TestComponent);
+    fixture.detectChanges();
+
+    document.dispatchEvent(new Event('test-doc-cleanup'));
+    expect(eventCount).toBe(1);
+
+    // Manual cleanup
+    cleanup!();
+
+    document.dispatchEvent(new Event('test-doc-cleanup'));
+    expect(eventCount).toBe(1); // Still 1
+  });
+
+  it('should remove event listener via cleanup for signal targets', () => {
+    let eventCount = 0;
+    let cleanup: () => void;
+
+    @Component({
+      template: '<div #testDiv></div>',
+    })
+    class TestComponent {
+      divRef = viewChild<ElementRef>('testDiv');
+
+      constructor() {
+        cleanup = useEventListener(
+          'test-signal-cleanup',
+          () => {
+            eventCount++;
+          },
+          { target: this.divRef },
+        );
+      }
+    }
+
+    const fixture = TestBed.createComponent(TestComponent);
+    fixture.detectChanges();
+
+    const divElement = fixture.componentInstance.divRef()?.nativeElement;
+
+    // Event fires before cleanup
+    divElement?.dispatchEvent(new Event('test-signal-cleanup'));
+    expect(eventCount).toBe(1);
+
+    // Manual cleanup
+    cleanup!();
+
+    // Event should not fire after cleanup
+    divElement?.dispatchEvent(new Event('test-signal-cleanup'));
+    expect(eventCount).toBe(1);
+  });
+
+  it('should return a no-op cleanup function on server', () => {
+    TestBed.configureTestingModule({
+      providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'server' }],
+    });
+
+    let cleanup: () => void;
+
+    @Component({
+      template: '',
+    })
+    class TestComponent {
+      constructor() {
+        cleanup = useEventListener('test-ssr-cleanup', () => {});
+      }
+    }
+
+    const fixture = TestBed.createComponent(TestComponent);
+    fixture.detectChanges();
+
+    expect(cleanup!).toBeDefined();
+    expect(typeof cleanup!).toBe('function');
+    expect(() => cleanup!()).not.toThrow();
+  });
+
   it('should handle viewChild signal timing correctly (undefined in constructor)', () => {
     let eventCount = 0;
 
