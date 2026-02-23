@@ -1,18 +1,18 @@
-# useRouteParameter
+# useRouteParam
 
 A convenience function that returns a single route parameter as a signal. This is useful when you only need to access one specific parameter from the route.
 
 ## Usage
 
 ```typescript
-import { useRouteParameter } from 'ng-reactive-utils';
+import { useRouteParam } from 'ng-reactive-utils';
 
 // Route: /products/:productId
 @Component({
   template: `<h1>Product ID: {{ productId() }}</h1>`,
 })
 class ProductDetailComponent {
-  productId = useRouteParameter<string>('productId');
+  productId = useRouteParam<string>('productId');
 
   productResource = resource({
     params: () => ({ id: this.productId() }),

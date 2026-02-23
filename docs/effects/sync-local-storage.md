@@ -22,11 +22,15 @@ class FormComponent {
 
 ## Parameters
 
-| Parameter   | Type                     | Default          | Description                            |
-| ----------- | ------------------------ | ---------------- | -------------------------------------- |
-| `signal`    | `Signal<any>`            | _required_       | The signal to sync to localStorage     |
-| `key`       | `string`                 | _required_       | localStorage key to use                |
-| `serialize` | `(value: any) => string` | `JSON.stringify` | Optional custom serialization function |
+| Parameter   | Type                      | Default          | Description                            |
+| ----------- | ------------------------- | ---------------- | -------------------------------------- |
+| `signal`    | `Signal<T>`               | _required_       | The signal to sync to localStorage     |
+| `key`       | `string`                  | _required_       | localStorage key to use                |
+| `serialize` | `(value: T) => string`    | `JSON.stringify` | Optional custom serialization function |
+
+## Returns
+
+`EffectRef` — can be used to destroy the effect early if needed.
 
 ## Notes
 
@@ -34,7 +38,8 @@ class FormComponent {
 - Uses `JSON.stringify` by default for serialization
 - Automatically handles errors if localStorage is unavailable or quota exceeded
 - Effect runs automatically whenever the signal changes
-- For two-way sync (reading from localStorage on init), use a composable pattern instead
+- **SSR safe**: no-ops on the server without any warnings
+- For two-way sync (reading from localStorage on init), use `useLocalStorage` instead
 
 ## Source
 

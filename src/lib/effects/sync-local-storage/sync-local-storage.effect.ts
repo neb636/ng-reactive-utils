@@ -1,10 +1,10 @@
-import { Signal, effect, inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Signal, EffectRef, effect, inject, PLATFORM_ID } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 
-export type SyncLocalStorageEffectConfig = {
-  signal: Signal<any>;
+export type SyncLocalStorageEffectConfig<T> = {
+  signal: Signal<T>;
   key: string;
-  serialize?: (value: any) => string;
+  serialize?: (value: T) => string;
 };
 
 /**
@@ -31,19 +31,21 @@ export type SyncLocalStorageEffectConfig = {
  *   }
  * }
  */
-export const syncLocalStorageEffect = (config: SyncLocalStorageEffectConfig) => {
+export const syncLocalStorageEffect = <T>(config: SyncLocalStorageEffectConfig<T>): EffectRef => {
+  const platformId = inject(PLATFORM_ID);
   const document = inject(DOCUMENT);
-  const storage = document.defaultView?.localStorage;
+  const isBrowser = isPlatformBrowser(platformId);
 
-  if (!storage) {
-    console.warn('localStorage is not available');
-    return;
-  }
-
-  const { signal, key, serialize = JSON.stringify } = config;
+  const { signal, key, serialize = (value: T) => JSON.stringify(value) } = config;
 
   return effect(() => {
     const value = signal();
+
+    if (!isBrowser) return;
+
+    const storage = document.defaultView?.localStorage;
+    if (!storage) return;
+
     try {
       storage.setItem(key, serialize(value));
     } catch (error) {

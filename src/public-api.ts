@@ -59,5 +59,3 @@ export * from './lib/effects/sync-local-storage/sync-local-storage.effect';
 // Utils
 export * from './lib/utils/create-shared-composable/create-shared-composable';
 
-// Documentation types (for reference app)
-export * from './lib/types/doc-metadata.type';

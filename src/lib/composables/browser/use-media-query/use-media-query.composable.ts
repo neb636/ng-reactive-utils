@@ -41,54 +41,45 @@ import { createSharedComposable } from '../../../utils/create-shared-composable/
  * const isHighDPI = useMediaQuery('(min-resolution: 2dppx)');
  * ```
  */
-export const useMediaQuery = (query: string) => {
-  // Normalize query BEFORE passing to createSharedComposable to ensure consistent cache keys
-  const normalizedQuery = query.toLowerCase().replace(/\s+/g, ' ').trim();
+// Factory is module-scoped so its internal cache is shared correctly across all consumers.
+// Previously this was created inside useMediaQuery(), which gave every call its own cache.
+const sharedMediaQuery = createSharedComposable((normalizedQuery: string) => {
+  const document = inject(DOCUMENT);
+  const platformId = inject(PLATFORM_ID);
+  const isBrowser = isPlatformBrowser(platformId);
 
-  return createSharedComposable((normalizedQuery: string) => {
-    const document = inject(DOCUMENT);
-    const platformId = inject(PLATFORM_ID);
-    const isBrowser = isPlatformBrowser(platformId);
-
-    const getInitialMatches = () => {
-      if (!isBrowser || !document.defaultView) {
-        return false;
-      }
-      return document.defaultView.matchMedia(normalizedQuery).matches;
-    };
-
-    const matchesSignal = signal<boolean>(getInitialMatches());
-
-    let mediaQueryList: MediaQueryList | null = null;
-    const handleChange = (event: MediaQueryListEvent) => {
-      matchesSignal.set(event.matches);
-    };
-
-    // Only set up media query listener in the browser
-    if (isBrowser && document.defaultView) {
-      mediaQueryList = document.defaultView.matchMedia(normalizedQuery);
-
-      // Use addEventListener if available (modern browsers), fallback to addListener
-      if (mediaQueryList.addEventListener) {
-        mediaQueryList.addEventListener('change', handleChange);
-      } else {
-        // Fallback for older browsers
-        mediaQueryList.addListener(handleChange);
-      }
+  const getInitialMatches = () => {
+    if (!isBrowser || !document.defaultView) {
+      return false;
     }
+    return document.defaultView.matchMedia(normalizedQuery).matches;
+  };
 
-    return {
-      value: matchesSignal.asReadonly(),
-      cleanup: () => {
-        if (mediaQueryList) {
-          if (mediaQueryList.removeEventListener) {
-            mediaQueryList.removeEventListener('change', handleChange);
-          } else {
-            // Fallback for older browsers
-            mediaQueryList.removeListener(handleChange);
-          }
-        }
-      },
-    };
-  })(normalizedQuery);
+  const matchesSignal = signal<boolean>(getInitialMatches());
+
+  let mediaQueryList: MediaQueryList | null = null;
+  const handleChange = (event: MediaQueryListEvent) => {
+    matchesSignal.set(event.matches);
+  };
+
+  // Only set up media query listener in the browser
+  if (isBrowser && document.defaultView) {
+    mediaQueryList = document.defaultView.matchMedia(normalizedQuery);
+    mediaQueryList.addEventListener('change', handleChange);
+  }
+
+  return {
+    value: matchesSignal.asReadonly(),
+    cleanup: () => {
+      if (mediaQueryList) {
+        mediaQueryList.removeEventListener('change', handleChange);
+      }
+    },
+  };
+});
+
+export const useMediaQuery = (query: string) => {
+  // Normalize query before passing to the shared factory so the cache key is consistent
+  const normalizedQuery = query.toLowerCase().replace(/\s+/g, ' ').trim();
+  return sharedMediaQuery(normalizedQuery);
 };
