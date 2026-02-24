@@ -1,13 +1,13 @@
 # Introduction
 
-NG Reactive Utils is a collection of composables and effects for modern Angular applications. These utilities eliminate boilerplate and make working with signals more productive.
+NG Reactive Utils is a collection of composables for modern Angular applications. These utilities eliminate boilerplate and make working with signals more productive.
 
 ## What is it?
 
 A utility library that provides:
 - **Form & Route utilities** - Convert observables to signals without repetitive `toSignal()` calls
 - **Reactive patterns** - Built-in debouncing, throttling, and more
-- **Sync effects** - Automatically persist signals to localStorage, URL params, etc.
+- **Browser APIs** - Window size, mouse position, storage, media queries, and more
 
 ## Quick Example
 
@@ -56,11 +56,10 @@ userId = useRouteParam('id');
 
 ## What's Available
 
-- **[Browser Composables](/composables/browser/use-window-size)** - Window size, mouse position, document visibility
+- **[Browser Composables](/composables/browser/use-window-size)** - Window size, mouse position, document visibility, storage
 - **[General Composables](/composables/general/use-debounced-signal)** - Debouncing, throttling, previous values
 - **[Form Composables](/composables/form/use-form-state)** - Form state as signals
 - **[Route Composables](/composables/route/use-route-param)** - Route params, query params, data as signals
-- **[Effects](/effects/sync-local-storage)** - Sync with localStorage, URL, etc.
 
 ## Next Steps
 
@@ -68,4 +67,4 @@ Ready to get started?
 
 1. [Install the library](/getting-started/installation)
 2. Understand [core concepts](/getting-started/core-concepts)
-3. Explore the available composables and effects
+3. Explore the available composables
