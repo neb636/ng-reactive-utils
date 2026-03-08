@@ -16,7 +16,13 @@ describe('when', () => {
       let runCount = 0;
 
       TestBed.runInInjectionContext(() => {
-        when(signal(5), (v) => v > 3, () => { runCount++; });
+        when(
+          signal(5),
+          (v) => v > 3,
+          () => {
+            runCount++;
+          },
+        );
       });
 
       TestBed.flushEffects();
@@ -27,7 +33,13 @@ describe('when', () => {
       let runCount = 0;
 
       TestBed.runInInjectionContext(() => {
-        when(signal(1), (v) => v > 3, () => { runCount++; });
+        when(
+          signal(1),
+          (v) => v > 3,
+          () => {
+            runCount++;
+          },
+        );
       });
 
       TestBed.flushEffects();
@@ -41,7 +53,13 @@ describe('when', () => {
       let runCount = 0;
 
       TestBed.runInInjectionContext(() => {
-        when(status, (s) => s === 'complete', () => { runCount++; });
+        when(
+          status,
+          (s) => s === 'complete',
+          () => {
+            runCount++;
+          },
+        );
       });
 
       TestBed.flushEffects();
@@ -62,7 +80,13 @@ describe('when', () => {
       let runCount = 0;
 
       TestBed.runInInjectionContext(() => {
-        when(counter, (v) => v > 10, () => { runCount++; });
+        when(
+          counter,
+          (v) => v > 10,
+          () => {
+            runCount++;
+          },
+        );
       });
 
       counter.set(1);
@@ -77,7 +101,9 @@ describe('when', () => {
       let runCount = 0;
 
       TestBed.runInInjectionContext(() => {
-        when(flag, Boolean, () => { runCount++; });
+        when(flag, Boolean, () => {
+          runCount++;
+        });
       });
 
       TestBed.flushEffects();
@@ -97,7 +123,13 @@ describe('when', () => {
       let runCount = 0;
 
       TestBed.runInInjectionContext(() => {
-        when(count, (v) => v > 0, () => { runCount++; });
+        when(
+          count,
+          (v) => v > 0,
+          () => {
+            runCount++;
+          },
+        );
       });
 
       TestBed.flushEffects();
@@ -117,7 +149,13 @@ describe('when', () => {
       const receivedValues: string[] = [];
 
       TestBed.runInInjectionContext(() => {
-        when(status, (s) => s !== 'idle', () => { receivedValues.push(status()); });
+        when(
+          status,
+          (s) => s !== 'idle',
+          () => {
+            receivedValues.push(status());
+          },
+        );
       });
 
       status.set('uploading');
@@ -133,7 +171,9 @@ describe('when', () => {
       let runCount = 0;
 
       TestBed.runInInjectionContext(() => {
-        when(flag, Boolean, () => { runCount++; });
+        when(flag, Boolean, () => {
+          runCount++;
+        });
       });
 
       // Multiple synchronous sets before flushing
@@ -212,7 +252,9 @@ describe('when', () => {
       let runCount = 0;
 
       const cancel = TestBed.runInInjectionContext(() =>
-        when(flag, Boolean, () => { runCount++; }),
+        when(flag, Boolean, () => {
+          runCount++;
+        }),
       );
 
       flag.set(true);
@@ -228,9 +270,7 @@ describe('when', () => {
     });
 
     it('is safe to call multiple times without throwing', () => {
-      const cancel = TestBed.runInInjectionContext(() =>
-        when(signal(true), Boolean, () => {}),
-      );
+      const cancel = TestBed.runInInjectionContext(() => when(signal(true), Boolean, () => {}));
 
       expect(() => {
         cancel();
@@ -269,7 +309,9 @@ describe('when', () => {
       class TestComponent {
         flag = signal(false);
         runCount = 0;
-        _ = when(this.flag, Boolean, () => { this.runCount++; });
+        _ = when(this.flag, Boolean, () => {
+          this.runCount++;
+        });
       }
 
       const fixture = TestBed.createComponent(TestComponent);
@@ -308,7 +350,9 @@ describe('when', () => {
         flag = signal(false);
         runCount = 0;
         // Called as a field initializer — this is the primary usage pattern
-        cancel = when(this.flag, Boolean, () => { this.runCount++; });
+        cancel = when(this.flag, Boolean, () => {
+          this.runCount++;
+        });
       }
 
       const fixture = TestBed.createComponent(TestComponent);
@@ -327,7 +371,13 @@ describe('when', () => {
       let runCount = 0;
 
       TestBed.runInInjectionContext(() => {
-        when(sum, (v) => v > 10, () => { runCount++; });
+        when(
+          sum,
+          (v) => v > 10,
+          () => {
+            runCount++;
+          },
+        );
       });
 
       TestBed.flushEffects();
@@ -351,7 +401,9 @@ describe('whenTrue', () => {
       let runCount = 0;
 
       TestBed.runInInjectionContext(() => {
-        whenTrue(flag, () => { runCount++; });
+        whenTrue(flag, () => {
+          runCount++;
+        });
       });
 
       TestBed.flushEffects();
@@ -366,7 +418,9 @@ describe('whenTrue', () => {
       let runCount = 0;
 
       TestBed.runInInjectionContext(() => {
-        whenTrue(signal(true), () => { runCount++; });
+        whenTrue(signal(true), () => {
+          runCount++;
+        });
       });
 
       TestBed.flushEffects();
@@ -378,7 +432,9 @@ describe('whenTrue', () => {
       let runCount = 0;
 
       TestBed.runInInjectionContext(() => {
-        whenTrue(value, () => { runCount++; });
+        whenTrue(value, () => {
+          runCount++;
+        });
       });
 
       value.set('hello');
@@ -391,7 +447,9 @@ describe('whenTrue', () => {
       let runCount = 0;
 
       TestBed.runInInjectionContext(() => {
-        whenTrue(value, () => { runCount++; });
+        whenTrue(value, () => {
+          runCount++;
+        });
       });
 
       value.set(1);
@@ -404,7 +462,9 @@ describe('whenTrue', () => {
       let runCount = 0;
 
       TestBed.runInInjectionContext(() => {
-        whenTrue(value, () => { runCount++; });
+        whenTrue(value, () => {
+          runCount++;
+        });
       });
 
       value.set({});
@@ -417,7 +477,9 @@ describe('whenTrue', () => {
       let runCount = 0;
 
       TestBed.runInInjectionContext(() => {
-        whenTrue(value, () => { runCount++; });
+        whenTrue(value, () => {
+          runCount++;
+        });
       });
 
       TestBed.flushEffects();
@@ -429,7 +491,9 @@ describe('whenTrue', () => {
       let runCount = 0;
 
       TestBed.runInInjectionContext(() => {
-        whenTrue(value, () => { runCount++; });
+        whenTrue(value, () => {
+          runCount++;
+        });
       });
 
       TestBed.flushEffects();
@@ -441,7 +505,9 @@ describe('whenTrue', () => {
       let runCount = 0;
 
       TestBed.runInInjectionContext(() => {
-        whenTrue(value, () => { runCount++; });
+        whenTrue(value, () => {
+          runCount++;
+        });
       });
 
       TestBed.flushEffects();
@@ -453,7 +519,9 @@ describe('whenTrue', () => {
       let runCount = 0;
 
       TestBed.runInInjectionContext(() => {
-        whenTrue(value, () => { runCount++; });
+        whenTrue(value, () => {
+          runCount++;
+        });
       });
 
       TestBed.flushEffects();
@@ -469,7 +537,9 @@ describe('whenTrue', () => {
       let runCount = 0;
 
       TestBed.runInInjectionContext(() => {
-        whenTrue(name, () => { runCount++; });
+        whenTrue(name, () => {
+          runCount++;
+        });
       });
 
       TestBed.flushEffects();
@@ -488,7 +558,9 @@ describe('whenTrue', () => {
       let runCount = 0;
 
       TestBed.runInInjectionContext(() => {
-        whenTrue(value, () => { runCount++; });
+        whenTrue(value, () => {
+          runCount++;
+        });
       });
 
       TestBed.flushEffects();
@@ -506,7 +578,9 @@ describe('whenTrue', () => {
       let runCount = 0;
 
       const cancel = TestBed.runInInjectionContext(() =>
-        whenTrue(flag, () => { runCount++; }),
+        whenTrue(flag, () => {
+          runCount++;
+        }),
       );
 
       cancel();
@@ -523,7 +597,9 @@ describe('whenTrue', () => {
         isOpen = input(false);
         openCount = 0;
 
-        onOpen = whenTrue(this.isOpen, () => { this.openCount++; });
+        onOpen = whenTrue(this.isOpen, () => {
+          this.openCount++;
+        });
       }
 
       const fixture = TestBed.createComponent(SidebarComponent);
@@ -553,7 +629,9 @@ describe('whenFalse', () => {
       let runCount = 0;
 
       TestBed.runInInjectionContext(() => {
-        whenFalse(flag, () => { runCount++; });
+        whenFalse(flag, () => {
+          runCount++;
+        });
       });
 
       TestBed.flushEffects();
@@ -568,7 +646,9 @@ describe('whenFalse', () => {
       let runCount = 0;
 
       TestBed.runInInjectionContext(() => {
-        whenFalse(signal(false), () => { runCount++; });
+        whenFalse(signal(false), () => {
+          runCount++;
+        });
       });
 
       TestBed.flushEffects();
@@ -580,7 +660,9 @@ describe('whenFalse', () => {
       let runCount = 0;
 
       TestBed.runInInjectionContext(() => {
-        whenFalse(value, () => { runCount++; });
+        whenFalse(value, () => {
+          runCount++;
+        });
       });
 
       value.set('');
@@ -593,7 +675,9 @@ describe('whenFalse', () => {
       let runCount = 0;
 
       TestBed.runInInjectionContext(() => {
-        whenFalse(value, () => { runCount++; });
+        whenFalse(value, () => {
+          runCount++;
+        });
       });
 
       value.set(0);
@@ -606,7 +690,9 @@ describe('whenFalse', () => {
       let runCount = 0;
 
       TestBed.runInInjectionContext(() => {
-        whenFalse(value, () => { runCount++; });
+        whenFalse(value, () => {
+          runCount++;
+        });
       });
 
       value.set(null);
@@ -619,7 +705,9 @@ describe('whenFalse', () => {
       let runCount = 0;
 
       TestBed.runInInjectionContext(() => {
-        whenFalse(value, () => { runCount++; });
+        whenFalse(value, () => {
+          runCount++;
+        });
       });
 
       value.set(undefined);
@@ -632,7 +720,9 @@ describe('whenFalse', () => {
       let runCount = 0;
 
       TestBed.runInInjectionContext(() => {
-        whenFalse(value, () => { runCount++; });
+        whenFalse(value, () => {
+          runCount++;
+        });
       });
 
       TestBed.flushEffects();
@@ -652,7 +742,9 @@ describe('whenFalse', () => {
       let runCount = 0;
 
       TestBed.runInInjectionContext(() => {
-        whenFalse(value, () => { runCount++; });
+        whenFalse(value, () => {
+          runCount++;
+        });
       });
 
       TestBed.flushEffects();
@@ -674,7 +766,9 @@ describe('whenFalse', () => {
       let runCount = 0;
 
       const cancel = TestBed.runInInjectionContext(() =>
-        whenFalse(flag, () => { runCount++; }),
+        whenFalse(flag, () => {
+          runCount++;
+        }),
       );
 
       cancel();
@@ -692,8 +786,12 @@ describe('whenFalse', () => {
         openCount = 0;
         closeCount = 0;
 
-        onOpen = whenTrue(this.isOpen, () => { this.openCount++; });
-        onClose = whenFalse(this.isOpen, () => { this.closeCount++; });
+        onOpen = whenTrue(this.isOpen, () => {
+          this.openCount++;
+        });
+        onClose = whenFalse(this.isOpen, () => {
+          this.closeCount++;
+        });
       }
 
       const fixture = TestBed.createComponent(SidebarComponent);
