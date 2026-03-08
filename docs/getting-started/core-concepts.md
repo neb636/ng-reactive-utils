@@ -18,7 +18,6 @@ Angular's modern reactivity is built on **signals**, which provide synchronous, 
 
 **When to use NG Reactive Utils:**
 - Converting observables to signals (forms, routes)
-- Common reactive patterns (debounce, throttle)
 - Reading browser state reactively (window size, mouse position, storage)
 
 ## Composables
@@ -26,13 +25,13 @@ Angular's modern reactivity is built on **signals**, which provide synchronous, 
 Composables **return** reactive values (signals) that you can use in your templates and logic:
 
 ```typescript
-import { useWindowSize, useDebouncedSignal } from 'ng-reactive-utils';
+import { useWindowSize, useRouteParam } from 'ng-reactive-utils';
 
 export class MyComponent {
   windowSize = useWindowSize();
-  debouncedValue = useDebouncedSignal(this.searchTerm, 300);
+  userId = useRouteParam('id');
 
-  // Use in template: {{ windowSize().width }}
+  // Use in template: {{ windowSize().width }}, {{ userId() }}
 }
 ```
 
@@ -40,7 +39,7 @@ export class MyComponent {
 - `useWindowSize()` - Track window dimensions
 - `useRouteParam()` - Read route parameters
 - `useFormState()` - Get form state as signals
-- `useDebouncedSignal()` - Create a debounced signal
+- `usePreviousSignal()` - Track the previous value of a signal
 - `useLocalStorage()` - Two-way signal sync with localStorage
 
 ## When to Use NG Reactive Utils vs Vanilla Angular
@@ -59,10 +58,11 @@ formState = useFormState(this.form);
 userId = useRouteParam('id');
 ```
 
-✅ Common reactive patterns
+✅ Reacting to browser state
 ```typescript
-// Built-in debouncing, throttling, previous value tracking
-debouncedSearch = useDebouncedSignal(this.searchTerm, 300);
+// Instead of: manual fromEvent(window, 'resize') with toSignal()
+windowSize = useWindowSize();
+isMobile = computed(() => this.windowSize().width < 768);
 ```
 
 ## Type Safety

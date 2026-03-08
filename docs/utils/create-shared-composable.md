@@ -36,35 +36,28 @@ class ChatComponent {
 
 ```typescript
 import { createSharedComposable } from 'ng-reactive-utils';
-import { inject, signal, DestroyRef } from '@angular/core';
+import { inject, signal } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
-const useWindowSize = createSharedComposable((debounceMs = 100) => {
+const useMediaQuery = createSharedComposable((query: string) => {
   const document = inject(DOCUMENT);
-  const size = signal({ width: 0, height: 0 });
+  const mediaQuery = document.defaultView?.matchMedia(query);
+  const matches = signal(mediaQuery?.matches ?? false);
 
-  const handleResize = () => {
-    size.set({
-      width: document.defaultView?.innerWidth ?? 0,
-      height: document.defaultView?.innerHeight ?? 0,
-    });
-  };
-
-  document.defaultView?.addEventListener('resize', handleResize);
+  const handleChange = (event: MediaQueryListEvent) => matches.set(event.matches);
+  mediaQuery?.addEventListener('change', handleChange);
 
   return {
-    value: useDebouncedSignal(size, debounceMs),
-    cleanup: () => {
-      document.defaultView?.removeEventListener('resize', handleResize);
-    },
+    value: matches.asReadonly(),
+    cleanup: () => mediaQuery?.removeEventListener('change', handleChange),
   };
 });
 
 @Component({
-  template: ` <h1>Window: {{ windowSize().width }}px × {{ windowSize().height }}px</h1> `,
+  template: `<nav>{{ isMobile() ? 'Mobile' : 'Desktop' }} layout</nav>`,
 })
-class ResponsiveComponent {
-  windowSize = useWindowSize(200);
+class NavComponent {
+  isMobile = useMediaQuery('(max-width: 768px)');
 }
 ```
 

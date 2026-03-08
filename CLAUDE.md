@@ -95,7 +95,7 @@ src/lib/
 │   ├── browser/       # useEventListener, useWindowSize, useMousePosition, etc.
 │   ├── forms/         # useFormValue, useControlValue, etc.
 │   ├── route/         # useRouteParam, useRouteQueryParam, etc.
-│   └── general/       # useDebouncedSignal, useThrottledSignal, usePreviousSignal
+│   └── general/       # usePreviousSignal
 ├── utils/             # createSharedComposable
 └── types/             # Shared TypeScript types
 ```
@@ -106,8 +106,6 @@ All public exports go through `src/public-api.ts`.
 
 ## Anti-Patterns — Never Do These
 
-- **Never** use RxJS `debounceTime` — use `useDebouncedSignal` instead.
-- **Never** use RxJS `throttleTime` — use `useThrottledSignal` instead.
 - **Never** subscribe to `ActivatedRoute.params` — use `useRouteParam` / `useRouteParams`.
 - **Never** subscribe to `ActivatedRoute.queryParams` — use `useRouteQueryParam` / `useRouteQueryParams`.
 - **Never** subscribe to `FormControl.valueChanges` — use `useControlValue`.

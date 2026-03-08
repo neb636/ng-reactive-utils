@@ -41,22 +41,24 @@ This teaches your AI assistant ng-reactive-utils patterns so it can suggest the 
 Composables return signals you can use in your templates:
 
 ```typescript
-import { Component, signal } from '@angular/core';
-import { useDebouncedSignal } from 'ng-reactive-utils';
+import { Component, computed } from '@angular/core';
+import { useRouteParam, useWindowSize } from 'ng-reactive-utils';
 
 @Component({
-  selector: 'search-box',
+  selector: 'user-profile',
   template: `
-    <input 
-      [value]="searchTerm()" 
-      (input)="searchTerm.set($any($event.target).value)" 
-    />
-    <p>Searching for: {{ debouncedSearch() }}</p>
+    <h1>User {{ userId() }}</h1>
+    @if (isMobile()) {
+      <mobile-layout />
+    } @else {
+      <desktop-layout />
+    }
   `,
 })
-export class SearchBoxComponent {
-  searchTerm = signal('');
-  debouncedSearch = useDebouncedSignal(this.searchTerm, 300);
+export class UserProfileComponent {
+  userId = useRouteParam('id');
+  windowSize = useWindowSize();
+  isMobile = computed(() => this.windowSize().width < 768);
 }
 ```
 

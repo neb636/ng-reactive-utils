@@ -115,13 +115,13 @@ const colors = computed(() =>
           <tspan :fill="colors.punctuation"> {</tspan>
         </text>
 
-        <!-- Line 3: useControlValue, useDebouncedSignal, useWindowSize -->
+        <!-- Line 3: useControlValue, useRouteParam, useWindowSize -->
         <text x="24" y="104" :fill="colors.lineNumber">3</text>
         <text x="48" y="104">
           <tspan :fill="colors.punctuation">  </tspan>
           <tspan :fill="colors.variable">useControlValue</tspan>
           <tspan :fill="colors.punctuation">, </tspan>
-          <tspan :fill="colors.variable">useDebouncedSignal</tspan>
+          <tspan :fill="colors.variable">useRouteParam</tspan>
           <tspan :fill="colors.punctuation">, </tspan>
           <tspan :fill="colors.variable">useWindowSize</tspan>
         </text>
@@ -170,22 +170,20 @@ const colors = computed(() =>
         <!-- Line 9: empty -->
         <text x="24" y="212" :fill="colors.lineNumber">9</text>
 
-        <!-- Line 10: // Debounce for API calls, track window size -->
+        <!-- Line 10: // Read route param & track window size -->
         <text x="24" y="230" :fill="colors.lineNumber">10</text>
         <text x="48" y="230">
-          <tspan :fill="colors.comment">// Debounce for API calls, track window size</tspan>
+          <tspan :fill="colors.comment">// Read route param &amp; track window size</tspan>
         </text>
 
-        <!-- Line 11: debouncedSearch = useDebouncedSignal(this.searchValue, 300); -->
+        <!-- Line 11: userId = useRouteParam('id'); -->
         <text x="24" y="248" :fill="colors.lineNumber">11</text>
         <text x="48" y="248">
-          <tspan :fill="colors.variable">debouncedSearch</tspan>
+          <tspan :fill="colors.variable">userId</tspan>
           <tspan :fill="colors.punctuation"> = </tspan>
-          <tspan :fill="colors.function">useDebouncedSignal</tspan>
+          <tspan :fill="colors.function">useRouteParam</tspan>
           <tspan :fill="colors.punctuation">(</tspan>
-          <tspan :fill="colors.keyword">this</tspan>
-          <tspan :fill="colors.punctuation">.searchValue, </tspan>
-          <tspan :fill="colors.number">300</tspan>
+          <tspan :fill="colors.string">'id'</tspan>
           <tspan :fill="colors.punctuation">);</tspan>
         </text>
 

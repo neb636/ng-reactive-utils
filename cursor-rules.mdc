@@ -58,8 +58,6 @@ Instead of subscribing to route observables:
 
 ### Signal Utilities
 
-- `useDebouncedSignal(signal, ms)` - Debounced signal value
-- `useThrottledSignal(signal, ms)` - Throttled signal value
 - `usePreviousSignal(signal)` - Previous signal value
 
 ### Utilities
@@ -68,8 +66,6 @@ Instead of subscribing to route observables:
 
 ## Anti-Patterns (NEVER do this)
 
-- NEVER use RxJS `debounceTime` when `useDebouncedSignal` exists
-- NEVER use RxJS `throttleTime` when `useThrottledSignal` exists
 - NEVER subscribe to `ActivatedRoute.params` when `useRouteParam` exists
 - NEVER subscribe to `ActivatedRoute.queryParams` when `useRouteQueryParam` exists
 - NEVER subscribe to `FormControl.valueChanges` when `useControlValue` exists
@@ -87,7 +83,7 @@ All functions are exported from the main package:
 import {
   useFormValid,
   useRouteParam,
-  useDebouncedSignal,
+  usePreviousSignal,
 } from 'ng-reactive-utils';
 ```
 
@@ -116,20 +112,21 @@ export class MyComponent {
 export class UserComponent {
   userId = useRouteParam('id');
   tab = useRouteQueryParam('tab');
-  
+
   // Use in template: {{ userId() }}
 }
 ```
 
-### Debounced search
+### Tracking previous values
 
 ```typescript
 @Component({...})
-export class SearchComponent {
-  searchTerm = signal('');
-  debouncedSearch = useDebouncedSignal(this.searchTerm, 300);
-  
-  // debouncedSearch only updates 300ms after searchTerm stops changing
+export class AnimatedComponent {
+  count = signal(0);
+  previousCount = usePreviousSignal(this.count);
+
+  direction = computed(() =>
+    this.count() > (this.previousCount() ?? 0) ? 'up' : 'down'
+  );
 }
 ```
-

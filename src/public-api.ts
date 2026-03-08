@@ -48,9 +48,7 @@ export * from './lib/composables/browser/use-local-storage/use-local-storage.com
 export * from './lib/composables/browser/use-session-storage/use-session-storage.composable';
 
 // General Composables
-export * from './lib/composables/general/use-debounced-signal/use-debounced-signal.composable';
 export * from './lib/composables/general/use-previous-signal/use-previous-signal.composable';
-export * from './lib/composables/general/use-throttled-signal/use-throttled-signal.composable';
 
 // Utils
 export * from './lib/utils/create-shared-composable/create-shared-composable';
