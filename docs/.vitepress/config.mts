@@ -92,6 +92,10 @@ export default defineConfig({
                 text: 'usePreviousSignal',
                 link: '/composables/general/use-previous-signal',
               },
+              {
+                text: 'when · whenTrue · whenFalse',
+                link: '/composables/general/when',
+              },
             ],
           },
           {

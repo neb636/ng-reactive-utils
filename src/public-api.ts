@@ -49,6 +49,7 @@ export * from './lib/composables/browser/use-session-storage/use-session-storage
 
 // General Composables
 export * from './lib/composables/general/use-previous-signal/use-previous-signal.composable';
+export * from './lib/composables/general/when/when.composable';
 
 // Utils
 export * from './lib/utils/create-shared-composable/create-shared-composable';
