@@ -1,11 +1,12 @@
 import { Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { AbstractControl } from '@angular/forms';
-import { map } from 'rxjs';
+import { AbstractControl, TouchedChangeEvent } from '@angular/forms';
+import { filter, map } from 'rxjs';
 
 /**
  * Returns whether an AbstractControl is untouched (has not been interacted with) as a signal.
- * The signal updates reactively whenever the control's untouched state changes.
+ * The signal updates reactively whenever the control's untouched state changes,
+ * including when markAsTouched() or markAsUntouched() are called directly.
  * Works with FormControl, FormGroup, and FormArray.
  *
  * @param control - The AbstractControl to check untouched state for
@@ -28,7 +29,11 @@ import { map } from 'rxjs';
  * ```
  */
 export const useControlUntouched = (control: AbstractControl): Signal<boolean> => {
-  return toSignal(control.statusChanges.pipe(map(() => control.untouched)), {
-    initialValue: control.untouched,
-  }) as Signal<boolean>;
+  return toSignal(
+    control.events.pipe(
+      filter((event): event is TouchedChangeEvent => event instanceof TouchedChangeEvent),
+      map((event) => !event.touched),
+    ),
+    { initialValue: control.untouched },
+  ) as Signal<boolean>;
 };

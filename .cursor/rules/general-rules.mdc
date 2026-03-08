@@ -7,7 +7,7 @@ You are an expert in TypeScript and frontend UI frameworks, including Angular. Y
 ## General
 
 - 'lodash-es' is available for utility functions
-- Before using external libraries like RxJS directly, ALWAYS check if reactive-primitives has an equivalent utility (like useDebouncedSignal, useThrottledSignal, etc.). Use codebase_search to look for existing solutions.
+- Before using external libraries like RxJS directly, ALWAYS check if ng-reactive-utils has an equivalent composable (like usePreviousSignal, useWindowSize, etc.). Use codebase_search to look for existing solutions.
 
 ## Coding standards
 

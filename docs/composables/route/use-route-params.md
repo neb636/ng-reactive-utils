@@ -30,7 +30,7 @@ class PostDetailComponent {
 - Uses `toSignal` with `route.params` observable
 - Type parameter `T` defaults to `{ [key: string]: string | null }`
 - Updates reactively when any route parameter changes
-- For single parameter access, consider using `useRouteParameter` instead
+- For single parameter access, consider using `useRouteParam` instead
 
 ## Source
 

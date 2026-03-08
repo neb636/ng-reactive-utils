@@ -47,7 +47,7 @@ describe('useDocumentVisibility', () => {
 
     // Dispatch visibilitychange event
     const visibilityEvent = new Event('visibilitychange');
-    window.dispatchEvent(visibilityEvent);
+    document.dispatchEvent(visibilityEvent);
 
     expect(component.isVisible()).toBe(false);
 
@@ -78,7 +78,7 @@ describe('useDocumentVisibility', () => {
       configurable: true,
       value: true,
     });
-    window.dispatchEvent(new Event('visibilitychange'));
+    document.dispatchEvent(new Event('visibilitychange'));
 
     expect(component.isVisible()).toBe(false);
 
@@ -88,7 +88,7 @@ describe('useDocumentVisibility', () => {
       configurable: true,
       value: false,
     });
-    window.dispatchEvent(new Event('visibilitychange'));
+    document.dispatchEvent(new Event('visibilitychange'));
 
     expect(component.isVisible()).toBe(true);
 
@@ -121,7 +121,7 @@ describe('useDocumentVisibility', () => {
         configurable: true,
         value: true,
       });
-      window.dispatchEvent(new Event('visibilitychange'));
+      document.dispatchEvent(new Event('visibilitychange'));
       expect(component.isVisible()).toBe(false);
 
       // Show
@@ -130,7 +130,7 @@ describe('useDocumentVisibility', () => {
         configurable: true,
         value: false,
       });
-      window.dispatchEvent(new Event('visibilitychange'));
+      document.dispatchEvent(new Event('visibilitychange'));
       expect(component.isVisible()).toBe(true);
     }
 
@@ -192,7 +192,7 @@ describe('useDocumentVisibility', () => {
       configurable: true,
       value: true,
     });
-    window.dispatchEvent(new Event('visibilitychange'));
+    document.dispatchEvent(new Event('visibilitychange'));
 
     // Both should update to false (shared instance)
     expect(fixture1.componentInstance.isVisible()).toBe(false);
@@ -270,7 +270,7 @@ describe('useDocumentVisibility', () => {
       configurable: true,
       value: true,
     });
-    window.dispatchEvent(new Event('visibilitychange'));
+    document.dispatchEvent(new Event('visibilitychange'));
 
     // Should still be true (no event listener set up on server)
     expect(component.isVisible()).toBe(true);
@@ -343,7 +343,7 @@ describe('useDocumentVisibility', () => {
       configurable: true,
       value: true,
     });
-    window.dispatchEvent(new Event('visibilitychange'));
+    document.dispatchEvent(new Event('visibilitychange'));
     fixture.detectChanges();
 
     expect(statusDiv.textContent.trim()).toBe('Tab is hidden');
@@ -354,7 +354,7 @@ describe('useDocumentVisibility', () => {
       configurable: true,
       value: false,
     });
-    window.dispatchEvent(new Event('visibilitychange'));
+    document.dispatchEvent(new Event('visibilitychange'));
     fixture.detectChanges();
 
     expect(statusDiv.textContent.trim()).toBe('Tab is visible');
@@ -390,7 +390,7 @@ describe('useDocumentVisibility', () => {
       configurable: true,
       value: true,
     });
-    window.dispatchEvent(new Event('visibilitychange'));
+    document.dispatchEvent(new Event('visibilitychange'));
 
     // Both should update together (shared instance)
     expect(component.isVisible1()).toBe(false);

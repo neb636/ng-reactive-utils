@@ -6,27 +6,32 @@ NG Reactive Utils is a collection of composables for modern Angular applications
 
 A utility library that provides:
 - **Form & Route utilities** - Convert observables to signals without repetitive `toSignal()` calls
-- **Reactive patterns** - Built-in debouncing, throttling, and more
 - **Browser APIs** - Window size, mouse position, storage, media queries, and more
+- **Signal utilities** - Track previous values and share composable instances across components
 
 ## Quick Example
 
-Add debounced search with one line:
+Read a route parameter and react to window size with one line each:
 
 ```typescript
-import { Component, signal } from '@angular/core';
-import { useDebouncedSignal } from 'ng-reactive-utils';
+import { Component, computed } from '@angular/core';
+import { useRouteParam, useWindowSize } from 'ng-reactive-utils';
 
 @Component({
-  selector: 'search-box',
+  selector: 'user-profile',
   template: `
-    <input [value]="searchTerm()" (input)="searchTerm.set($any($event.target).value)" />
-    <p>Debounced: {{ debouncedSearch() }}</p>
+    <h1>User: {{ userId() }}</h1>
+    @if (isMobile()) {
+      <mobile-layout />
+    } @else {
+      <desktop-layout />
+    }
   `,
 })
-export class SearchBoxComponent {
-  searchTerm = signal('');
-  debouncedSearch = useDebouncedSignal(this.searchTerm, 300);
+export class UserProfileComponent {
+  userId = useRouteParam('id');
+  windowSize = useWindowSize();
+  isMobile = computed(() => this.windowSize().width < 768);
 }
 ```
 
@@ -57,7 +62,7 @@ userId = useRouteParam('id');
 ## What's Available
 
 - **[Browser Composables](/composables/browser/use-window-size)** - Window size, mouse position, document visibility, storage
-- **[General Composables](/composables/general/use-debounced-signal)** - Debouncing, throttling, previous values
+- **[General Composables](/composables/general/use-previous-signal)** - Previous signal value tracking
 - **[Form Composables](/composables/form/use-form-state)** - Form state as signals
 - **[Route Composables](/composables/route/use-route-param)** - Route params, query params, data as signals
 

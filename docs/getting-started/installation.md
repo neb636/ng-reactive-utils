@@ -41,32 +41,34 @@ This teaches your AI assistant ng-reactive-utils patterns so it can suggest the 
 Composables return signals you can use in your templates:
 
 ```typescript
-import { Component, signal } from '@angular/core';
-import { useDebouncedSignal } from 'ng-reactive-utils';
+import { Component, computed } from '@angular/core';
+import { useRouteParam, useWindowSize } from 'ng-reactive-utils';
 
 @Component({
-  selector: 'search-box',
+  selector: 'user-profile',
   template: `
-    <input 
-      [value]="searchTerm()" 
-      (input)="searchTerm.set($any($event.target).value)" 
-    />
-    <p>Searching for: {{ debouncedSearch() }}</p>
+    <h1>User {{ userId() }}</h1>
+    @if (isMobile()) {
+      <mobile-layout />
+    } @else {
+      <desktop-layout />
+    }
   `,
 })
-export class SearchBoxComponent {
-  searchTerm = signal('');
-  debouncedSearch = useDebouncedSignal(this.searchTerm, 300);
+export class UserProfileComponent {
+  userId = useRouteParam('id');
+  windowSize = useWindowSize();
+  isMobile = computed(() => this.windowSize().width < 768);
 }
 ```
 
-### Using an Effect
+### Persisting State to Storage
 
-Effects sync signals with external systems automatically:
+Use `useLocalStorage` to keep a signal automatically synced with localStorage:
 
 ```typescript
-import { Component, signal } from '@angular/core';
-import { syncLocalStorage } from 'ng-reactive-utils';
+import { Component } from '@angular/core';
+import { useLocalStorage } from 'ng-reactive-utils';
 
 @Component({
   selector: 'preferences',
@@ -82,15 +84,8 @@ import { syncLocalStorage } from 'ng-reactive-utils';
   `,
 })
 export class PreferencesComponent {
-  darkMode = signal(false);
-
-  constructor() {
-    // Loads from localStorage on init, saves on every change
-    syncLocalStorageEffect({
-      signal: this.darkMode,
-      key: 'dark-mode-preference',
-    });
-  }
+  // Reads from localStorage on init, writes back on every change
+  darkMode = useLocalStorage('dark-mode-preference', false);
 }
 ```
 

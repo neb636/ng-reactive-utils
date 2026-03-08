@@ -106,6 +106,32 @@ describe('useFormUntouched', () => {
     expect(isUntouched()).toBe(true);
   });
 
+  it('should update when a child control is touched', async () => {
+    @Component({
+      template: '',
+    })
+    class TestComponent {
+      form = new FormGroup({
+        email: new FormControl(''),
+        name: new FormControl(''),
+      });
+      isUntouched = useFormUntouched(this.form);
+    }
+
+    const fixture = TestBed.createComponent(TestComponent);
+    fixture.detectChanges();
+
+    const { form, isUntouched } = fixture.componentInstance;
+
+    expect(isUntouched()).toBe(true);
+
+    // Simulate user blurring a child field — touches the child control, not the form directly
+    form.get('email')!.markAsTouched();
+
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    expect(isUntouched()).toBe(false);
+  });
+
   it('should clean up on component destroy', () => {
     @Component({
       template: '',

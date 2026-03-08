@@ -430,36 +430,6 @@ wizardStep.update(step => step + 1); // Persists to sessionStorage
 
 ## Signal Utilities
 
-### useDebouncedSignal
-
-Returns a debounced version of the input signal.
-
-```typescript
-useDebouncedSignal<T>(source: Signal<T>, delayMs: number): Signal<T>
-```
-
-**Example:**
-```typescript
-const searchTerm = signal('');
-const debouncedSearch = useDebouncedSignal(searchTerm, 300);
-// debouncedSearch() updates 300ms after searchTerm stops changing
-```
-
-### useThrottledSignal
-
-Returns a throttled version of the input signal.
-
-```typescript
-useThrottledSignal<T>(source: Signal<T>, intervalMs: number): Signal<T>
-```
-
-**Example:**
-```typescript
-const scrollPosition = signal(0);
-const throttledScroll = useThrottledSignal(scrollPosition, 100);
-// throttledScroll() updates at most every 100ms
-```
-
 ### usePreviousSignal
 
 Returns the previous value of the input signal.

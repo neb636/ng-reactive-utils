@@ -33,18 +33,17 @@ interface CacheEntry<T> {
  *
  * @example
  * // With parameters
- * const useWindowSize = createSharedComposable((debounceMs = 100) => {
+ * const useMediaQuery = createSharedComposable((query: string) => {
  *   const document = inject(DOCUMENT);
- *   const size = signal(getCurrentSize());
+ *   const mediaQuery = document.defaultView?.matchMedia(query);
+ *   const matches = signal(mediaQuery?.matches ?? false);
  *
- *   const handleResize = () => size.set(getCurrentSize());
- *   document.defaultView?.addEventListener('resize', handleResize);
+ *   const handleChange = (event: MediaQueryListEvent) => matches.set(event.matches);
+ *   mediaQuery?.addEventListener('change', handleChange);
  *
  *   return {
- *     value: useDebouncedSignal(size, debounceMs),
- *     cleanup: () => {
- *       document.defaultView?.removeEventListener('resize', handleResize);
- *     },
+ *     value: matches.asReadonly(),
+ *     cleanup: () => mediaQuery?.removeEventListener('change', handleChange),
  *   };
  * });
  */

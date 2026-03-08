@@ -2,9 +2,9 @@ import { TestBed } from '@angular/core/testing';
 import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { useRouteParameter } from './use-route-param.composable';
+import { useRouteParam } from './use-route-param.composable';
 
-describe('useRouteParameter', () => {
+describe('useRouteParam', () => {
   let routeParamsSubject: BehaviorSubject<any>;
   let mockActivatedRoute: Partial<ActivatedRoute>;
 
@@ -31,7 +31,7 @@ describe('useRouteParameter', () => {
       template: '',
     })
     class TestComponent {
-      productId = useRouteParameter('productId');
+      productId = useRouteParam('productId');
     }
 
     const fixture = TestBed.createComponent(TestComponent);
@@ -51,7 +51,7 @@ describe('useRouteParameter', () => {
       template: '',
     })
     class TestComponent {
-      productId = useRouteParameter<string>('productId');
+      productId = useRouteParam<string>('productId');
     }
 
     const fixture = TestBed.createComponent(TestComponent);
@@ -71,7 +71,7 @@ describe('useRouteParameter', () => {
       template: '',
     })
     class TestComponent {
-      userId = useRouteParameter<string>('userId');
+      userId = useRouteParam<string>('userId');
     }
 
     const fixture = TestBed.createComponent(TestComponent);
@@ -92,7 +92,7 @@ describe('useRouteParameter', () => {
       template: '',
     })
     class TestComponent {
-      id = useRouteParameter('id');
+      id = useRouteParam('id');
     }
 
     const fixture = TestBed.createComponent(TestComponent);
@@ -114,8 +114,8 @@ describe('useRouteParameter', () => {
       template: '',
     })
     class TestComponent {
-      userId = useRouteParameter<string>('userId');
-      postId = useRouteParameter<string>('postId');
+      userId = useRouteParam<string>('userId');
+      postId = useRouteParam<string>('postId');
     }
 
     const fixture = TestBed.createComponent(TestComponent);
@@ -144,7 +144,7 @@ describe('useRouteParameter', () => {
       template: '',
     })
     class TestComponent {
-      userId = useRouteParameter<string>('userId');
+      userId = useRouteParam<string>('userId');
     }
 
     const fixture = TestBed.createComponent(TestComponent);
@@ -165,7 +165,7 @@ describe('useRouteParameter', () => {
       template: '',
     })
     class TestComponent {
-      page = useRouteParameter<string>('page');
+      page = useRouteParam<string>('page');
     }
 
     const fixture = TestBed.createComponent(TestComponent);
@@ -185,7 +185,7 @@ describe('useRouteParameter', () => {
       template: `<h1 data-testid="title">Product ID: {{ productId() }}</h1>`,
     })
     class TestComponent {
-      productId = useRouteParameter<string>('productId');
+      productId = useRouteParam<string>('productId');
     }
 
     const fixture = TestBed.createComponent(TestComponent);
@@ -202,7 +202,7 @@ describe('useRouteParameter', () => {
       template: '',
     })
     class TestComponent {
-      id = useRouteParameter<string>('id');
+      id = useRouteParam<string>('id');
     }
 
     const fixture = TestBed.createComponent(TestComponent);
@@ -228,7 +228,7 @@ describe('useRouteParameter', () => {
       template: '',
     })
     class TestComponent {
-      id = useRouteParameter<string | undefined>('id');
+      id = useRouteParam<string | undefined>('id');
     }
 
     const fixture = TestBed.createComponent(TestComponent);
@@ -255,7 +255,7 @@ describe('useRouteParameter', () => {
       template: '',
     })
     class TestComponent1 {
-      param = useRouteParameter<string>('sharedParam');
+      param = useRouteParam<string>('sharedParam');
     }
 
     @Component({
@@ -263,7 +263,7 @@ describe('useRouteParameter', () => {
       template: '',
     })
     class TestComponent2 {
-      param = useRouteParameter<string>('sharedParam');
+      param = useRouteParam<string>('sharedParam');
     }
 
     const fixture1 = TestBed.createComponent(TestComponent1);
@@ -285,7 +285,7 @@ describe('useRouteParameter', () => {
       template: '',
     })
     class TestComponent {
-      id = useRouteParameter('id');
+      id = useRouteParam('id');
     }
 
     const fixture = TestBed.createComponent(TestComponent);
@@ -305,7 +305,7 @@ describe('useRouteParameter', () => {
       template: '',
     })
     class TestComponent {
-      count = useRouteParameter<string>('count');
+      count = useRouteParam<string>('count');
     }
 
     const fixture = TestBed.createComponent(TestComponent);
@@ -333,7 +333,7 @@ describe('useRouteParameter', () => {
       template: '',
     })
     class TestComponent {
-      id = useRouteParameter<string>('id');
+      id = useRouteParam<string>('id');
     }
 
     const fixture = TestBed.createComponent(TestComponent);
@@ -362,7 +362,7 @@ describe('useRouteParameter', () => {
       template: '',
     })
     class TestComponent {
-      resourceId = useRouteParameter<string>('resourceId');
+      resourceId = useRouteParam<string>('resourceId');
     }
 
     const fixture = TestBed.createComponent(TestComponent);
@@ -382,7 +382,7 @@ describe('useRouteParameter', () => {
       template: '',
     })
     class TestComponent {
-      slug = useRouteParameter<string>('slug');
+      slug = useRouteParam<string>('slug');
     }
 
     const fixture = TestBed.createComponent(TestComponent);
@@ -402,7 +402,7 @@ describe('useRouteParameter', () => {
       template: '',
     })
     class TestComponent {
-      optionalParam = useRouteParameter<string | null>('optionalParam');
+      optionalParam = useRouteParam<string | null>('optionalParam');
     }
 
     const fixture = TestBed.createComponent(TestComponent);
@@ -423,7 +423,7 @@ describe('useRouteParameter', () => {
       template: '',
     })
     class TestComponent {
-      productId = useRouteParameter<string>('productId');
+      productId = useRouteParam<string>('productId');
 
       // Simulate resource loading
       getProductUrl() {
@@ -451,7 +451,7 @@ describe('useRouteParameter', () => {
       template: '',
     })
     class TestComponent {
-      longParam = useRouteParameter<string>('longParam');
+      longParam = useRouteParam<string>('longParam');
     }
 
     const fixture = TestBed.createComponent(TestComponent);
@@ -480,9 +480,9 @@ describe('useRouteParameter', () => {
       template: '',
     })
     class TestComponent {
-      lowerCaseParam = useRouteParameter<string>('userId');
-      mixedCaseParam = useRouteParameter<string>('UserId');
-      upperCaseParam = useRouteParameter<string>('USERID');
+      lowerCaseParam = useRouteParam<string>('userId');
+      mixedCaseParam = useRouteParam<string>('UserId');
+      upperCaseParam = useRouteParam<string>('USERID');
     }
 
     const fixture = TestBed.createComponent(TestComponent);
@@ -504,7 +504,7 @@ describe('useRouteParameter', () => {
       template: '',
     })
     class TestComponent {
-      emptyParam = useRouteParameter<string>('emptyParam');
+      emptyParam = useRouteParam<string>('emptyParam');
     }
 
     const fixture = TestBed.createComponent(TestComponent);

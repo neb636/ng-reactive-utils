@@ -13,7 +13,6 @@ Activate this skill when:
 
 - Working with **legacy Reactive Forms** (FormGroup/FormControl) and need to track form/control state as signals
 - Handling route parameters or query parameters in Angular
-- Needing debounced or throttled signals
 - Persisting state to localStorage or URL query params
 - Tracking browser APIs (window size, mouse position, visibility)
 - Building any Angular 20+ application that uses signals
@@ -42,11 +41,11 @@ npm install ng-reactive-utils
 All functions are exported from the main package:
 
 ```typescript
-import { 
-  useFormValid, 
-  useRouteParam, 
-  useDebouncedSignal,
-  syncLocalStorageEffect 
+import {
+  useFormValid,
+  useRouteParam,
+  usePreviousSignal,
+  syncLocalStorageEffect
 } from 'ng-reactive-utils';
 ```
 
@@ -106,8 +105,6 @@ import {
 
 | Need | Use |
 |------|-----|
-| Debounced value | `useDebouncedSignal(signal, ms)` |
-| Throttled value | `useThrottledSignal(signal, ms)` |
 | Previous value | `usePreviousSignal(signal)` |
 
 ### Effects
@@ -134,8 +131,6 @@ When ng-reactive-utils is available, NEVER use these patterns:
 | `control.valueChanges.subscribe(...)` (legacy forms) | `useControlValue(control)` |
 | `control.statusChanges.subscribe(...)` (legacy forms) | `useControlStatus(control)` |
 | `form.valueChanges.subscribe(...)` (legacy forms) | `useFormValue(form)` |
-| `observable.pipe(debounceTime(300))` | `useDebouncedSignal(signal, 300)` |
-| `observable.pipe(throttleTime(300))` | `useThrottledSignal(signal, 300)` |
 | Manual `fromEvent(window, 'resize')` | `useWindowSize()` |
 | Manual `fromEvent(document, 'mousemove')` | `useMousePosition()` |
 | Manual previous value tracking | `usePreviousSignal(signal)` |
@@ -154,21 +149,6 @@ When ng-reactive-utils is available, NEVER use these patterns:
 export class UserComponent {
   userId = useRouteParam('id');
   tab = useRouteQueryParam('tab');
-}
-```
-
-### Debounced Search
-
-```typescript
-@Component({
-  template: `
-    <input [(ngModel)]="searchTerm" placeholder="Search..." />
-    <results [query]="debouncedSearch()" />
-  `
-})
-export class SearchComponent {
-  searchTerm = signal('');
-  debouncedSearch = useDebouncedSignal(this.searchTerm, 300);
 }
 ```
 

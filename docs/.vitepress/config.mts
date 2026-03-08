@@ -89,16 +89,8 @@ export default defineConfig({
             collapsed: false,
             items: [
               {
-                text: 'useDebouncedSignal',
-                link: '/composables/general/use-debounced-signal',
-              },
-              {
                 text: 'usePreviousSignal',
                 link: '/composables/general/use-previous-signal',
-              },
-              {
-                text: 'useThrottledSignal',
-                link: '/composables/general/use-throttled-signal',
               },
             ],
           },

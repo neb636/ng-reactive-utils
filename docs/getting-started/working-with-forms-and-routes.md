@@ -205,4 +205,4 @@ export class SearchComponent {
 
 - Explore [Browser Composables](/composables/browser/use-window-size) for window size, mouse position, and more
 - Learn about [Effects](/effects/sync-local-storage) for syncing signals with localStorage and query params
-- Check out [General Composables](/composables/general/use-debounced-signal) for debouncing, throttling, and more
+- Check out [General Composables](/composables/general/use-previous-signal) for previous value tracking and more

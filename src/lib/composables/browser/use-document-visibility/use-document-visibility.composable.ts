@@ -31,16 +31,17 @@ export const useDocumentVisibility = createSharedComposable(() => {
 
   const handleVisibilityChange = () => visibilitySignal.set(!document.hidden);
 
-  // Only set up event listeners in the browser
-  if (isBrowser && document.defaultView) {
-    document.defaultView.addEventListener('visibilitychange', handleVisibilityChange);
+  // Only set up event listeners in the browser.
+  // visibilitychange fires on document (not window) per the Page Visibility API spec.
+  if (isBrowser) {
+    document.addEventListener('visibilitychange', handleVisibilityChange);
   }
 
   return {
     value: visibilitySignal.asReadonly(),
     cleanup: () => {
-      if (isBrowser && document.defaultView) {
-        document.defaultView.removeEventListener('visibilitychange', handleVisibilityChange);
+      if (isBrowser) {
+        document.removeEventListener('visibilitychange', handleVisibilityChange);
       }
     },
   };

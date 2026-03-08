@@ -25,14 +25,14 @@ npm install ng-reactive-utils
 
 ```typescript
 import { computed } from '@angular/core';
-import { useControlValue, useDebouncedSignal, useWindowSize } from 'ng-reactive-utils';
+import { useControlValue, useRouteParam, useWindowSize } from 'ng-reactive-utils';
 
 // Convert FormControl to reactive signal
 searchControl = new FormControl('');
 searchValue = useControlValue(this.searchControl);
 
-// Debounce for API calls, track window size
-debouncedSearch = useDebouncedSignal(this.searchValue, 300);
+// Read route param & track window size
+userId = useRouteParam('id');
 windowSize = useWindowSize();
 
 // Compose into derived state
@@ -43,7 +43,7 @@ isMobile = computed(() => this.windowSize().width < 768);
 
 A few examples of what's included:
 
-- **useDebouncedSignal** - Debounce signal changes with automatic cleanup
+- **usePreviousSignal** - Track the previous value of any signal
 - **useMousePosition** - Track mouse coordinates reactively across your app
 - **useRouteParam** - Convert route parameters to signals for seamless reactivity
 - **useLocalStorage** - Two-way sync between signals and localStorage
