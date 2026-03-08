@@ -43,6 +43,7 @@ isMobile = computed(() => this.windowSize().width < 768);
 
 A few examples of what's included:
 
+- **whenTrue / whenFalse** - Declarative side effects when a signal becomes truthy or falsy — no manual `untracked` required
 - **usePreviousSignal** - Track the previous value of any signal
 - **useMousePosition** - Track mouse coordinates reactively across your app
 - **useRouteParam** - Convert route parameters to signals for seamless reactivity

@@ -41,6 +41,7 @@ export class MyComponent {
 - `useFormState()` - Get form state as signals
 - `usePreviousSignal()` - Track the previous value of a signal
 - `useLocalStorage()` - Two-way signal sync with localStorage
+- `whenTrue()` / `whenFalse()` - Run side effects when a signal becomes truthy or falsy
 
 ## When to Use NG Reactive Utils vs Vanilla Angular
 
@@ -63,6 +64,18 @@ userId = useRouteParam('id');
 // Instead of: manual fromEvent(window, 'resize') with toSignal()
 windowSize = useWindowSize();
 isMobile = computed(() => this.windowSize().width < 768);
+```
+
+✅ Running side effects when a signal reaches a specific state
+```typescript
+// Instead of: effect() + manual untracked() to avoid unintended subscriptions
+onOpen = whenTrue(this.isOpen, () => {
+  this.copy.set(cloneDeep(this.data()));
+});
+
+onClose = whenFalse(this.isOpen, () => {
+  this.copy.set(null);
+});
 ```
 
 ## Type Safety

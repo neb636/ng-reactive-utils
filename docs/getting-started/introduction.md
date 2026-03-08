@@ -7,7 +7,7 @@ NG Reactive Utils is a collection of composables for modern Angular applications
 A utility library that provides:
 - **Form & Route utilities** - Convert observables to signals without repetitive `toSignal()` calls
 - **Browser APIs** - Window size, mouse position, storage, media queries, and more
-- **Signal utilities** - Track previous values and share composable instances across components
+- **Signal utilities** - Track previous values, react to signal state changes, and share composable instances across components
 
 ## Quick Example
 
@@ -52,6 +52,26 @@ formState = useFormState(this.form);  // value(), valid(), dirty(), etc.
 userId = useRouteParam('id');
 ```
 
+**Without NG Reactive Utils:**
+```typescript
+// Noisy effects with easy-to-forget untracked()
+effect(() => {
+  if (this.isOpen()) {
+    untracked(() => {
+      this.copy.set(cloneDeep(this.data()));
+    });
+  }
+});
+```
+
+**With NG Reactive Utils:**
+```typescript
+// Intent is obvious, untracked handled automatically
+onOpen = whenTrue(this.isOpen, () => {
+  this.copy.set(cloneDeep(this.data()));
+});
+```
+
 ## Key Benefits
 
 - **Less boilerplate** - Replace repetitive `toSignal()` calls with clean utilities
@@ -62,7 +82,7 @@ userId = useRouteParam('id');
 ## What's Available
 
 - **[Browser Composables](/composables/browser/use-window-size)** - Window size, mouse position, document visibility, storage
-- **[General Composables](/composables/general/use-previous-signal)** - Previous signal value tracking
+- **[General Composables](/composables/general/use-previous-signal)** - Previous signal value tracking, declarative side effect helpers
 - **[Form Composables](/composables/form/use-form-state)** - Form state as signals
 - **[Route Composables](/composables/route/use-route-param)** - Route params, query params, data as signals
 
