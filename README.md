@@ -4,7 +4,7 @@
 [![npm downloads](https://img.shields.io/npm/dm/ng-reactive-utils.svg)](https://www.npmjs.com/package/ng-reactive-utils)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A collection of small, reusable reactive building blocks for modern Angular (v20+) applications. The focus is on simple, well-typed composables and effects built around signals that you can drop into real projects with minimal ceremony.
+A collection of small, reusable reactive building blocks for modern Angular (v20+) applications. The focus is on simple, well-typed composables built around signals that you can drop into real projects with minimal ceremony.
 
 📚 **[View Documentation](https://neb636.github.io/ng-reactive-utils/)** | 📦 **[npm Package](https://www.npmjs.com/package/ng-reactive-utils)**
 
@@ -46,10 +46,10 @@ A few examples of what's included:
 - **useDebouncedSignal** - Debounce signal changes with automatic cleanup
 - **useMousePosition** - Track mouse coordinates reactively across your app
 - **useRouteParam** - Convert route parameters to signals for seamless reactivity
-- **syncLocalStorage** - Two-way sync between signals and localStorage
+- **useLocalStorage** - Two-way sync between signals and localStorage
 - **useElementBounding** - Observe element position and size with ResizeObserver
 
-**[→ Browse all composables, effects, and utilities](https://neb636.github.io/ng-reactive-utils/)**
+**[→ Browse all composables and utilities](https://neb636.github.io/ng-reactive-utils/)**
 
 ## API Design Philosophy
 
@@ -157,7 +157,6 @@ npm install /path/to/ng-reactive-utils-0.0.1.tgz
 ├── src/                          # Library source code
 │   └── lib/
 │       ├── composables/          # Composable implementations
-│       ├── effects/              # Effect implementations
 │       └── utils/                # Utility implementations
 │
 ├── docs/                         # VitePress documentation site
@@ -165,7 +164,6 @@ npm install /path/to/ng-reactive-utils-0.0.1.tgz
 │   │   └── config.mts            # VitePress configuration
 │   ├── getting-started/          # Getting started guides
 │   ├── composables/              # Composable documentation
-│   ├── effects/                  # Effect documentation
 │   └── utils/                    # Utility documentation
 │
 ├── package.json                  # Package configuration

@@ -62,11 +62,6 @@ Instead of subscribing to route observables:
 - `useThrottledSignal(signal, ms)` - Throttled signal value
 - `usePreviousSignal(signal)` - Previous signal value
 
-### Effects
-
-- `syncLocalStorageEffect(key, signal)` - Persist signal to localStorage
-- `syncQueryParamsEffect({ paramName: signal })` - Sync signals with URL query params
-
 ### Utilities
 
 - `createSharedComposable(composableFn)` - Create a shared instance of a composable with reference counting
@@ -89,11 +84,10 @@ Instead of subscribing to route observables:
 All functions are exported from the main package:
 
 ```typescript
-import { 
-  useFormValid, 
-  useRouteParam, 
+import {
+  useFormValid,
+  useRouteParam,
   useDebouncedSignal,
-  syncLocalStorageEffect 
 } from 'ng-reactive-utils';
 ```
 
@@ -139,15 +133,3 @@ export class SearchComponent {
 }
 ```
 
-### Persisting state to localStorage
-
-```typescript
-@Component({...})
-export class SettingsComponent {
-  theme = signal<'light' | 'dark'>('light');
-  
-  constructor() {
-    syncLocalStorageEffect('app-theme', this.theme);
-  }
-}
-```
