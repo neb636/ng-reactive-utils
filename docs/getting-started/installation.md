@@ -60,13 +60,13 @@ export class SearchBoxComponent {
 }
 ```
 
-### Using an Effect
+### Persisting State to Storage
 
-Effects sync signals with external systems automatically:
+Use `useLocalStorage` to keep a signal automatically synced with localStorage:
 
 ```typescript
-import { Component, signal } from '@angular/core';
-import { syncLocalStorage } from 'ng-reactive-utils';
+import { Component } from '@angular/core';
+import { useLocalStorage } from 'ng-reactive-utils';
 
 @Component({
   selector: 'preferences',
@@ -82,15 +82,8 @@ import { syncLocalStorage } from 'ng-reactive-utils';
   `,
 })
 export class PreferencesComponent {
-  darkMode = signal(false);
-
-  constructor() {
-    // Loads from localStorage on init, saves on every change
-    syncLocalStorageEffect({
-      signal: this.darkMode,
-      key: 'dark-mode-preference',
-    });
-  }
+  // Reads from localStorage on init, writes back on every change
+  darkMode = useLocalStorage('dark-mode-preference', false);
 }
 ```
 

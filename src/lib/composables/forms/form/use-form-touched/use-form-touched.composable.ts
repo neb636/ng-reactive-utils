@@ -1,12 +1,12 @@
 import { Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormGroup, TouchedChangeEvent } from '@angular/forms';
-import { filter, map } from 'rxjs';
+import { filter, map, merge } from 'rxjs';
 
 /**
  * Returns whether a FormGroup has been touched (interacted with) as a signal.
- * The signal updates reactively whenever the form's touched state changes,
- * including when markAsTouched() or markAsUntouched() are called directly.
+ * The signal updates reactively whenever any control in the form is touched or
+ * untouched, including programmatic calls to markAsTouched() / markAsUntouched().
  *
  * @param form - The FormGroup to check touched state for
  * @returns A signal containing the touched state (true if interacted with)
@@ -32,11 +32,15 @@ import { filter, map } from 'rxjs';
  * ```
  */
 export const useFormTouched = (form: FormGroup): Signal<boolean> => {
-  return toSignal(
-    form.events.pipe(
-      filter((event): event is TouchedChangeEvent => event instanceof TouchedChangeEvent),
-      map((event) => event.touched),
-    ),
-    { initialValue: form.touched },
-  ) as Signal<boolean>;
+  // TouchedChangeEvent on a FormGroup only fires when markAsTouched() / markAsUntouched()
+  // is called on the form itself — it does not propagate from child control blur events.
+  // Merging events from all child controls ensures the signal stays accurate when a user
+  // interacts with any field in the form.
+  const allControls = [form, ...Object.values(form.controls)];
+  const anyTouchedChange$ = merge(...allControls.map((control) => control.events)).pipe(
+    filter((event): event is TouchedChangeEvent => event instanceof TouchedChangeEvent),
+    map(() => form.touched),
+  );
+
+  return toSignal(anyTouchedChange$, { initialValue: form.touched }) as Signal<boolean>;
 };
