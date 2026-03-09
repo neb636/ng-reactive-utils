@@ -1,6 +1,6 @@
 # ng-reactive-utils API Reference
 
-Complete API reference for all composables, effects, and utilities.
+Complete API reference for all composables and utilities.
 
 ## Form Composables (Legacy Reactive Forms Only)
 
@@ -67,6 +67,14 @@ Returns whether the form is touched as a signal.
 useFormTouched(form: AbstractControl): Signal<boolean>
 ```
 
+### useFormUntouched
+
+Returns whether the form is untouched as a signal.
+
+```typescript
+useFormUntouched(form: AbstractControl): Signal<boolean>
+```
+
 ### useFormPristine
 
 Returns whether the form is pristine as a signal.
@@ -89,14 +97,6 @@ Returns whether the form is disabled as a signal.
 
 ```typescript
 useFormDisabled(form: AbstractControl): Signal<boolean>
-```
-
-### useFormUntouched
-
-Returns whether the form is untouched as a signal.
-
-```typescript
-useFormUntouched(form: AbstractControl): Signal<boolean>
 ```
 
 ### useFormState
@@ -172,6 +172,14 @@ Returns whether the control is touched as a signal.
 useControlTouched(control: AbstractControl): Signal<boolean>
 ```
 
+### useControlUntouched
+
+Returns whether the control is untouched as a signal.
+
+```typescript
+useControlUntouched(control: AbstractControl): Signal<boolean>
+```
+
 ### useControlPristine
 
 Returns whether the control is pristine as a signal.
@@ -194,14 +202,6 @@ Returns whether the control is disabled as a signal.
 
 ```typescript
 useControlDisabled(control: AbstractControl): Signal<boolean>
-```
-
-### useControlUntouched
-
-Returns whether the control is untouched as a signal.
-
-```typescript
-useControlUntouched(control: AbstractControl): Signal<boolean>
 ```
 
 ### useControlState
@@ -300,56 +300,51 @@ useRouteData<T = Data>(): Signal<T>
 
 ### useWindowSize
 
-Returns window dimensions as signals.
+Returns the window's width and height as a single signal. Debounced (default 100ms). SSR-safe (defaults to `{ width: 0, height: 0 }`).
 
 ```typescript
-useWindowSize(): { width: Signal<number>; height: Signal<number> }
+useWindowSize(debounceMs?: number): Signal<{ width: number; height: number }>
 ```
 
 **Example:**
 ```typescript
-const { width, height } = useWindowSize();
-// width() => 1920
-// height() => 1080
+const windowSize = useWindowSize();
+// windowSize() => { width: 1920, height: 1080 }
+const { width, height } = windowSize();
 ```
 
 ### useMousePosition
 
-Returns mouse coordinates as signals.
+Returns the mouse cursor's x and y position as a single signal. Throttled (default 100ms). SSR-safe (defaults to `{ x: 0, y: 0 }`).
 
 ```typescript
-useMousePosition(): { x: Signal<number>; y: Signal<number> }
+useMousePosition(throttleMs?: number): Signal<{ x: number; y: number }>
+```
+
+**Example:**
+```typescript
+const mousePosition = useMousePosition();
+// mousePosition() => { x: 450, y: 300 }
+const { x, y } = mousePosition();
 ```
 
 ### useDocumentVisibility
 
-Returns the document visibility state as a signal.
+Returns whether the document/tab is currently visible as a signal. SSR-safe (defaults to `true`).
 
 ```typescript
-useDocumentVisibility(): Signal<DocumentVisibilityState>
-// DocumentVisibilityState = 'visible' | 'hidden'
+useDocumentVisibility(): Signal<boolean>
 ```
 
-### useElementBounding
-
-Returns element bounding rect properties as signals.
-
+**Example:**
 ```typescript
-useElementBounding(elementRef: ElementRef): {
-  x: Signal<number>;
-  y: Signal<number>;
-  width: Signal<number>;
-  height: Signal<number>;
-  top: Signal<number>;
-  right: Signal<number>;
-  bottom: Signal<number>;
-  left: Signal<number>;
-}
+const isVisible = useDocumentVisibility();
+// isVisible() => true when tab is active, false when hidden
 ```
 
 ### useMediaQuery
 
-Tracks whether a CSS media query matches.
+Tracks whether a CSS media query string matches. SSR-safe (defaults to `false`).
 
 ```typescript
 useMediaQuery(query: string): Signal<boolean>
@@ -362,9 +357,47 @@ const prefersDark = useMediaQuery('(prefers-color-scheme: dark)');
 // isMobile() => true/false
 ```
 
+### useElementBounding
+
+Returns an element's bounding rect as a single signal. Updates on resize (via `ResizeObserver`) and optionally on window scroll/resize events. The returned signal includes an `update()` method for manual refresh.
+
+```typescript
+useElementBounding(
+  elementSignal: Signal<Element | ElementRef | null | undefined>,
+  config?: {
+    throttleMs?: number;      // default: 100
+    windowResize?: boolean;   // default: true
+    windowScroll?: boolean;   // default: true
+  }
+): Signal<{
+  x: number;
+  y: number;
+  top: number;
+  right: number;
+  bottom: number;
+  left: number;
+  width: number;
+  height: number;
+  update: () => void;
+}>
+```
+
+**Example:**
+```typescript
+class MyComponent {
+  divRef = viewChild<ElementRef<HTMLDivElement>>('myDiv');
+  bounding = useElementBounding(this.divRef);
+
+  logPosition() {
+    const { x, y, width, height } = this.bounding();
+    console.log(`Position: (${x}, ${y}), Size: ${width}x${height}`);
+  }
+}
+```
+
 ### useEventListener
 
-Attaches an event listener to a target with automatic cleanup.
+Attaches an event listener to a target with automatic cleanup on destroy.
 
 ```typescript
 useEventListener<K extends keyof WindowEventMap>(
@@ -394,7 +427,7 @@ useEventListener('click', handleClick, { target: elementRef });
 
 ### useLocalStorage
 
-Creates a writable signal synced with localStorage.
+Creates a `WritableSignal<T>` synced with `localStorage`. Persists across page reloads. Syncs across tabs via the `storage` event. Setting to `null` removes the key. SSR-safe.
 
 ```typescript
 useLocalStorage<T>(
@@ -412,7 +445,7 @@ theme.set('dark'); // Persists to localStorage
 
 ### useSessionStorage
 
-Creates a writable signal synced with sessionStorage.
+Creates a `WritableSignal<T>` synced with `sessionStorage`. Persists for the duration of the browser tab session. SSR-safe.
 
 ```typescript
 useSessionStorage<T>(
@@ -432,7 +465,7 @@ wizardStep.update(step => step + 1); // Persists to sessionStorage
 
 ### usePreviousSignal
 
-Returns the previous value of the input signal.
+Returns the previous value of the input signal. Starts as `undefined`, then lags one emission behind.
 
 ```typescript
 usePreviousSignal<T>(source: Signal<T>): Signal<T | undefined>
@@ -448,44 +481,53 @@ count.set(1);
 // previousCount() => 0
 ```
 
-## Effects
+### when
 
-### syncLocalStorageEffect
-
-Syncs a signal's value with localStorage. Automatically restores the value on initialization.
+Runs a callback whenever a signal satisfies a predicate. The callback is wrapped in `untracked` to prevent extra reactive dependencies. Auto-cancels on destroy.
 
 ```typescript
-syncLocalStorageEffect<T>(key: string, signal: WritableSignal<T>): void
+when<T>(
+  source: Signal<T>,
+  predicate: (value: T) => boolean,
+  callback: () => void
+): () => void  // returns a cancel function
 ```
 
 **Example:**
 ```typescript
-const theme = signal<'light' | 'dark'>('light');
-syncLocalStorageEffect('app-theme', theme);
-// Changes to theme are persisted to localStorage
-// On init, theme is restored from localStorage if present
-```
-
-### syncQueryParamsEffect
-
-Syncs signals with URL query parameters. Automatically updates the URL when signals change.
-
-```typescript
-syncQueryParamsEffect(params: Record<string, WritableSignal<string>>): void
-```
-
-**Example:**
-```typescript
-const category = signal('all');
-const sort = signal('date');
-
-syncQueryParamsEffect({
-  category: category,
-  sort: sort
+const cancel = when(this.uploadStatus, (status) => status === 'complete', () => {
+  this.showSuccessToast();
 });
-// URL updates to: ?category=all&sort=date
-// Changing signals updates the URL
-// URL changes update the signals
+```
+
+### whenTrue
+
+Runs a callback each time a signal becomes truthy. Convenience wrapper around `when`.
+
+```typescript
+whenTrue(source: Signal<unknown>, callback: () => void): () => void
+```
+
+**Example:**
+```typescript
+whenTrue(this.isOpen, () => {
+  this.dashboardCopy.set(cloneDeep(this.dashboard()));
+});
+```
+
+### whenFalse
+
+Runs a callback each time a signal becomes falsy. Convenience wrapper around `when`.
+
+```typescript
+whenFalse(source: Signal<unknown>, callback: () => void): () => void
+```
+
+**Example:**
+```typescript
+whenFalse(this.isOpen, () => {
+  this.dashboardCopy.set(null);
+});
 ```
 
 ## Utilities
@@ -495,7 +537,7 @@ syncQueryParamsEffect({
 Creates a shared instance of a composable with reference counting. The composable is only initialized once and cleaned up when the last consumer is destroyed.
 
 ```typescript
-createSharedComposable<T>(composableFn: () => T): () => T
+createSharedComposable<T>(composableFn: () => { value: T; cleanup?: () => void }): () => T
 ```
 
 **Example:**
@@ -503,6 +545,6 @@ createSharedComposable<T>(composableFn: () => T): () => T
 // Create a shared window size composable
 const useSharedWindowSize = createSharedComposable(() => useWindowSize());
 
-// In any component - all get the same instance
-const { width, height } = useSharedWindowSize();
+// In any component — all get the same instance
+const windowSize = useSharedWindowSize();
 ```

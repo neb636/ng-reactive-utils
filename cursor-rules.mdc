@@ -23,6 +23,7 @@ Instead of subscribing to `FormGroup.valueChanges` or `statusChanges`:
 - `useFormStatus(form)` - Form status as a signal
 - `useFormDirty(form)` - Form dirty state as a signal
 - `useFormTouched(form)` - Form touched state as a signal
+- `useFormUntouched(form)` - Form untouched state as a signal
 - `useFormPristine(form)` - Form pristine state as a signal
 - `useFormPending(form)` - Form pending state as a signal
 - `useFormDisabled(form)` - Form disabled state as a signal
@@ -33,6 +34,7 @@ Instead of subscribing to `FormGroup.valueChanges` or `statusChanges`:
 - `useControlStatus(control)` - Control status as a signal
 - `useControlDirty(control)` - Control dirty state as a signal
 - `useControlTouched(control)` - Control touched state as a signal
+- `useControlUntouched(control)` - Control untouched state as a signal
 - `useControlPristine(control)` - Control pristine state as a signal
 - `useControlPending(control)` - Control pending state as a signal
 - `useControlDisabled(control)` - Control disabled state as a signal
@@ -51,14 +53,21 @@ Instead of subscribing to route observables:
 
 ### Browser APIs
 
-- `useWindowSize()` - Window dimensions as signals (`width` and `height`)
-- `useMousePosition()` - Mouse coordinates as signals (`x` and `y`)
-- `useDocumentVisibility()` - Tab visibility as a signal
-- `useElementBounding(elementRef)` - Element position/size as signals
+- `useWindowSize()` - Window dimensions as a signal (`Signal<{ width, height }>`)
+- `useMousePosition()` - Mouse coordinates as a signal (`Signal<{ x, y }>`)
+- `useDocumentVisibility()` - Tab visibility as a signal (`Signal<boolean>`)
+- `useMediaQuery(query)` - CSS media query match as a signal (`Signal<boolean>`)
+- `useElementBounding(elementRef)` - Element bounding rect as a signal
+- `useEventListener(event, handler, options?)` - Attach event listener with auto-cleanup
+- `useLocalStorage(key, defaultValue)` - Writable signal synced with localStorage
+- `useSessionStorage(key, defaultValue)` - Writable signal synced with sessionStorage
 
 ### Signal Utilities
 
 - `usePreviousSignal(signal)` - Previous signal value
+- `when(source, predicate, callback)` - Run callback when predicate is true
+- `whenTrue(source, callback)` - Run callback when signal is truthy
+- `whenFalse(source, callback)` - Run callback when signal is falsy
 
 ### Utilities
 
@@ -74,6 +83,10 @@ Instead of subscribing to route observables:
 - NEVER manually track previous values when `usePreviousSignal` exists
 - NEVER manually subscribe to window resize events when `useWindowSize` exists
 - NEVER manually subscribe to mouse events when `useMousePosition` exists
+- NEVER manually read/write `localStorage` when `useLocalStorage` exists
+- NEVER manually read/write `sessionStorage` when `useSessionStorage` exists
+- NEVER manually call `matchMedia` when `useMediaQuery` exists
+- NEVER manually add/remove event listeners when `useEventListener` exists
 
 ## Import Pattern
 
@@ -84,6 +97,8 @@ import {
   useFormValid,
   useRouteParam,
   usePreviousSignal,
+  useLocalStorage,
+  when,
 } from 'ng-reactive-utils';
 ```
 
@@ -128,5 +143,30 @@ export class AnimatedComponent {
   direction = computed(() =>
     this.count() > (this.previousCount() ?? 0) ? 'up' : 'down'
   );
+}
+```
+
+### Persisting state to localStorage
+
+```typescript
+@Component({...})
+export class SettingsComponent {
+  theme = useLocalStorage<'light' | 'dark'>('app-theme', 'light');
+  // theme is a WritableSignal — reads and writes sync with localStorage
+}
+```
+
+### Reacting to signal changes
+
+```typescript
+@Component({...})
+export class UploadComponent {
+  uploadStatus = signal<'idle' | 'uploading' | 'complete'>('idle');
+
+  constructor() {
+    when(this.uploadStatus, (status) => status === 'complete', () => {
+      this.showSuccessToast();
+    });
+  }
 }
 ```

@@ -13,8 +13,8 @@ Activate this skill when:
 
 - Working with **legacy Reactive Forms** (FormGroup/FormControl) and need to track form/control state as signals
 - Handling route parameters or query parameters in Angular
-- Persisting state to localStorage or URL query params
-- Tracking browser APIs (window size, mouse position, visibility)
+- Persisting state to localStorage or sessionStorage
+- Tracking browser APIs (window size, mouse position, visibility, media queries)
 - Building any Angular 20+ application that uses signals
 
 ## Important: Form Composables Are for Legacy Reactive Forms Only
@@ -45,7 +45,8 @@ import {
   useFormValid,
   useRouteParam,
   usePreviousSignal,
-  syncLocalStorageEffect
+  useLocalStorage,
+  when,
 } from 'ng-reactive-utils';
 ```
 
@@ -61,6 +62,7 @@ import {
 | Form status | `useFormStatus(form)` |
 | Form dirty state | `useFormDirty(form)` |
 | Form touched state | `useFormTouched(form)` |
+| Form untouched state | `useFormUntouched(form)` |
 | Form pristine state | `useFormPristine(form)` |
 | Form pending state | `useFormPending(form)` |
 | Form disabled state | `useFormDisabled(form)` |
@@ -76,6 +78,7 @@ import {
 | Control status | `useControlStatus(control)` |
 | Control dirty state | `useControlDirty(control)` |
 | Control touched state | `useControlTouched(control)` |
+| Control untouched state | `useControlUntouched(control)` |
 | Control pristine state | `useControlPristine(control)` |
 | Control pending state | `useControlPending(control)` |
 | Control disabled state | `useControlDisabled(control)` |
@@ -96,23 +99,23 @@ import {
 
 | Need | Use |
 |------|-----|
-| Window dimensions | `useWindowSize()` → `{ width, height }` |
-| Mouse coordinates | `useMousePosition()` → `{ x, y }` |
-| Tab visibility | `useDocumentVisibility()` |
-| Element bounds | `useElementBounding(elementRef)` |
+| Window dimensions | `useWindowSize()` → `Signal<{ width, height }>` |
+| Mouse coordinates | `useMousePosition()` → `Signal<{ x, y }>` |
+| Tab visibility | `useDocumentVisibility()` → `Signal<boolean>` |
+| CSS media query match | `useMediaQuery(query)` → `Signal<boolean>` |
+| Element bounds | `useElementBounding(elementRef)` → `Signal<ElementBounding>` |
+| Event listener w/ cleanup | `useEventListener(event, handler, options?)` |
+| Persist to localStorage | `useLocalStorage(key, defaultValue)` → `WritableSignal<T>` |
+| Persist to sessionStorage | `useSessionStorage(key, defaultValue)` → `WritableSignal<T>` |
 
 ### Signal Utilities
 
 | Need | Use |
 |------|-----|
-| Previous value | `usePreviousSignal(signal)` |
-
-### Effects
-
-| Need | Use |
-|------|-----|
-| Persist to localStorage | `syncLocalStorageEffect(key, signal)` |
-| Sync with URL query params | `syncQueryParamsEffect({ paramName: signal })` |
+| Previous value | `usePreviousSignal(signal)` → `Signal<T \| undefined>` |
+| Run callback when predicate is true | `when(source, predicate, callback)` → cancel fn |
+| Run callback when signal is truthy | `whenTrue(source, callback)` → cancel fn |
+| Run callback when signal is falsy | `whenFalse(source, callback)` → cancel fn |
 
 ### Utilities
 
@@ -134,6 +137,10 @@ When ng-reactive-utils is available, NEVER use these patterns:
 | Manual `fromEvent(window, 'resize')` | `useWindowSize()` |
 | Manual `fromEvent(document, 'mousemove')` | `useMousePosition()` |
 | Manual previous value tracking | `usePreviousSignal(signal)` |
+| Manual `localStorage.getItem/setItem` | `useLocalStorage(key, default)` |
+| Manual `sessionStorage.getItem/setItem` | `useSessionStorage(key, default)` |
+| Manual `window.matchMedia(...)` | `useMediaQuery(query)` |
+| Manual `addEventListener/removeEventListener` | `useEventListener(event, handler)` |
 
 ## Usage Examples
 
@@ -157,30 +164,8 @@ export class UserComponent {
 ```typescript
 @Component({...})
 export class SettingsComponent {
-  theme = signal<'light' | 'dark'>('light');
-  
-  constructor() {
-    // Automatically persists and restores from localStorage
-    syncLocalStorageEffect('app-theme', this.theme);
-  }
-}
-```
-
-### Syncing State with URL Query Params
-
-```typescript
-@Component({...})
-export class FilterComponent {
-  category = signal('all');
-  sortBy = signal('date');
-  
-  constructor() {
-    // URL will reflect: ?category=electronics&sortBy=price
-    syncQueryParamsEffect({
-      category: this.category,
-      sortBy: this.sortBy
-    });
-  }
+  theme = useLocalStorage<'light' | 'dark'>('app-theme', 'light');
+  // theme is a WritableSignal — reads and writes sync with localStorage automatically
 }
 ```
 
@@ -189,7 +174,7 @@ export class FilterComponent {
 ```typescript
 @Component({
   template: `
-    @if (windowSize.width() < 768) {
+    @if (windowSize().width < 768) {
       <mobile-nav />
     } @else {
       <desktop-nav />
@@ -208,10 +193,25 @@ export class LayoutComponent {
 export class AnimatedComponent {
   count = signal(0);
   previousCount = usePreviousSignal(this.count);
-  
-  direction = computed(() => 
+
+  direction = computed(() =>
     this.count() > (this.previousCount() ?? 0) ? 'up' : 'down'
   );
+}
+```
+
+### Reacting to Signal Changes
+
+```typescript
+@Component({...})
+export class UploadComponent {
+  uploadStatus = signal<'idle' | 'uploading' | 'complete'>('idle');
+
+  constructor() {
+    when(this.uploadStatus, (status) => status === 'complete', () => {
+      this.showSuccessToast();
+    });
+  }
 }
 ```
 
@@ -233,7 +233,6 @@ Use these composables when working with existing Reactive Forms code, NOT for cr
   `
 })
 export class LegacyFormComponent {
-  // Existing legacy form - use composables to get signal-based state
   form = inject(FormBuilder).group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required]

@@ -5,6 +5,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.1-beta.0] - 2026-03-09
+
+### Added
+
+- `useEventListener()` — attach event listeners to any target (element, window, document, or signal-wrapped element) with automatic cleanup
+- `useLocalStorage()` — read/write a localStorage key as a reactive signal, synchronized across tabs via storage events
+- `useSessionStorage()` — read/write a sessionStorage key as a reactive signal
+- `useMediaQuery()` — track a CSS media query as a boolean signal, with query-level sharing to avoid duplicate listeners
+- `when()` — run a callback reactively whenever a signal condition is truthy (declarative side effects)
+- `whenTrue()` — convenience wrapper around `when()` that fires when a boolean signal becomes `true`
+- `whenFalse()` — convenience wrapper around `when()` that fires when a boolean signal becomes `false`
+
+### Changed
+
+- `useEventListener()` now returns a manual cleanup function, allowing listeners to be removed before component destruction
+- `useRouteParameter()` renamed to `useRouteParam()` for consistency with the file name and its plural sibling `useRouteParams()`
+- `useDocumentVisibility()` now correctly attaches `visibilitychange` to `document` instead of `window`, per the Page Visibility API spec
+- `useControlTouched()`, `useControlUntouched()`, `useFormTouched()`, and `useFormUntouched()` now listen to `control.events` filtered to `TouchedChangeEvent` instead of `statusChanges`, so they update correctly when a user blurs a field or `markAsTouched()` / `markAsUntouched()` is called programmatically
+- `useMediaQuery()` now hoists the shared composable factory to module scope so the query-level cache is truly shared across all call sites
+
+### Removed
+
+- `syncLocalStorageEffect()` and `syncQueryParamsEffect()` — removed; composables now handle reactive side effects internally
+- `useDebouncedSignal()` and `useThrottledSignal()` — removed in preparation for the v1.0 API surface review
+- Internal types `DocMetadata`, `DocEntry`, and `DocRegistry` removed from the public API (they were reference-app implementation details)
+
+### Fixed
+
+- `useControlTouched` / `useFormTouched` signals now correctly update when controls are touched or untouched
+- `useDocumentVisibility` now fires reliably across all browsers by targeting the correct event source
+
 ## [0.1.0-beta.1] - 2026-01-27
 
 ### Added
