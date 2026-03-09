@@ -91,6 +91,25 @@ Run tests:
 npm run test
 ```
 
+### Reference App
+
+The reference app is a live Angular application that exercises every composable in the library. Use it to manually verify behavior, spot regressions, and as a foundation for future end-to-end tests.
+
+```bash
+npm run reference
+```
+
+This starts the Angular dev server and opens the app at `http://localhost:4200`. It is organized into four pages:
+
+| Page | Composables covered |
+| --- | --- |
+| **Browser** | `useWindowSize`, `useMousePosition`, `useDocumentVisibility`, `useMediaQuery`, `useEventListener`, `useElementBounding`, `useLocalStorage`, `useSessionStorage` |
+| **Forms** | `useFormState`, `useFormValue`, `useFormValid`, `useFormPending`, `useFormDirty`, `useFormPristine`, `useFormTouched`, `useFormUntouched`, `useFormDisabled`, `useFormErrors`, `useFormStatus`, `useControlState`, `useControlValue`, `useControlValid`, `useControlPending`, `useControlDirty`, `useControlPristine`, `useControlTouched`, `useControlUntouched`, `useControlDisabled`, `useControlErrors`, `useControlStatus` |
+| **Route** | `useRouteParam`, `useRouteParams`, `useRouteQueryParam`, `useRouteQueryParams`, `useRouteData`, `useRouteFragment` |
+| **General** | `usePreviousSignal`, `whenTrue`, `whenFalse`, `when`, `createSharedComposable` |
+
+The app source lives in `reference-app/`.
+
 ### Documentation Site
 
 The documentation site is built with VitePress.
