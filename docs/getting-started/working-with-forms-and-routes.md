@@ -34,6 +34,7 @@ class MyComponent {
 ```
 
 **Issues:**
+
 - Repetitive `toSignal()` calls with initial values
 - Easy to forget initial values or use wrong observables
 - Inconsistent patterns across the codebase
@@ -53,9 +54,7 @@ import { useFormState } from 'ng-reactive-utils';
   template: `
     <form [formGroup]="form">
       <input formControlName="email" />
-      <button [disabled]="!formState.valid() || formState.pending()">
-        Submit
-      </button>
+      <button [disabled]="!formState.valid() || formState.pending()">Submit</button>
       @if (formState.dirty()) {
         <span>You have unsaved changes</span>
       }
@@ -188,6 +187,7 @@ export class SearchComponent {
 ## Available Composables
 
 ### Forms
+
 - [`useFormState()`](/composables/form/use-form-state) - Complete form state
 - [`useFormValue()`](/composables/form/use-form-value) - Form value
 - [`useFormValid()`](/composables/form/use-form-valid) - Validity status
@@ -195,6 +195,7 @@ export class SearchComponent {
 - [View all form composables →](/composables/form/use-form-state)
 
 ### Routes
+
 - [`useRouteParam()`](/composables/route/use-route-param) - Single parameter
 - [`useRouteParams()`](/composables/route/use-route-params) - All parameters
 - [`useRouteQueryParam()`](/composables/route/use-route-query-param) - Single query param
@@ -204,5 +205,4 @@ export class SearchComponent {
 ## Next Steps
 
 - Explore [Browser Composables](/composables/browser/use-window-size) for window size, mouse position, and more
-- Learn about [Effects](/effects/sync-local-storage) for syncing signals with localStorage and query params
 - Check out [General Composables](/composables/general/use-previous-signal) for previous value tracking and more
