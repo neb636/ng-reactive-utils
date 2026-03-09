@@ -60,9 +60,9 @@ class PasswordFieldComponent {
 ## Notes
 
 - Works with FormControl, FormGroup, and FormArray
-- Uses `toSignal` with `control.statusChanges` observable
-- Returns `true` when the control has not been blurred (interacted with)
-- Returns `false` when the control has been touched
+- Uses `control.events` (Angular's unified event stream) filtered to `TouchedChangeEvent` — not `statusChanges`, which does not emit on touched-state changes
+- Returns `true` when the control has not been blurred or programmatically touched
+- Returns `false` once `markAsTouched()` is called or the control loses focus
 - Opposite of `useControlTouched`
 - Useful for showing hints before user interaction
 

@@ -39,9 +39,11 @@ class GuidedFormComponent {
 
 ## Notes
 
-- Uses `toSignal` with `form.statusChanges` observable
-- Returns `true` when no control has been blurred
-- Returns `false` when any control has been interacted with
+- Merges `TouchedChangeEvent` events from the `FormGroup` **and all direct child controls** — this is necessary because Angular does not propagate `TouchedChangeEvent` from child controls up to the parent group
+- Uses `control.events` (not `statusChanges`) to listen for touched-state changes; `statusChanges` does not emit on touch changes
+- Returns the group-level `form.untouched` value on each event, so the signal reflects the overall untouched state of the form
+- Only tracks **direct** child controls — grandchild controls inside nested `FormGroup` or `FormArray` children are not observed; use `useControlUntouched` on the nested group directly if needed
+- Returns `false` once any direct child control loses focus or `markAsTouched()` is called
 - Opposite of `useFormTouched`
 
 ## Source

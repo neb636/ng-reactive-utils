@@ -43,10 +43,11 @@ class ContactFormComponent {
 
 ## Notes
 
-- Uses `toSignal` with `form.statusChanges` observable
-- Returns `true` when any control has been blurred
-- Useful for showing validation errors only after user interaction
-- Form is touched when `markAsTouched()` is called or control loses focus
+- Merges `TouchedChangeEvent` events from the `FormGroup` **and all direct child controls** — this is necessary because Angular does not propagate `TouchedChangeEvent` from child controls up to the parent group
+- Uses `control.events` (not `statusChanges`) to listen for touched-state changes; `statusChanges` does not emit on touch changes
+- Returns the group-level `form.touched` value on each event, so the signal reflects the overall touched state of the form
+- Only tracks **direct** child controls — grandchild controls inside nested `FormGroup` or `FormArray` children are not observed; use `useControlTouched` on the nested group directly if needed
+- Returns `true` when `markAsTouched()` is called on the form or any direct child loses focus
 
 ## Source
 
