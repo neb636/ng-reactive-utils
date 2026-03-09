@@ -35,10 +35,9 @@ class EmailInputComponent {
 ## Notes
 
 - Works with FormControl, FormGroup, and FormArray
-- Uses `toSignal` with `control.statusChanges` observable
-- Returns `true` when the control has been blurred (lost focus)
+- Uses `control.events` (Angular's unified event stream) filtered to `TouchedChangeEvent` — not `statusChanges`, which does not emit on touched-state changes
+- Returns `true` when `markAsTouched()` is called or the control loses focus (blur)
 - Useful for showing validation errors only after user interaction
-- Control is touched when `markAsTouched()` is called or control loses focus
 
 ## Source
 

@@ -64,10 +64,11 @@ class UserFormComponent {
 
 ## Notes
 
-- Uses `toSignal` to convert form observables to signals
-- All signals update reactively when the form state changes
-- Type parameter `T` should match your form's value structure
-- For individual properties, consider using the specific composables like `useFormValue`, `useFormValid`, etc.
+- Composes all individual form composables (`useFormValue`, `useFormValid`, `useFormTouched`, etc.) into a single convenience object
+- `invalid` is `computed(() => !valid())` and `enabled` is `computed(() => !disabled())` — they are derived signals, not independent subscriptions, so they are always atomically consistent with their counterparts
+- `touched` and `untouched` use merged child control events (see [`useFormTouched`](./use-form-touched) for details on the shallow-only limitation)
+- Type parameter `T` must extend `object` and should match your form's value structure
+- For individual properties, consider using the specific composables like `useFormValue`, `useFormValid`, etc. to avoid subscribing to all observables when only one is needed
 
 ## Source
 

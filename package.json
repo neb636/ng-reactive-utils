@@ -32,7 +32,7 @@
     "ng": "ng",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "test": "ng test ng-reactive-utils",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
     "docs:dev": "vitepress dev docs",
@@ -60,8 +60,7 @@
   },
   "dependencies": {
     "lodash-es": "^4.17.21",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.15.0"
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@angular/common": "^20.3.0",

@@ -4,6 +4,10 @@ Creates a signal that tracks whether the document/tab is visible or hidden. The 
 
 **MDN Reference:** [Page Visibility API](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API)
 
+## When to Use
+
+Use `useDocumentVisibility` when you want to pause or resume activity based on tab focus — for example, pausing animations, stopping polling, or pausing video playback when the user switches away.
+
 ## Usage
 
 ```typescript
@@ -17,14 +21,40 @@ class ExampleComponent {
 }
 ```
 
+### Pause Polling When Hidden
+
+```typescript
+import { useDocumentVisibility } from 'ng-reactive-utils';
+
+@Component({ template: `...` })
+class DashboardComponent {
+  isVisible = useDocumentVisibility();
+
+  constructor() {
+    effect(() => {
+      if (this.isVisible()) {
+        this.startPolling();
+      } else {
+        this.stopPolling();
+      }
+    });
+  }
+}
+```
+
+## Parameters
+
+This composable takes no parameters.
+
 ## Returns
 
-`Signal<boolean>`
+`Signal<boolean>` — A readonly signal that is `true` when the page is visible, `false` when hidden (tab is backgrounded or window is minimized). Defaults to `true` on the server (SSR).
 
 ## Notes
 
 - Returned signal is **readonly** to prevent direct manipulation
-- Uses `createSharedComposable` internally so only there is only shared instance at a time and event listeners are torn down when no more subscribers.
+- Uses `createSharedComposable` internally so there is only one shared instance at a time; event listeners are torn down automatically when no more consumers exist
+- **SSR safe**: defaults to `true` on the server where `document` is not available
 
 ## Source
 

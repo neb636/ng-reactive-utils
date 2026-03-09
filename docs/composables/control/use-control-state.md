@@ -57,9 +57,10 @@ class EmailInputComponent {
 ## Notes
 
 - Works with FormControl, FormGroup, and FormArray
-- Uses `toSignal` to convert control observables to signals
+- Composes all individual control composables (`useControlValue`, `useControlValid`, `useControlTouched`, etc.) into a single convenience object
+- `invalid` is `computed(() => !valid())` and `enabled` is `computed(() => !disabled())` — they are derived signals, not independent subscriptions, so they are always atomically consistent with their counterparts
 - All signals update reactively when the control state changes
-- For individual properties, consider using the specific composables like `useControlValue`, `useControlValid`, etc.
+- For individual properties, consider using the specific composables like `useControlValue`, `useControlValid`, etc. to avoid subscribing to all observables when only one is needed
 
 ## Source
 

@@ -33,10 +33,10 @@ class SearchComponent {
 
 ## Notes
 
-- Uses `useRouteQueryParams` internally and extracts a single parameter
+- Delegates to `useRouteQueryParams` and wraps the result in a `computed` signal to extract a single key
 - Updates reactively when the query parameter changes
-- Type parameter `T` defaults to `string | undefined`
-- Returns `undefined` when the query parameter is not present
+- Type parameter `T` is **constrained** to `string | undefined` — it does not default to that union; calling without a type argument infers the full constraint as the type
+- Returns `undefined` when the query parameter is not present in the URL
 
 ## Source
 
