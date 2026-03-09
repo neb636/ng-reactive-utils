@@ -38,7 +38,8 @@
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
-    "prettier": "prettier --write src"
+    "prettier": "prettier --write src",
+    "reference": "ng serve reference-app --open"
   },
   "prettier": {
     "printWidth": 100,
@@ -59,7 +60,8 @@
   },
   "dependencies": {
     "lodash-es": "^4.17.21",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "zone.js": "~0.15.0"
   },
   "devDependencies": {
     "@angular/common": "^20.3.0",

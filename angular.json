@@ -36,6 +36,91 @@
           }
         }
       }
+    },
+    "reference-app": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "reference-app",
+      "sourceRoot": "reference-app/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "reference-app/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "reference-app/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "reference-app/public"
+              }
+            ],
+            "styles": [
+              "reference-app/src/styles.css"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "reference-app:build:production"
+            },
+            "development": {
+              "buildTarget": "reference-app:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular/build:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular/build:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "reference-app/tsconfig.spec.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "reference-app/public"
+              }
+            ],
+            "styles": [
+              "reference-app/src/styles.css"
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {

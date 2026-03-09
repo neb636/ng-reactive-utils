@@ -1,0 +1,229 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #1a1a1a;
+  background: #f5f5f5;
+}
+
+/* ── Layout ─────────────────────────────────────────── */
+
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 20px;
+}
+
+.page-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #111;
+}
+
+/* ── Demo cards ─────────────────────────────────────── */
+
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.card-title {
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  color: #7c3aed;
+  margin-bottom: 10px;
+}
+
+.card-desc {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+/* ── Value display ──────────────────────────────────── */
+
+.value-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.value-label {
+  font-size: 12px;
+  color: #888;
+  min-width: 90px;
+  flex-shrink: 0;
+}
+
+.value {
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: #111;
+}
+
+.value.truthy {
+  color: #16a34a;
+}
+
+.value.falsy {
+  color: #dc2626;
+}
+
+/* ── Buttons ────────────────────────────────────────── */
+
+.btn-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+button {
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid #d4d4d4;
+  border-radius: 5px;
+  background: #fff;
+  cursor: pointer;
+  color: #333;
+  transition: background 0.1s;
+}
+
+button:hover {
+  background: #f0f0f0;
+}
+
+button.primary {
+  background: #7c3aed;
+  border-color: #7c3aed;
+  color: #fff;
+}
+
+button.primary:hover {
+  background: #6d28d9;
+}
+
+/* ── Event log ──────────────────────────────────────── */
+
+.log {
+  margin-top: 10px;
+  font-size: 12px;
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  background: #fafafa;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  padding: 8px;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.log-entry {
+  padding: 2px 0;
+  border-bottom: 1px solid #f0f0f0;
+  color: #444;
+}
+
+.log-entry:last-child {
+  border-bottom: none;
+}
+
+.log-empty {
+  color: #aaa;
+  font-style: italic;
+}
+
+/* ── Mouse target area ──────────────────────────────── */
+
+.mouse-target {
+  margin-top: 10px;
+  height: 80px;
+  border: 2px dashed #d4d4d4;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaa;
+  font-size: 12px;
+  cursor: crosshair;
+  user-select: none;
+}
+
+/* ── Element bounding box ───────────────────────────── */
+
+.bounding-target {
+  margin-top: 10px;
+  height: 60px;
+  background: #ede9fe;
+  border: 2px solid #7c3aed;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #6d28d9;
+  font-weight: 500;
+}
+
+/* ── Badge ──────────────────────────────────────────── */
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-size: 11px;
+  font-weight: 600;
+  background: #ede9fe;
+  color: #7c3aed;
+}
+
+.badge.green {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.badge.red {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* ── Status indicator ───────────────────────────────── */
+
+.dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #d4d4d4;
+  margin-right: 4px;
+}
+
+.dot.active {
+  background: #16a34a;
+}
+
+/* ── Full-width card ────────────────────────────────── */
+
+.card.full {
+  grid-column: 1 / -1;
+}
